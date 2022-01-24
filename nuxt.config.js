@@ -1,11 +1,17 @@
 import colors from 'vuetify/es5/util/colors'
 
+// const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+//   router: {
+//     base: '/static-blog/'
+//   }
+// } : {}
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
-  rouetr: {
-    base: '/github.com/zitherSide/static-blog/'
+  router: {
+    base: 'static-blog/'
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
