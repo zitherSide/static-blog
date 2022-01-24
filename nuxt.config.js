@@ -11,7 +11,10 @@ export default {
   target: 'static',
 
   router: {
-    base: 'static-blog/'
+    base: '/static-blog/'
+  },
+  generate: {
+    dir: 'docs'
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
