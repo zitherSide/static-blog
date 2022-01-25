@@ -4,8 +4,6 @@ name: build and deploy
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
 
 jobs:
   build-and-deploy:
@@ -27,11 +25,11 @@ jobs:
         cache: 'npm'
     - name: build
       run: |
-        npm ci
+        npm install
         npm run generate
     - name: deploy  
       uses: peaceiris/actions-gh-pages@v3
       with:
         branch: gh-pages
-        github_token: ${{secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
