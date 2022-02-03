@@ -105,6 +105,16 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
+        },
+        {
+          icon: 'mdi-apps',
+          title: '失敗の本質を読んで',
+          to: {
+            path: '/articles/0',
+            query: {
+              path: '/articles/QuintessenceOfFailure.html'
+            }
+          }
         }
       ],
       miniVariant: false,
