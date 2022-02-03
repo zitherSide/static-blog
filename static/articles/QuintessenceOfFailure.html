@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.15">
+<title>失敗の本質 -組織的に失敗するための方法-</title>
+<style>
+@import url(//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.css);
+/* normalize.css v2.1.1 | MIT License | git.io/normalize */
+/* ========================================================================== HTML5 display definitions ========================================================================== */
+/** Correct `block` display not defined in IE 8/9. */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
+
+/** Correct `inline-block` display not defined in IE 8/9. */
+audio, canvas, video { display: inline-block; }
+
+/** Prevent modern browsers from displaying `audio` without controls. Remove excess height in iOS 5 devices. */
+audio:not([controls]) { display: none; height: 0; }
+
+/** Address styling not present in IE 8/9. */
+[hidden] { display: none; }
+
+/* ========================================================================== Base ========================================================================== */
+/** 1. Prevent system color scheme's background color being used in Firefox, IE, and Opera. 2. Prevent system color scheme's text color being used in Firefox, IE, and Opera. 3. Set default font family to sans-serif. 4. Prevent iOS text size adjust after orientation change, without disabling user zoom. */
+html { background: #fff; /* 1 */ color: #000; /* 2 */ font-family: sans-serif; /* 3 */ -ms-text-size-adjust: 100%; /* 4 */ -webkit-text-size-adjust: 100%; /* 4 */ }
+
+/** Remove default margin. */
+body { margin: 0; }
+
+/* ========================================================================== Links ========================================================================== */
+/** Address `outline` inconsistency between Chrome and other browsers. */
+a:focus { outline: thin dotted; }
+
+/** Improve readability when focused and also mouse hovered in all browsers. */
+a:active, a:hover { outline: 0; }
+
+/* ========================================================================== Typography ========================================================================== */
+/** Address variable `h1` font-size and margin within `section` and `article` contexts in Firefox 4+, Safari 5, and Chrome. */
+h1 { font-size: 2em; margin: 0.67em 0; }
+
+/** Address styling not present in IE 8/9, Safari 5, and Chrome. */
+abbr[title] { border-bottom: 1px dotted; }
+
+/** Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome. */
+b, strong { font-weight: bold; }
+
+/** Address styling not present in Safari 5 and Chrome. */
+dfn { font-style: italic; }
+
+/** Address differences between Firefox and other browsers. */
+hr { -moz-box-sizing: content-box; box-sizing: content-box; height: 0; }
+
+/** Address styling not present in IE 8/9. */
+mark { background: #ff0; color: #000; }
+
+/** Correct font family set oddly in Safari 5 and Chrome. */
+code, kbd, pre, samp { font-family: monospace, serif; font-size: 1em; }
+
+/** Improve readability of pre-formatted text in all browsers. */
+pre { white-space: pre-wrap; }
+
+/** Set consistent quote types. */
+q { quotes: "\201C" "\201D" "\2018" "\2019"; }
+
+/** Address inconsistent and variable font size in all browsers. */
+small { font-size: 80%; }
+
+/** Prevent `sub` and `sup` affecting `line-height` in all browsers. */
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+
+sup { top: -0.5em; }
+
+sub { bottom: -0.25em; }
+
+/* ========================================================================== Embedded content ========================================================================== */
+/** Remove border when inside `a` element in IE 8/9. */
+img { border: 0; }
+
+/** Correct overflow displayed oddly in IE 9. */
+svg:not(:root) { overflow: hidden; }
+
+/* ========================================================================== Figures ========================================================================== */
+/** Address margin not present in IE 8/9 and Safari 5. */
+figure { margin: 0; }
+
+/* ========================================================================== Forms ========================================================================== */
+/** Define consistent border, margin, and padding. */
+fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em 0.625em 0.75em; }
+
+/** 1. Correct `color` not being inherited in IE 8/9. 2. Remove padding so people aren't caught out if they zero out fieldsets. */
+legend { border: 0; /* 1 */ padding: 0; /* 2 */ }
+
+/** 1. Correct font family not being inherited in all browsers. 2. Correct font size not being inherited in all browsers. 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome. */
+button, input, select, textarea { font-family: inherit; /* 1 */ font-size: 100%; /* 2 */ margin: 0; /* 3 */ }
+
+/** Address Firefox 4+ setting `line-height` on `input` using `!important` in the UA stylesheet. */
+button, input { line-height: normal; }
+
+/** Address inconsistent `text-transform` inheritance for `button` and `select`. All other form control elements do not inherit `text-transform` values. Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+. Correct `select` style inheritance in Firefox 4+ and Opera. */
+button, select { text-transform: none; }
+
+/** 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio` and `video` controls. 2. Correct inability to style clickable `input` types in iOS. 3. Improve usability and consistency of cursor style between image-type `input` and others. */
+button, html input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: button; /* 2 */ cursor: pointer; /* 3 */ }
+
+/** Re-set default cursor for disabled elements. */
+button[disabled], html input[disabled] { cursor: default; }
+
+/** 1. Address box sizing set to `content-box` in IE 8/9. 2. Remove excess padding in IE 8/9. */
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; /* 1 */ padding: 0; /* 2 */ }
+
+/** 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome. 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome (include `-moz` to future-proof). */
+input[type="search"] { -webkit-appearance: textfield; /* 1 */ -moz-box-sizing: content-box; -webkit-box-sizing: content-box; /* 2 */ box-sizing: content-box; }
+
+/** Remove inner padding and search cancel button in Safari 5 and Chrome on OS X. */
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+
+/** Remove inner padding and border in Firefox 4+. */
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+
+/** 1. Remove default vertical scrollbar in IE 8/9. 2. Improve readability and alignment in all browsers. */
+textarea { overflow: auto; /* 1 */ vertical-align: top; /* 2 */ }
+
+/* ========================================================================== Tables ========================================================================== */
+/** Remove most spacing between table cells. */
+table { border-collapse: collapse; border-spacing: 0; }
+
+*, *:before, *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+html, body { font-size: 15px; }
+
+body { background: white; color: #222222; padding: 0; margin: 0; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; line-height: 1; position: relative; cursor: auto; }
+
+a:hover { cursor: pointer; }
+
+a:focus { outline: none; }
+
+img, object, embed { max-width: 100%; height: auto; }
+
+object, embed { height: 100%; }
+
+img { -ms-interpolation-mode: bicubic; }
+
+#map_canvas img, #map_canvas embed, #map_canvas object, .map_canvas img, .map_canvas embed, .map_canvas object { max-width: none !important; }
+
+.left { float: left !important; }
+
+.right { float: right !important; }
+
+.text-left { text-align: left !important; }
+
+.text-right { text-align: right !important; }
+
+.text-center { text-align: center !important; }
+
+.text-justify { text-align: justify !important; }
+
+.hide { display: none; }
+
+.antialiased, body { -webkit-font-smoothing: antialiased; }
+
+img { display: inline-block; vertical-align: middle; }
+
+textarea { height: auto; min-height: 50px; }
+
+select { width: 100%; }
+
+p.lead, .paragraph.lead > p, #preamble > .sectionbody > .paragraph:first-of-type p { font-size: 1.23333em; line-height: 1.6; }
+
+.subheader, #content #toctitle, .admonitionblock td.content > .title, .exampleblock > .title, .imageblock > .title, .videoblock > .title, .listingblock > .title, .literalblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, .sidebarblock > .title, .tableblock > .title, .verseblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title, .tableblock > caption { line-height: 1.4; color: #777777; font-weight: 300; margin-top: 0.2em; margin-bottom: 0.5em; }
+
+/* Typography resets */
+div, dl, dt, dd, ul, ol, li, h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6, pre, form, p, blockquote, th, td { margin: 0; padding: 0; direction: ltr; }
+
+/* Default Link Styles */
+a { color: #4183c4; text-decoration: none; line-height: inherit; }
+a:hover, a:focus { color: #4183c4; }
+a img { border: none; }
+
+/* Default paragraph styles */
+p { font-family: helvetica, arial, freesans, clean, sans-serif; font-weight: normal; font-size: 1em; line-height: 1.4; margin-bottom: 1em; text-rendering: optimizeLegibility; }
+p aside { font-size: 0.93333em; line-height: 1.35; font-style: italic; }
+
+/* Default header styles */
+h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { font-family: helvetica, arial, freesans, clean, sans-serif; font-weight: bold; font-style: normal; color: #333333; text-rendering: optimizeLegibility; margin-top: 0.2em; margin-bottom: 0.5em; line-height: 1.2em; }
+h1 small, h2 small, h3 small, #toctitle small, .sidebarblock > .content > .title small, h4 small, h5 small, h6 small { font-size: 60%; color: gray; line-height: 0; }
+
+h1 { font-size: 1.33333em; }
+
+h2 { font-size: 0.93333em; }
+
+h3, #toctitle, .sidebarblock > .content > .title { font-size: 0.86667em; }
+
+h4 { font-size: 0.66667em; }
+
+h5 { font-size: 1em; }
+
+h6 { font-size: 1em; }
+
+hr { border: solid #dddddd; border-width: 1px 0 0; clear: both; margin: 1.33333em 0 1.26667em; height: 0; }
+
+/* Helpful Typography Defaults */
+em, i { font-style: italic; line-height: inherit; }
+
+strong, b { font-weight: bold; line-height: inherit; }
+
+small { font-size: 60%; line-height: inherit; }
+
+code { font-family: Monaco, "DejaVu Sans Mono", "Courier New", monospace; font-weight: normal; color: #666666; }
+
+/* Lists */
+ul, ol, dl { font-size: 1em; line-height: 1.4; margin-bottom: 1em; list-style-position: outside; font-family: helvetica, arial, freesans, clean, sans-serif; }
+
+ul, ol { margin-left: 0.7em; }
+
+/* Unordered Lists */
+ul li ul, ul li ol { margin-left: 1.33333em; margin-bottom: 0; font-size: 1em; /* Override nested font-size change */ }
+ul.square li ul, ul.circle li ul, ul.disc li ul { list-style: inherit; }
+ul.square { list-style-type: square; }
+ul.circle { list-style-type: circle; }
+ul.disc { list-style-type: disc; }
+ul.no-bullet { list-style: none; }
+
+/* Ordered Lists */
+ol li ul, ol li ol { margin-left: 1.33333em; margin-bottom: 0; }
+
+/* Definition Lists */
+dl dt { margin-bottom: 0.33333em; font-weight: bold; }
+dl dd { margin-bottom: 1.33333em; }
+
+/* Abbreviations */
+abbr, acronym { text-transform: uppercase; font-size: 90%; color: #333333; border-bottom: 1px dotted #dddddd; cursor: help; }
+
+abbr { text-transform: none; }
+
+/* Blockquotes */
+blockquote { margin: 0 0 1em; padding: 0; border-left: none; }
+blockquote cite { display: block; font-size: 0.86667em; color: #666666; }
+blockquote cite:before { content: "\2014 \0020"; }
+blockquote cite a, blockquote cite a:visited { color: #666666; }
+
+blockquote, blockquote p { line-height: 1.4; color: #666666; }
+
+/* Microformats */
+.vcard { display: inline-block; margin: 0 0 1.33333em 0; border: 1px solid #dddddd; padding: 0.66667em 0.8em; }
+.vcard li { margin: 0; display: block; }
+.vcard .fn { font-weight: bold; font-size: 1em; }
+
+.vevent .summary { font-weight: bold; }
+.vevent abbr { cursor: auto; text-decoration: none; font-weight: bold; border: none; padding: 0 0.06667em; }
+
+@media only screen and (min-width: 768px) { h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { line-height: 1.4; }
+  h1 { font-size: 2em; }
+  h2 { font-size: 1.6em; }
+  h3, #toctitle, .sidebarblock > .content > .title { font-size: 1.2em; }
+  h4 { font-size: 1em; } }
+/* Print styles.  Inlined to avoid required HTTP connection: www.phpied.com/delay-loading-your-print-css/ Credit to Paul Irish and HTML5 Boilerplate (html5boilerplate.com)
+*/
+.print-only { display: none !important; }
+
+@media print { * { background: transparent !important; color: #000 !important; /* Black prints faster: h5bp.com/s */ box-shadow: none !important; text-shadow: none !important; }
+  a, a:visited { text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; /* h5bp.com/t */ }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3, #toctitle, .sidebarblock > .content > .title { orphans: 3; widows: 3; }
+  h2, h3, #toctitle, .sidebarblock > .content > .title { page-break-after: avoid; }
+  .hide-on-print { display: none !important; }
+  .print-only { display: block !important; }
+  .hide-for-print { display: none !important; }
+  .show-for-print { display: inherit !important; } }
+/* Tables */
+table { background: white; margin-bottom: 1.33333em; border: solid 1px #dddddd; }
+table thead, table tfoot { background: whitesmoke; font-weight: bold; }
+table thead tr th, table thead tr td, table tfoot tr th, table tfoot tr td { padding: 0.53333em 0.66667em 0.66667em; font-size: 0.93333em; color: #222222; text-align: left; }
+table tr th, table tr td { padding: 0.6em 0.66667em; font-size: 0.8em; color: #222222; }
+table tr.even, table tr.alt, table tr:nth-of-type(even) { background: #f9f9f9; }
+table thead tr th, table tfoot tr th, table tbody tr td, table tr td, table tfoot tr td { display: table-cell; line-height: 1.4; }
+
+a:hover, a:focus { text-decoration: underline; }
+
+.clearfix:before, .clearfix:after, .float-group:before, .float-group:after { content: " "; display: table; }
+.clearfix:after, .float-group:after { clear: both; }
+
+*:not(pre) > code { font-size: 0.86667em; padding: 1px 5px 1px 5px; white-space: nowrap; background-color: transparent; border: 1px solid #dddddd; -webkit-border-radius: 3px; border-radius: 3px; text-shadow: none; }
+
+pre, pre > code { line-height: 1.6; color: white; font-family: Consolas, "Liberation Mono", Courier, monospace; font-weight: normal; }
+
+kbd.keyseq { color: #666666; }
+
+kbd:not(.keyseq) { display: inline-block; color: #333333; font-size: 0.8em; line-height: 1.4; background-color: #F7F7F7; border: 1px solid #ccc; -webkit-border-radius: 3px; border-radius: 3px; -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset; margin: -0.15em 0.15em 0 0.15em; padding: 0.2em 0.6em 0.2em 0.5em; vertical-align: middle; white-space: nowrap; }
+
+kbd kbd:first-child { margin-left: 0; }
+
+kbd kbd:last-child { margin-right: 0; }
+
+.menuseq, .menu { color: #1a1a1a; }
+
+#header, #content, #footnotes, #footer { width: 100%; margin-left: auto; margin-right: auto; margin-top: 0; margin-bottom: 0; max-width: 66.66667em; *zoom: 1; position: relative; padding-left: 1em; padding-right: 1em; }
+#header:before, #header:after, #content:before, #content:after, #footnotes:before, #footnotes:after, #footer:before, #footer:after { content: " "; display: table; }
+#header:after, #content:after, #footnotes:after, #footer:after { clear: both; }
+
+#header { margin-bottom: 2.66667em; }
+#header > h1 { color: #333333; font-weight: 300; border-bottom: 1px solid #dddddd; margin-bottom: -28px; padding-bottom: 32px; }
+#header span { color: #666666; }
+#header #revnumber { text-transform: capitalize; }
+#header br { display: none; }
+#header br + span { padding-left: 3px; }
+#header br + span:before { content: "\2013 \0020"; }
+#header br + span.author { padding-left: 0; }
+#header br + span.author:before { content: ", "; }
+
+#toc { border-bottom: 0 solid #dddddd; padding-bottom: 1.33333em; }
+#toc > ul { margin-left: 0.26667em; }
+#toc ul.sectlevel0 > li > a { font-style: italic; }
+#toc ul.sectlevel0 ul.sectlevel1 { margin-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
+#toc ul { list-style-type: none; }
+
+#toctitle { color: #777777; }
+
+@media only screen and (min-width: 1280px) { body.toc2 { padding-left: 20em; }
+  #toc.toc2 { position: fixed; width: 20em; left: 0; top: 0; border-right: 1px solid #dddddd; border-bottom: 0; z-index: 1000; padding: 1em; height: 100%; overflow: auto; }
+  #toc.toc2 #toctitle { margin-top: 0; }
+  #toc.toc2 > ul { font-size: .95em; }
+  #toc.toc2 ul ul { margin-left: 0; padding-left: 1.33333em; }
+  #toc.toc2 ul.sectlevel0 ul.sectlevel1 { padding-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
+  body.toc2.toc-right { padding-left: 0; padding-right: 20em; }
+  body.toc2.toc-right #toc.toc2 { border-right: 0; border-left: 1px solid #dddddd; left: auto; right: 0; } }
+#content #toc { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.33333em; padding: 1.33333em; background: white; border-width: 0; -webkit-border-radius: 3px; border-radius: 3px; }
+#content #toc > :first-child { margin-top: 0; }
+#content #toc > :last-child { margin-bottom: 0; }
+#content #toc a { text-decoration: none; }
+
+#content #toctitle { font-weight: bold; font-family: helvetica, arial, freesans, clean, sans-serif; font-size: 1.06667em; padding-left: 0.13333em; }
+
+#footer { max-width: 100%; background-color: whitesmoke; padding: 1.33333em; }
+
+#footer-text { color: #333333; line-height: 1.26; }
+
+.sect1 { padding-bottom: 1.33333em; }
+
+.sect1 + .sect1 { border-top: 0 solid #dddddd; }
+
+#content h1 > a.anchor, h2 > a.anchor, h3 > a.anchor, #toctitle > a.anchor, .sidebarblock > .content > .title > a.anchor, h4 > a.anchor, h5 > a.anchor, h6 > a.anchor { position: absolute; width: 1em; margin-left: -1em; display: block; text-decoration: none; visibility: hidden; text-align: center; font-weight: normal; }
+#content h1 > a.anchor:before, h2 > a.anchor:before, h3 > a.anchor:before, #toctitle > a.anchor:before, .sidebarblock > .content > .title > a.anchor:before, h4 > a.anchor:before, h5 > a.anchor:before, h6 > a.anchor:before { content: '\00A7'; font-size: .85em; vertical-align: text-top; display: block; margin-top: 0.05em; }
+#content h1:hover > a.anchor, #content h1 > a.anchor:hover, h2:hover > a.anchor, h2 > a.anchor:hover, h3:hover > a.anchor, #toctitle:hover > a.anchor, .sidebarblock > .content > .title:hover > a.anchor, h3 > a.anchor:hover, #toctitle > a.anchor:hover, .sidebarblock > .content > .title > a.anchor:hover, h4:hover > a.anchor, h4 > a.anchor:hover, h5:hover > a.anchor, h5 > a.anchor:hover, h6:hover > a.anchor, h6 > a.anchor:hover { visibility: visible; }
+#content h1 > a.link, h2 > a.link, h3 > a.link, #toctitle > a.link, .sidebarblock > .content > .title > a.link, h4 > a.link, h5 > a.link, h6 > a.link { color: #333333; text-decoration: none; }
+#content h1 > a.link:hover, h2 > a.link:hover, h3 > a.link:hover, #toctitle > a.link:hover, .sidebarblock > .content > .title > a.link:hover, h4 > a.link:hover, h5 > a.link:hover, h6 > a.link:hover { color: #262626; }
+
+.imageblock, .literalblock, .listingblock, .verseblock, .videoblock { margin-bottom: 1.33333em; }
+
+.admonitionblock td.content > .title, .exampleblock > .title, .imageblock > .title, .videoblock > .title, .listingblock > .title, .literalblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, .sidebarblock > .title, .tableblock > .title, .verseblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title { text-align: left; font-weight: bold; }
+
+.tableblock > caption { text-align: left; font-weight: bold; white-space: nowrap; overflow: visible; max-width: 0; }
+
+table.tableblock #preamble > .sectionbody > .paragraph:first-of-type p { font-size: inherit; }
+
+.admonitionblock > table { border: 0; background: none; width: 100%; }
+.admonitionblock > table td.icon { text-align: center; width: 80px; }
+.admonitionblock > table td.icon img { max-width: none; }
+.admonitionblock > table td.icon .title { font-weight: bold; text-transform: uppercase; }
+.admonitionblock > table td.content { padding-left: 1.2em; padding-right: 1.33333em; border-left: 1px solid #dddddd; color: #666666; }
+.admonitionblock > table td.content > :last-child > :last-child { margin-bottom: 0; }
+
+.exampleblock > .content { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.33333em; padding: 1.33333em; background: white; -webkit-border-radius: 3px; border-radius: 3px; }
+.exampleblock > .content > :first-child { margin-top: 0; }
+.exampleblock > .content > :last-child { margin-bottom: 0; }
+.exampleblock > .content h1, .exampleblock > .content h2, .exampleblock > .content h3, .exampleblock > .content #toctitle, .sidebarblock.exampleblock > .content > .title, .exampleblock > .content h4, .exampleblock > .content h5, .exampleblock > .content h6, .exampleblock > .content p { color: #333333; }
+.exampleblock > .content h1, .exampleblock > .content h2, .exampleblock > .content h3, .exampleblock > .content #toctitle, .sidebarblock.exampleblock > .content > .title, .exampleblock > .content h4, .exampleblock > .content h5, .exampleblock > .content h6 { line-height: 1; margin-bottom: 0.66667em; }
+.exampleblock > .content h1.subheader, .exampleblock > .content h2.subheader, .exampleblock > .content h3.subheader, .exampleblock > .content .subheader#toctitle, .sidebarblock.exampleblock > .content > .subheader.title, .exampleblock > .content h4.subheader, .exampleblock > .content h5.subheader, .exampleblock > .content h6.subheader { line-height: 1.4; }
+
+.exampleblock.result > .content { -webkit-box-shadow: 0 1px 8px #eaeaea; box-shadow: 0 1px 8px #eaeaea; }
+
+.sidebarblock { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.33333em; padding: 1.33333em; background: white; -webkit-border-radius: 3px; border-radius: 3px; }
+.sidebarblock > :first-child { margin-top: 0; }
+.sidebarblock > :last-child { margin-bottom: 0; }
+.sidebarblock h1, .sidebarblock h2, .sidebarblock h3, .sidebarblock #toctitle, .sidebarblock > .content > .title, .sidebarblock h4, .sidebarblock h5, .sidebarblock h6, .sidebarblock p { color: #333333; }
+.sidebarblock h1, .sidebarblock h2, .sidebarblock h3, .sidebarblock #toctitle, .sidebarblock > .content > .title, .sidebarblock h4, .sidebarblock h5, .sidebarblock h6 { line-height: 1; margin-bottom: 0.66667em; }
+.sidebarblock h1.subheader, .sidebarblock h2.subheader, .sidebarblock h3.subheader, .sidebarblock .subheader#toctitle, .sidebarblock > .content > .subheader.title, .sidebarblock h4.subheader, .sidebarblock h5.subheader, .sidebarblock h6.subheader { line-height: 1.4; }
+.sidebarblock > .content > .title { color: #777777; margin-top: 0; line-height: 1.4; border-width: 0 0 1px 0; border-style: solid; border-color: #cacaca; }
+
+.exampleblock > .content > :last-child > :last-child, .exampleblock > .content .olist > ol > li:last-child > :last-child, .exampleblock > .content .ulist > ul > li:last-child > :last-child, .exampleblock > .content .qlist > ol > li:last-child > :last-child, .sidebarblock > .content > :last-child > :last-child, .sidebarblock > .content .olist > ol > li:last-child > :last-child, .sidebarblock > .content .ulist > ul > li:last-child > :last-child, .sidebarblock > .content .qlist > ol > li:last-child > :last-child { margin-bottom: 0; }
+
+.literalblock > .content pre, .listingblock > .content pre { background: #333333; border-width: 2px; border-style: solid; border-color: #dddddd; -webkit-border-radius: 3px; border-radius: 3px; padding: 0.66667em; word-wrap: break-word; }
+.literalblock > .content pre.nowrap, .listingblock > .content pre.nowrap { overflow-x: auto; white-space: pre; word-wrap: normal; }
+.literalblock > .content pre > code, .listingblock > .content pre > code { display: block; }
+@media only screen { .literalblock > .content pre, .listingblock > .content pre { font-size: 0.69333em; } }
+@media only screen and (min-width: 768px) { .literalblock > .content pre, .listingblock > .content pre { font-size: 0.78em; } }
+@media only screen and (min-width: 1280px) { .literalblock > .content pre, .listingblock > .content pre { font-size: 0.86667em; } }
+
+.listingblock > .content { position: relative; }
+
+.listingblock:hover code[class*=" language-"]:before { text-transform: uppercase; font-size: 0.9em; color: #999; position: absolute; top: 0.4em; right: 0.4em; }
+
+.listingblock:hover code.asciidoc:before { content: "asciidoc"; }
+.listingblock:hover code.clojure:before { content: "clojure"; }
+.listingblock:hover code.css:before { content: "css"; }
+.listingblock:hover code.groovy:before { content: "groovy"; }
+.listingblock:hover code.html:before { content: "html"; }
+.listingblock:hover code.java:before { content: "java"; }
+.listingblock:hover code.javascript:before { content: "javascript"; }
+.listingblock:hover code.python:before { content: "python"; }
+.listingblock:hover code.ruby:before { content: "ruby"; }
+.listingblock:hover code.scss:before { content: "scss"; }
+.listingblock:hover code.xml:before { content: "xml"; }
+.listingblock:hover code.yaml:before { content: "yaml"; }
+
+.listingblock.terminal pre .command:before { content: attr(data-prompt); padding-right: 0.5em; color: #999; }
+
+.listingblock.terminal pre .command:not([data-prompt]):before { content: '$'; }
+
+table.pyhltable { border: 0; margin-bottom: 0; }
+
+table.pyhltable td { vertical-align: top; padding-top: 0; padding-bottom: 0; }
+
+table.pyhltable td.code { padding-left: .75em; padding-right: 0; }
+
+.highlight.pygments .lineno, table.pyhltable td:not(.code) { color: #999; padding-left: 0; padding-right: .5em; border-right: 1px solid #dddddd; }
+
+.highlight.pygments .lineno { display: inline-block; margin-right: .25em; }
+
+table.pyhltable .linenodiv { background-color: transparent !important; padding-right: 0 !important; }
+
+.quoteblock { margin: 0 0 1em; padding: 0; border-left: none; }
+.quoteblock blockquote { margin: 0 0 1em 0; padding: 0 0 0.6em 0; border: 0; }
+.quoteblock blockquote > .paragraph:last-child p { margin-bottom: 0; }
+.quoteblock .attribution { margin-top: -.25em; padding-bottom: 0.6em; font-size: 0.86667em; color: #666666; }
+.quoteblock .attribution br { display: none; }
+.quoteblock .attribution cite { display: block; margin-bottom: 0.66667em; }
+
+table thead th, table tfoot th { font-weight: bold; }
+
+table.tableblock.grid-all { border-collapse: separate; border-spacing: 1px; -webkit-border-radius: 3px; border-radius: 3px; border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd; }
+
+table.tableblock.frame-topbot, table.tableblock.frame-none { border-left: 0; border-right: 0; }
+
+table.tableblock.frame-sides, table.tableblock.frame-none { border-top: 0; border-bottom: 0; }
+
+table.tableblock td .paragraph:last-child p, table.tableblock td > p:last-child { margin-bottom: 0; }
+
+th.tableblock.halign-left, td.tableblock.halign-left { text-align: left; }
+
+th.tableblock.halign-right, td.tableblock.halign-right { text-align: right; }
+
+th.tableblock.halign-center, td.tableblock.halign-center { text-align: center; }
+
+th.tableblock.valign-top, td.tableblock.valign-top { vertical-align: top; }
+
+th.tableblock.valign-bottom, td.tableblock.valign-bottom { vertical-align: bottom; }
+
+th.tableblock.valign-middle, td.tableblock.valign-middle { vertical-align: middle; }
+
+p.tableblock.header { color: #222222; font-weight: bold; }
+
+td > div.verse { white-space: pre; }
+
+ol { margin-left: 0.96667em; }
+
+ul li ol { margin-left: 0.7em; }
+
+dl dd { margin-left: 1.125em; }
+
+dl dd:last-child, dl dd:last-child > :last-child { margin-bottom: 0; }
+
+ol > li p, ul > li p, ul dd, ol dd, .olist .olist, .ulist .ulist, .ulist .olist, .olist .ulist { margin-bottom: 0.5em; }
+
+ul.unstyled, ol.unnumbered, ul.checklist, ul.none { list-style-type: none; }
+
+ul.unstyled, ol.unnumbered, ul.checklist { margin-left: 0.66667em; }
+
+ul.checklist li > p:first-child > i[class^="icon-check"]:first-child, ul.checklist li > p:first-child > input[type="checkbox"]:first-child { margin-right: 0.25em; }
+
+ul.checklist li > p:first-child > input[type="checkbox"]:first-child { position: relative; top: 1px; }
+
+ul.inline { margin: 0 auto 0.5em auto; margin-left: -1.46667em; margin-right: 0; padding: 0; list-style: none; overflow: hidden; }
+ul.inline > li { list-style: none; float: left; margin-left: 1.46667em; display: block; }
+ul.inline > li > * { display: block; }
+
+.unstyled dl dt { font-weight: normal; font-style: normal; }
+
+ol.arabic { list-style-type: decimal; }
+
+ol.decimal { list-style-type: decimal-leading-zero; }
+
+ol.loweralpha { list-style-type: lower-alpha; }
+
+ol.upperalpha { list-style-type: upper-alpha; }
+
+ol.lowerroman { list-style-type: lower-roman; }
+
+ol.upperroman { list-style-type: upper-roman; }
+
+ol.lowergreek { list-style-type: lower-greek; }
+
+.hdlist > table, .colist > table { border: 0; background: none; }
+.hdlist > table > tbody > tr, .colist > table > tbody > tr { background: none; }
+
+td.hdlist1 { padding-right: .8em; font-weight: bold; }
+
+td.hdlist1, td.hdlist2 { vertical-align: top; }
+
+.literalblock + .colist, .listingblock + .colist { margin-top: -0.5em; }
+
+.colist > table tr > td:first-of-type { padding: 0 .8em; line-height: 1; }
+.colist > table tr > td:last-of-type { padding: 0.26667em 0; }
+
+.qanda > ol > li > p > em:only-child { color: #3876b4; }
+
+.thumb, .th { line-height: 0; display: inline-block; border: solid 4px white; -webkit-box-shadow: 0 0 0 1px #dddddd; box-shadow: 0 0 0 1px #dddddd; }
+
+.imageblock.left, .imageblock[style*="float: left"] { margin: 0.26667em 0.66667em 1.33333em 0; }
+.imageblock.right, .imageblock[style*="float: right"] { margin: 0.26667em 0 1.33333em 0.66667em; }
+.imageblock > .title { margin-bottom: 0; }
+.imageblock.thumb, .imageblock.th { border-width: 6px; }
+.imageblock.thumb > .title, .imageblock.th > .title { padding: 0 0.13333em; }
+
+.image.left, .image.right { margin-top: 0.26667em; margin-bottom: 0.26667em; display: inline-block; line-height: 0; }
+.image.left { margin-right: 0.66667em; }
+.image.right { margin-left: 0.66667em; }
+
+a.image { text-decoration: none; }
+
+span.footnote, span.footnoteref { vertical-align: super; font-size: 0.93333em; }
+span.footnote a, span.footnoteref a { text-decoration: none; }
+
+#footnotes { padding-top: 0.8em; padding-bottom: 0.8em; margin-bottom: 0.66667em; }
+#footnotes hr { width: 20%; min-width: 6.66667em; margin: -.25em 0 .75em 0; border-width: 1px 0 0 0; }
+#footnotes .footnote { padding: 0 0.4em; line-height: 1.3; font-size: 0.93333em; margin-left: 1.2em; text-indent: -1.2em; margin-bottom: .2em; }
+#footnotes .footnote a:first-of-type { font-weight: bold; text-decoration: none; }
+#footnotes .footnote:last-of-type { margin-bottom: 0; }
+
+#content #footnotes { margin-top: -0.66667em; margin-bottom: 0; padding: 0.8em 0; }
+
+.gist .file-data > table { border: none; background: #fff; width: 100%; margin-bottom: 0; }
+.gist .file-data > table td.line-data { width: 99%; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+.big { font-size: larger; }
+
+.small { font-size: smaller; }
+
+.underline { text-decoration: underline; }
+
+.overline { text-decoration: overline; }
+
+.line-through { text-decoration: line-through; }
+
+.aqua { color: #00bfbf; }
+
+.aqua-background { background-color: #00fafa; }
+
+.black { color: black; }
+
+.black-background { background-color: black; }
+
+.blue { color: #0000bf; }
+
+.blue-background { background-color: #0000fa; }
+
+.fuchsia { color: #bf00bf; }
+
+.fuchsia-background { background-color: #fa00fa; }
+
+.gray { color: #606060; }
+
+.gray-background { background-color: #7d7d7d; }
+
+.green { color: #006000; }
+
+.green-background { background-color: #007d00; }
+
+.lime { color: #00bf00; }
+
+.lime-background { background-color: #00fa00; }
+
+.maroon { color: #600000; }
+
+.maroon-background { background-color: #7d0000; }
+
+.navy { color: #000060; }
+
+.navy-background { background-color: #00007d; }
+
+.olive { color: #606000; }
+
+.olive-background { background-color: #7d7d00; }
+
+.purple { color: #600060; }
+
+.purple-background { background-color: #7d007d; }
+
+.red { color: #bf0000; }
+
+.red-background { background-color: #fa0000; }
+
+.silver { color: #909090; }
+
+.silver-background { background-color: #bcbcbc; }
+
+.teal { color: #006060; }
+
+.teal-background { background-color: #007d7d; }
+
+.white { color: #bfbfbf; }
+
+.white-background { background-color: #fafafa; }
+
+.yellow { color: #bfbf00; }
+
+.yellow-background { background-color: #fafa00; }
+
+span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
+
+.admonitionblock td.icon [class^="icon-"]:before { font-size: 2.5em; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); cursor: default; }
+.admonitionblock td.icon .icon-note:before { content: "\f05a"; color: #4183c4; color: #2e6295; }
+.admonitionblock td.icon .icon-tip:before { content: "\f0eb"; text-shadow: 1px 1px 2px rgba(155, 155, 0, 0.8); color: #111; }
+.admonitionblock td.icon .icon-warning:before { content: "\f071"; color: #bf6900; }
+.admonitionblock td.icon .icon-caution:before { content: "\f06d"; color: #bf3400; }
+.admonitionblock td.icon .icon-important:before { content: "\f06a"; color: #bf0000; }
+
+.conum { display: inline-block; color: white !important; background-color: #333333; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; width: 20px; height: 20px; font-size: 12px; font-weight: bold; line-height: 20px; font-family: Arial, sans-serif; font-style: normal; position: relative; top: -2px; letter-spacing: -1px; }
+.conum * { color: white !important; }
+.conum + b { display: none; }
+.conum:after { content: attr(data-value); }
+.conum:not([data-value]):empty { display: none; }
+
+p.lead, .paragraph.lead > p, #preamble > .sectionbody > .paragraph:first-of-type p { font-size: 1em; color: #666666; }
+
+h2 { color: #325D72; border-bottom: 1px solid #dddddd; }
+
+#content h1 > a.anchor, h2 > a.anchor, h3 > a.anchor, #toctitle > a.anchor, .sidebarblock > .content > .title > a.anchor, h4 > a.anchor, h5 > a.anchor, h6 > a.anchor { color: #333333; }
+
+#header, #content, #footnotes { max-width: 660px; padding-left: 0; padding-right: 0; }
+
+#content ul { list-style-type: none; }
+#content ul li { background: url('../images/github/li-chevron.png?1372292342') 0 0.4em no-repeat; padding-left: .7em; }
+
+.olist.procedure > ol { counter-reset: li; list-style: none; position: relative; }
+.olist.procedure > ol > li { position: relative; padding: 5px 0 5px 55px; margin-bottom: 5px; }
+.olist.procedure > ol > li:before { content: counter(li); counter-increment: li; position: absolute; top: 0; left: 0; height: 100%; width: 30px; padding: 0 10px 0 0; color: #999; font-size: 1.46667em; font-weight: bold; line-height: 1.6; text-align: right; border-right: 1px solid #ddd; }
+
+.quoteblock blockquote { background: url('../images/github/blockquote-arrow.png?1372292342') 0 2px no-repeat; padding-left: 1em; }
+
+.sidebarblock > .content > .title { margin-top: -20px; margin-right: -20px; margin-left: -20px; margin-bottom: 20px; padding: 1em; font-size: 0.8em; background: #eaeaea; }
+
+</style>
+</head>
+<body class="book">
+<div id="header">
+<h1>失敗の本質 -組織的に失敗するための方法-</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_前置き">1. 前置き</a></li>
+<li><a href="#_失敗とは希望的観測が現実で打ち砕かれ続けるプロセス">2. 失敗とは「希望的観測が現実で打ち砕かれ続けるプロセス」</a></li>
+<li><a href="#_失敗するための方法">3. 失敗するための方法</a>
+<ul class="sectlevel2">
+<li><a href="#_目的グランドデザインを曖昧にする終わり方を決めない">3.1. 目的、グランドデザインを曖昧にする。「終わり方を決めない」</a></li>
+<li><a href="#_個人技に期待する">3.2. 個人技に期待する</a></li>
+<li><a href="#_誤断の土壌">3.3. 誤断の土壌</a></li>
+</ul>
+</li>
+<li><a href="#_まとめ">4. まとめ</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_前置き">1. 前置き</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>有名な本「失敗の本質」は日本軍の敗戦理由を検証することでプロジェクト運営におけるバッドプラクティスを抽出しようとした本です。</p>
+</div>
+<div class="paragraph">
+<p>僕は日々の生活や仕事でも失敗します。</p>
+</div>
+<div class="paragraph">
+<p>例えば真夏にランニングしてて
+「暑い、まだ序盤なのにいつもよりすごい疲れてる&#8230;&#8203;やばい」
+と思いつつも
+「いや、これから調子上がってくるかも知れないからこのまま頑張ろう」
+とか思ってしまって、折り返し地点ぐらいでへばってたり</p>
+</div>
+<div class="paragraph">
+<p>仕事で
+「このペースですすめると絶対間に合わないな&#8230;&#8203;」ってみんな思ってる中でマネージャーが
+「起死回生の挽回策を考えてきた」とか言って、中身を聞いてみると「直近の締め切りを伸ばしてチェック項目を減らすけど、最終の締め切りと品質は変わらない」みたいな、眼前の状況を凌ぐだけの策だったり。</p>
+</div>
+<div class="paragraph">
+<p>そんでもってみんな「いや、これやばい時期が後ろにずれただけでは・・・？」と思いつつも
+それに乗っかってしまったり&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>もしくは「人を増やしたぞ！」と言って他のチームから人員を融通してもらうも
+「今から教えてたら間に合わなくね？」「そもそも数人増えたところで間に合わなくね？」
+とみんな気づきつつも「まぁ人増えたらなんとかなるかもな」と思ってやっぱりそのまま乗っかってしまったり&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>こんなふうに失敗するときは、必ず危うさを感じつつも取り返しがつかなくなるまで進めてしまって失敗する。
+これはたまたま、とか運が悪かった、とか諦めない心が足りない、とかそういうことが原因なのではなくシステマチックな原因があるはず。
+失敗には分野に限らず一般化された法則、すなわち「失敗の本質」があるはず。</p>
+</div>
+<div class="paragraph">
+<p>なので一国を背負った日本軍という、頭がよく、強靭な精神力をもった人たちが、本気で責任感を持って関わった高品質な"はず"のプロジェクトを研究することで失敗の本質をあぶり出してみよう、という本。</p>
+</div>
+<div class="paragraph">
+<p>失敗を分析しているのでうまくいく方法を体系化している本ではないけれども、
+PeopleWareでも「うまくいく方法を見つけることが難しいときは、うまくいかない方法を考えてみる」
+とあるしバッドプラクティスを学ぶことは良いことなはず。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_失敗とは希望的観測が現実で打ち砕かれ続けるプロセス">2. 失敗とは「希望的観測が現実で打ち砕かれ続けるプロセス」</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>失敗する方法を探る前に、まずは「失敗とはどういう状態なのか」を考える。</p>
+</div>
+<div class="paragraph">
+<p>「失敗したことがわからない」ということはほとんどないが、
+「失敗していることがわからない」ということは頻繁に起こっている。</p>
+</div>
+<div class="paragraph">
+<p>言い換えれば、失敗している兆候がたくさん見えているのに「まだ挽回できる」
+と信じて、本当に取り返しのつかない失敗になるまで見て見ぬ振りをすることが多いです。</p>
+</div>
+<div class="paragraph">
+<p>この現象は割と有名で「コンコルド効果」と呼ばれたりします。
+巨額の投資をした超音速旅客機コンコルドの開発プロジェクトの失敗から名付けられています。</p>
+</div>
+<div class="paragraph">
+<p>ざっくり説明すると下記のような心理状態になって失敗を認められないことです。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>これだけお金と時間をかけたプロジェクトなのだからここでやめるわけにはいかない</p>
+</li>
+<li>
+<p>先のことはわからないけどこのまま投資を続ければいつか挽回できるチャンスがあるはず</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>冷静に考えれば、失敗がわかった時点で投資を打ち切るのが最もダメージが少ないことは明白です。
+「これまでに何億円つかったか」は「これからさらに何億円損するか」とは全く関係ありません。</p>
+</div>
+<div class="paragraph">
+<p>世の中の大失敗は全てコンコルド現象によって起きています。
+まぁ、ダメージが少ない時に手を引いたなら、それは「大失敗」ではなくなるので当たり前ですが。</p>
+</div>
+<div class="paragraph">
+<p>ということで「失敗した」ではなく「失敗している」状態の判断基準として、この本の記述を引用すると</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">失敗とは</div>
+<div class="paragraph">
+<p>希望的観測が現実で打ち砕かれ続けるプロセス</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>ということです。希望的観測が現実で打ち砕かれても、まだそのままプロジェクトを続けようとしているなら、コンコルド効果が起きてしまっています。</p>
+</div>
+<div class="paragraph">
+<p>そのときは失敗を認めて、仕切り直しましょう。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_失敗するための方法">3. 失敗するための方法</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>どのようにプロジェクト運営をすると失敗するのかとはすなわち、
+何をすると「希望的観測が現実で打ち砕かれ続ける」のか、です。</p>
+</div>
+<div class="paragraph">
+<p>表現を変えただけですが、「現実にもとづかない希望的観測」が生まれてしまうような前提や空気を作ってしまうことが失敗の原因になります。それは主に次のような行為によって起こります。</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">失敗するための方法</div>
+<div class="ulist">
+<ul>
+<li>
+<p>プロジェクトの目的と終わり方を決めない</p>
+</li>
+<li>
+<p>個人技に期待する</p>
+</li>
+<li>
+<p>誤断の土壌をつくる</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>これらを意識すると、いとも簡単に「現実に基づかない希望的観測」をはびこらせることができます。</p>
+</div>
+<div class="paragraph">
+<p>「はびこる」というところがポイントでプロジェクトのリーダーから末端のメンバーまでありとあらゆる人間が、ありとあらゆる希望的観測を持つようになります。</p>
+</div>
+<div class="sect2">
+<h3 id="_目的グランドデザインを曖昧にする終わり方を決めない">3.1. 目的、グランドデザインを曖昧にする。「終わり方を決めない」</h3>
+<div class="paragraph">
+<p>プロジェクトや組織など人が集まって何かをするなら、成し遂げようとする目的があるはずです。
+これを曖昧にすることで簡単に失敗できます。</p>
+</div>
+<div class="paragraph">
+<p>「目的が曖昧」とは「終わり方を決めない」ということです。目的がはっきりとしていれば組織の共通認識としてメンバーの誰もが下記のように明確に主張できるはずです。</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>我々は目的はxxである。xxを実現するために、我々はyyという行動を取れば良い。
+その結果zzという状態になることを目指す。</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>つまり</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>xx &#8594; 目的</p>
+</li>
+<li>
+<p>yy &#8594; 目的の実現手段</p>
+</li>
+<li>
+<p>zz &#8594; 実現手段の達成基準</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>であって、「何のために、何をやって、どうなったら」完成するのか、ということです。
+目的を決め、目的達成のグランドデザインを行うということです。しっかりとしたグランドデザインがあれば「終わり方」も決まってくるはずです。</p>
+</div>
+<div class="sect3">
+<h4 id="_目的しか決まっていない">3.1.1. 目的しか決まっていない</h4>
+<div class="paragraph">
+<p>よくある間違いは「目的、目標は雄弁に語るけれども終わり方は共有されていない」という状態です。</p>
+</div>
+<div class="paragraph">
+<p>例えば
+「我々のゴールはSDGsの実現です！持続可能な社会を作り、人類の永続的に発展を目指します！我々の技術と人脈で地域社会にとどまらず全世界の人々を豊かにします！」</p>
+</div>
+<div class="paragraph">
+<p>と言っている企業があったとする。対外的には十分だが、内部へも同じことを言ってるとしたら失敗コースに入っている。</p>
+</div>
+<div class="paragraph">
+<p>美辞麗句を並べたこの目標とても美しく、耳触りの良い言葉でほとんどの人から共感されますが、実現手段について言及していません。</p>
+</div>
+<div class="paragraph">
+<p>これを聞いたメンバーは「なるほど、SDGsの実現のためにyyをやれば良いんだな！yyをやっていかに効率的にzzな状態に持っていけるかがSDGsの実現に直結しているんだな！」と <span class="red">ならない</span>。</p>
+</div>
+<div class="paragraph">
+<p>「SDGsを実現するんだな！&#8230;&#8203;つまり俺たちは&#8230;&#8203;SDGsを実現するんだな！」となります。
+何をするかが決まっていないし、どうなったらゴールなのかも決まっていません。
+その結果やることが定まらなくなって真面目なメンバー達は</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>やることがわからない</p>
+</li>
+<li>
+<p>だが、失敗したり目標達成を阻害することはしてはいけない</p>
+</li>
+<li>
+<p>でも遊んでいるわけにはいかない</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>と考えて、庶務に没頭するようになる。結果としてSDGsは&#8230;&#8203;実現されない。
+メンバーは一生懸命、多くの時間と体力を使って、ひたすら真面目に、<span class="red">目的の達成に一切貢献しない作業に精を出す</span>。</p>
+</div>
+<div class="paragraph">
+<p>別の言い方をすると、終わり方を意識していないのでとりあえず目の前の「できそうなこと」をやっている、という状態です。</p>
+</div>
+<div class="paragraph">
+<p>すると、あるとき「目標達成に近づいていない」と気がつく、だが誰もが真面目に仕事をしているので「我々は皆こんなに真面目に仕事をしている、今は充電期間だがいつか報われるはず」という希望的観測を抱くようになる。そのまま同じ作業を続けても当然目標達成には近づかないので、この希望的観測は現実によって打ち砕かれる。失敗の始まりです。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_行動と達成基準しか決まっていない">3.1.2. 行動と達成基準しか決まっていない</h4>
+<div class="paragraph">
+<p>もう一つよくあるのはさっきとは逆に、「行動と終わり方は決まっているが、目的があいまい」という状態です。</p>
+</div>
+<div class="paragraph">
+<p>終わり方が共有されていないパターンはいつまでも目標に近づきませんでしたが、このパターンは「どんどん目標から遠ざかる」という状態に陥ります。
+会社だと分業制を採用することでこの状態に陥りやすくなります。</p>
+</div>
+<div class="paragraph">
+<p>例えばソフトウェアを売っている会社が営業と開発に分かれているとする。会社の目標は「売上を伸ばす」ことですが、これを組織ごとにブレークダウンして営業と開発に</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>営業： 顧客の数を最大化する</p>
+</li>
+<li>
+<p>開発： 顧客の要望の達成を最大化する</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>という目標を与えたとする。</p>
+</div>
+<div class="paragraph">
+<p>順調なうちは問題ないが、調子が悪くなってくると軌道修正できなくなります。
+調子が悪くなる、というのはこの場合は顧客の数が減ったり、顧客の要望に答えられなくなって売上が落ちていくことになる。</p>
+</div>
+<div class="paragraph">
+<p>調子が悪くなる原因は場合によって様々だが、今までのやり方でうまく行かなくなったということは、「売上に対して顧客の数や顧客の要望の達成の重要度が落ちている。これらよりも重要な何かが現れた。」ということです。</p>
+</div>
+<div class="paragraph">
+<p>しかし、営業と開発は最初にそれぞれに与えられた目標と行動を初志貫徹しようとします。
+なぜなら、そもそもの「売上を伸ばす」という目標はもともと共有されてないので、「顧客数の最大化」と「顧客要望の達成最大化」にこだわるしかないからです。</p>
+</div>
+<div class="paragraph">
+<p>加えて「初志貫徹」、「目標を最後まで諦めない」、「なんとか工夫して目標の実現を図る」という言葉はどれも美辞麗句ですので、表立って否定されません。</p>
+</div>
+<div class="paragraph">
+<p>結果として開発は最初に決めた目標「顧客の要望達成を最大化する」を初志貫徹して少ない顧客のニッチな要望ばかりに対応します。</p>
+</div>
+<div class="paragraph">
+<p>営業は「顧客の数を最大化する」を初志貫徹して、どんどん収益が悪かったり実際には買ってくれない顧客にアプローチして数を増やすことを目指します。</p>
+</div>
+<div class="paragraph">
+<p>もちろんさらに状況は悪化して、しまいには開発は営業が要望を分析できるだけの数の顧客をよこしてこない。なんとかしろと言って、営業は開発が顧客の要望を達成したソフトを作らないから顧客が獲得できない、なんとかしろ、と言うようになります。</p>
+</div>
+<div class="paragraph">
+<p>このように目的を共有しないことは、行動への固執を生み、「やればやるほど悪くなる」という状況に陥ります。</p>
+</div>
+<div class="paragraph">
+<p>目的を共有できないと一般的に以下のような症状が出ます。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>初志貫徹で行動の選択肢を狭める</p>
+</li>
+<li>
+<p>PlanBを考えない</p>
+</li>
+<li>
+<p>PlanBや失敗したときの話をすると、「自信がない」、「やる気がない」と捉えられる</p>
+</li>
+<li>
+<p>直接対話の重要性を訴える</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>最後の「直接対話の重要性を訴える」はちょっと分かりづらいかも知れませんが、十分に目的が共有されていればコミュニケーションの手段は数多くあるはずです。</p>
+</div>
+<div class="paragraph">
+<p>「直接対話しなければ話が通じない」ほどに前提が共有できていない、もしくは「声がでかい人が勝つ」状況なので声をでかくするために直接対話に持ち込もうとしている可能性があります。</p>
+</div>
+<div class="paragraph">
+<p>マキャベリの君主論でも「人を騙すのは簡単だが、騙し続けるのは難しい」とあるように、直接対話でその場の雰囲気で押し切るのが最も簡単に人を欺く手法です。</p>
+</div>
+<div class="paragraph">
+<p>詐欺をするときに「この書類に全部の条件を事細かに書いてあります。いくらでも時間をかけて確認してください。わからないところがあれば何でも質問してください。納得できるまで待ちます。」なんてことを言う人はいない。</p>
+</div>
+<div class="paragraph">
+<p>詐欺をするなら「今ここで決めなきゃこの特典は得られないよ！即決して！」とするのが一番です。</p>
+</div>
+<div class="paragraph">
+<p>目的を十分に共有するのに直接対話”だけ”にこだわるのは何かおかしなことが起きている可能性があります。</p>
+</div>
+<div class="paragraph">
+<p>日本軍ではガダルカナル海戦がこのタイプの失敗をしています。
+米軍はガダルカナルを中継点してゴールを見据えたグランドデザインがあって、ガダルカナル海戦を仕掛けましたが、日本軍はなんとなく戦っていました。</p>
+</div>
+<div class="paragraph">
+<p>結果米軍は「中継地点を手に入れる」というために各部隊が最善の行動を選択できましたが、日本軍は「どうすればこの海戦に勝ったことになるのか」がよくわかっておらず、各部隊がそのばその場でなんとなく戦って、全体としては大敗を喫することになりました。</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_個人技に期待する">3.2. 個人技に期待する</h3>
+<div class="paragraph">
+<p>次の失敗するための方法は個人技に期待することです。</p>
+</div>
+<div class="paragraph">
+<p>目的やグランドデザインが曖昧な結果、現場での個人の判断にゆらぎが生じます。
+様々な現場で様々な個人が様々な想定外に直面し、
+そのときに判断の拠り所とすべきグランドデザインが曖昧だと個人の信念や経験に基づいた判断を行う必要がでてきます。</p>
+</div>
+<div class="paragraph">
+<p>これをうまくこなせる人は優秀ですが、「個人が優秀であるべきである」ということは
+「個人が優秀であれば組織運営は愚かで良い」ことは意味しません。</p>
+</div>
+<div class="paragraph">
+<p>組織運営が愚かなことを棚に上げて個人技に期待することで、
+「途中までは順調そうに見えるが最終的に大失敗に終わる」という状況を簡単に作り上げることができます。</p>
+</div>
+<div class="paragraph">
+<p>最初に述べたように失敗とは「希望的観測が現実で打ち砕かれ続けるプロセス」ですが、優秀な個人技は「希望的観測が現実に打ち砕かれていること」を覆い隠します。</p>
+</div>
+<div class="paragraph">
+<p>上位の判断、戦略が間違っていても驚異的な個人技や戦術を発揮することでその場での成功を収めることができます。
+そしてこれに慣れてしまった上層部はさらに現場での微調整を要求し、それこそが技術と現場の責任であるかのように振る舞い始めます。</p>
+</div>
+<div class="paragraph">
+<p>そして驚異的な個人技を続ける限りプロジェクトはうまく回っているように回ります。</p>
+</div>
+<div class="paragraph">
+<p>ですが、この流れは2つの理由によって必ず終了します。</p>
+</div>
+<div class="paragraph">
+<p>1つ目は確率の問題です。驚異的な個人技は言い換えれば「奇跡的なプレー」です。プロジェクトとして何かをやっている限り、何らかの競合が存在するわけですが、何回も施行を重ねれば、奇跡だよりの陣営はアベレージの点数がそこそこ高い「高度な平凡性」を有した陣営にはかないません。</p>
+</div>
+<div class="paragraph">
+<p>例えば超絶技術を持っていてサイコロで1を出すのがめちゃくちゃうまい人が一人いても、「1が出たらこっちの勝ち、2～6なら負け」という勝負を、10人団体戦で1年間、毎日10回行えばいずれ負けこんできます。</p>
+</div>
+<div class="paragraph">
+<p>「そんなの当たり前だろ」と思うところですが、実際のプロジェクトでは「あいつがなんとかしてくれる」とかいってサイコロで1が出る可能性に恒常的に何度でも賭けることがよくあります。</p>
+</div>
+<div class="paragraph">
+<p>2つ目は人材の流出です。驚異的な個人技ができる人は引く手あまたです。「わけのわからん指示のもと自分の驚異的な個人技で挽回する職場。あまつさえそれが自分の責任だと言わんばかりの職場」と「的確な指示が与えられ、その上で驚異的な個人技を発揮できる職場」があれば、いずれ後者の職場に移動します。</p>
+</div>
+<div class="paragraph">
+<p>そして確率や人材の流出によって驚異的な個人技が続かなくなった頃には、上層部は個人技に頼って甘えていたせいで、もはや「自分が何の指示を間違ったのか」、「何を見逃していたのか」を分析するような能力は失われており挽回できないわけです。</p>
+</div>
+<div class="sect3">
+<h4 id="_適切な個人への期待">3.2.1. 適切な個人への期待</h4>
+<div class="paragraph">
+<p>そういうわけで個人技への期待は失敗につながるわけですが、組織としては無能ばかりを集めるのも困りものです。</p>
+</div>
+<div class="paragraph">
+<p>組織としての「適切な個人への期待」というのは驚異的な個人技の逆です。</p>
+</div>
+<div class="paragraph">
+<p>「驚異的な個人技」の逆は「何の驚きもないバカ」&#8230;&#8203;ではなく「高度の平凡性」です。
+要するに「グズでも失敗しない」集団です。</p>
+</div>
+<div class="paragraph">
+<p>失敗の可能性があるときは危機的な状況や予測不可能な状態が置きているわけですが、この解決に驚異的な個人技を期待するのではなく、「日常的な思考や行動の延長」で対応することを期待します。</p>
+</div>
+<div class="paragraph">
+<p>日常的な思考や行動の延長であるので、失敗した時や成功した時に戦略や指示に対してフィードバックしやすいです。なぜこの戦略で成功したのか、なぜこの指示で失敗したのか、が分析しやすいです。
+突然のひらめきや「俺の勘がこう言ってる」とかに基づいた行動は後から反省や評価がしづらいです。</p>
+</div>
+<div class="paragraph">
+<p>組織で動いているのだから、数多くの人が毎日行動しているわけで、数多くの施行回数をこなすことになります。
+そうすると、いつかは誰かが失敗します。「失敗する方法がある限り」いつの日か誰かが失敗します。</p>
+</div>
+<div class="paragraph">
+<p>高度の汎用性を目指し、「失敗のしようがない」システム、行動基準を作ることが大切です。</p>
+</div>
+<div class="paragraph">
+<p>(個人としての正しいアプローチはこれとは逆に驚異的な個人技を発揮できるようになってなくてはならない存在となることです。高度な平凡性を実現することはいつでも変えの効く要員になることを意味するので&#8230;&#8203;)</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_誤断の土壌">3.3. 誤断の土壌</h3>
+<div class="paragraph">
+<p>最後の失敗するための方法は誤断の土壌を作ることだ。</p>
+</div>
+<div class="paragraph">
+<p>「ゴールや終わり方を十分に共有できず、個人技に期待する」これはどんなに細心の注意を払っても避けられない場合もある。</p>
+</div>
+<div class="paragraph">
+<p>全ての人員に一分の隙きもなく考えを共有して、皆が完全な高度な汎用性を身に着け、一切の思考のくせや個人の妙技を排除する、などということはできない。</p>
+</div>
+<div class="paragraph">
+<p>どうしても誤った想定や戦略のもと、個人での判断で切り抜けなければならない苦境は千回に一回ぐらいはある。</p>
+</div>
+<div class="paragraph">
+<p>その際に正しく判断できなければ当然失敗につながる。
+そういう状況で間違った判断に導くような誤断の土壌を作ることでもプロジェクトを失敗させられる。</p>
+</div>
+<div class="paragraph">
+<p>誤断の土壌は以下の2つがあります。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>人間の集団としての特性によるもの</p>
+</li>
+<li>
+<p>シチュエーションを見誤ったもの</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>どちらも、実は考える前に結論が決まっていて、現状分析の不足や情報の軽視につながり、最終的な誤断につながります。</p>
+</div>
+<div class="sect3">
+<h4 id="_集団の特性による結論の決定">3.3.1. 集団の特性による結論の決定</h4>
+<div class="paragraph">
+<p>集団で判断すると個人で判断するより馬鹿になることがあります。
+優秀な人々が集まった結果、愚かな決断を下すことがあります。そういう集団としての悪い特性が発揮されているとプロジェクトを失敗させる事ができます。</p>
+</div>
+<div class="paragraph">
+<p>集団として個人より愚かになる原因のひとつは「空気」です。もちろん酸素と二酸化炭素が～という話ではなく、相手を気遣ったり、暗黙の了解で相手を慮ったりする「空気」です。</p>
+</div>
+<div class="paragraph">
+<p>空気が支配する会議の決定権は空気が持つことになります。この「空気が決定権を持つ」というところが大事なポイントで、全てが空気によって議論されるわけではありません。</p>
+</div>
+<div class="paragraph">
+<p>普通の会議と同じように科学的根拠や数字による比較も行われます。でも最終的に結論を決めるのは空気なのです。</p>
+</div>
+<div class="paragraph">
+<p>いろんな現状分析をして、他社の状況と自社の状況を比較して、かなり追い込まれていることがわかって、その結果「我々は一層の努力で現在の施策を固持して、更に邁進しなければならない！」とか結論を出したりします。</p>
+</div>
+<div class="paragraph">
+<p>これは完全に空気にやられてます。やばい状況なら打つ手を変えるべきです。現在の手法では通用しなかったことを意味しています。せっかくこの事実を数値によって分析できても「このままやりきるぞ！」という空気が会議を支配していたので、結論を変えることができませんでした。</p>
+</div>
+<div class="paragraph">
+<p>この集団としての空気は心理学でも研究されており集団極性化と呼ばれる、</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>リスキーシフト(Risky Shift)</p>
+</li>
+<li>
+<p>コーシャスシフト(Cautious Shift)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>という2種類が知られています。リスキーシフトは集団でいるとより危ないリスクを取る結論を選んでしまう空気になっている状態。コーシャスシフトはより慎重で臆病な結論を選んでしまう空気になっている状態です。</p>
+</div>
+<div class="paragraph">
+<p>簡単に言えば「赤信号みんなで渡れば怖くない」がリスキーシフトで、「なんかみんな株式は危ないって言ってるから俺もやめとこ」がコーシャスシフトです。</p>
+</div>
+<div class="paragraph">
+<p>日本軍はリスキーシフトを起こしていました。
+どんなに少ない可能性でも少しでも成功の可能性があればそれに賭けるような判断をほとんど毎回行っていました。</p>
+</div>
+<div class="paragraph">
+<p>これによって「失敗の正常な評価」もできなくなっていました。積極者の失敗は過小評価され、慎重論者の失敗は過大評価されるようになり、より一層リスキーな判断をする人々が称賛される負のフィードバック状態に入っていました。</p>
+</div>
+<div class="paragraph">
+<p>最終的に作戦成功の根拠が「日本軍の精神力の優位性」とかになっていました。
+確かに自分たちの精神力が強靭であり、目的遂行を願う心が強いことは疑いようもないですが、それは相手も同じです。</p>
+</div>
+<div class="paragraph">
+<p>所詮同じ人間ですから、やる気のある人を集めれば集団としての精神力にそんなずば抜けた差が生まれるはずもありません。少なくとも戦略の優劣を覆したり、健康状態や疲労状態、物資の不足を覆すような差が生まれることはありません。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_シチュエーションを見誤る">3.3.2. シチュエーションを見誤る</h4>
+<div class="paragraph">
+<p>シチュエーションの違いを見誤ることも誤断を導きます。
+シチュエーションを見誤る理由の一つは古くなった成功体験を忘れることができないことです。</p>
+</div>
+<div class="paragraph">
+<p>簡単に言えば「俺の経験上こうやるとうまくいくんだよ」と言って失敗するパターンです。</p>
+</div>
+<div class="paragraph">
+<p>昔は通用したけど、今では通用しない過去の成功体験は一旦忘れる必要があります。これは学習棄却、Unlearnなどと呼ばれます。</p>
+</div>
+<div class="paragraph">
+<p>学習棄却はなかなか難しくて、簡単には実行できません。人間は経験に基づいて学習するものなので一度成功しているとなかなか違う方法を選択できません。
+ましてや一定の期間に渡って何度も成功していると学習棄却はより難しくなります。</p>
+</div>
+<div class="paragraph">
+<p>身近な例としては(今はもうこんな昔の話知らない人もいるかも知れないけど)、「運動中に水を飲むとバテるから、我慢しろ」というものがあります。
+これは元々、水道水や井戸水の衛生状態が悪い時代に、運動と暑さによって免疫力が落ちている状態で雑菌を含む水を飲むと体調を崩すことに対する警告でした。</p>
+</div>
+<div class="paragraph">
+<p>この時代の人々は、暑い中運動して水をがぶ飲みすると腹を壊して体調が悪くなるということを自分で何度も経験したし、他人も同じ目にあっているのを見てきました。
+しかし、時代は変わって衛生的な水が体に入るようになってからは腹を壊す心配はなくなり、「運動中は適切な水分補給を」に変わりました。
+さらに「運動中に水分をとったほうがパフォーマンスが上がる」という研究や実験データもそろっていましたが、
+中高生の部活で実際に「運動中に水分補給する」という指導がされるようになった時期は、これよりだいぶ後です。</p>
+</div>
+<div class="paragraph">
+<p>適切な水分補給を指導されるようになった時期が、衛生的な水が手に入る時期でもなく、水分補給に関する実験データが出てきたときでもないとしたら、いつからだったのか？
+それは「運動中に水を飲むとバテる」という学習をした人々の大部分が部活の顧問などの指導者から引退した年代からです。
+彼らは最後まで「水を飲むとバテる」ということを学習棄却できなかったのです。</p>
+</div>
+<div class="paragraph">
+<p>逆に衛生的な水が手に入るようになった世代は「隠れて水飲んでた」という人たちが「水を飲んだときのほうが楽だし、結果も良かった」という体験をし始めます。
+指導者がこの世代に入れ替わってようやく「運動中に水を飲むな」ということを世代として学習棄却できたというわけです。</p>
+</div>
+<div class="paragraph">
+<p>どう考えても「運動中に見ず飲まないほうがやばい」、「そもそもフルマラソン選手とか普通に給水してる」という
+あからさまなことでさえ多くの人は学習棄却できなかったということは、「そもそも学習棄却は人間にとって非常に難しい」ということです。</p>
+</div>
+<div class="paragraph">
+<p>そして自分の成功体験を学習棄却できずにシチュエーションを見誤って失敗します。
+例えば日本軍はそもそもの戦争のグランドデザインで白兵戦思想を学習棄却できずに失敗しました。</p>
+</div>
+<div class="paragraph">
+<p>日本軍は白兵戦が強く、戦争を勝ってきたので、
+「戦争の終結は最終的には歩兵による銃剣でけりをつける」という前提で戦略を立てていました。
+これまではこれで素晴らしい戦果を上げていました。
+しかし兵器の近代化が進んだ第二次世界大戦では、この思想は役に立ちませんでした。</p>
+</div>
+<div class="paragraph">
+<p>戦闘機や潜水艦などこれまでとは違う戦い方が主戦になっていたことは明らかでしたが、
+このシチュエーションを正しく判断することができませんでした。</p>
+</div>
+<div class="paragraph">
+<p>この学習棄却の難しさは別の表現をすると
+「適応は適応能力の喪失を意味する」とも言えます。</p>
+</div>
+<div class="paragraph">
+<p>一度あるシチュエーションに最適化してしまったら、別のシチュエーションにもう一度最適化する能力を失います。
+上手に学習棄却できれば良いですが、これはかぎられた天才たちしかできないので、一般人には難しいです。</p>
+</div>
+<div class="paragraph">
+<p>なので息が長いプロジェクトならゴリゴリに最適化する前の段階で止めておいたほうが将来的には得なことが多いです。
+最適化する部分、いつでも棄却できる部分をしっかりと分離して、
+あえて適応させない「適応能力を保持すること」を主眼とした部分を残さねばなりません。</p>
+</div>
+<div class="paragraph">
+<p>ソフトウェアの設計は特にこれが顕著で、現在の実行環境や仕様に合わせてチューニングすればするほど
+将来のメンテナンスコストは増え、新機能の追加が難しくなります。
+完全に最適化されたモジュールはシチュエーションが変わったときには、もはや捨てることしかできないです。
+完全に最適化されたモジュールを解きほぐして新たなシチュエーションに適応させるより、ゼロから作り直したほうが速いです。</p>
+</div>
+<div class="paragraph">
+<p>現状で最大の結果を得るための行為は、将来の利益を食いつぶしながら行っていることを認識し、
+最適なバランスを探る必要があります。
+勝負を仕掛けるべきときに、現在への適応を行うようにしましょう。</p>
+</div>
+<div class="paragraph">
+<p>ちなみに集団によるリスキーシフトを起こしていた日本軍は、これによって学習棄却を難しくしていました。</p>
+</div>
+<div class="paragraph">
+<p>リスキーシフトによって積極的であることを過剰に評価した結果、積極論者の失敗の個人責任は曖昧になります。
+「結果は残念だったけど果敢に挑戦したんだから悪くないよね」と。
+「挑戦した姿勢は間違っておらず、タイミングが悪かっただけだよね」と。</p>
+</div>
+<div class="paragraph">
+<p>逆に慎重な人の失敗責任は過剰に追求されます。
+「なぜあのとき動かなかったのか。臆病であり決断のタイミングを逃し、リーダーとしての資質がない」と。</p>
+</div>
+<div class="paragraph">
+<p>実際には積極論者は「挑戦したけどタイミングが悪かった」のではなく、タイミング、つまり戦況に関する情報を
+正しく収集、分析できていないことが失敗の原因であり、その部分は適正に責任を取るべきだった。</p>
+</div>
+<div class="paragraph">
+<p>慎重論者はリーダーとして資質がないのではなく、これもやはり「作戦の決行を決めるのに十分な情報が得られていなかった」
+ことが行動できなかった原因であり、この部分を適正に責任を取るべきだった。</p>
+</div>
+<div class="paragraph">
+<p>だが、リスキーシフトを起こした日本軍は積極論者の失敗は環境のせいに、慎重論者の失敗は個人のせいにされ、
+「情報が不足している」「情報を分析できていない」といった問題点を目をむけられなかった。</p>
+</div>
+<div class="paragraph">
+<p>本来は現在の方針を学習棄却し、情報収集に重きを置いた方針に転換すべきだったが、学習棄却できなかった。</p>
+</div>
+<div class="paragraph">
+<p>このように</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_まとめ">4. まとめ</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>プロジェクトのグランドデザインや目的、終わり方を考えなかったり、メンバーに共有しないことでプロジェクトは失敗します。</p>
+</div>
+<div class="paragraph">
+<p>しかし、どんなに頑張っても完全に目的を共有したり、完全にクリアな終わり方を事前に考えることはできません。
+残った不確定な要素や見誤った要素は、現場で判断して解決することになりますが、ここで驚異的な個人技に頼ることでプロジェクトは
+グランドデザインの失敗に気づき修正する機会を失って失敗します。</p>
+</div>
+<div class="paragraph">
+<p>驚異的な個人技に頼らず、組織として高度な汎用性を獲得して集団として対応できるようになったとしても、
+集団がリスキーシフトやコーシャスシフトを起こしていると正常に判断できません。
+また、学習棄却ができず過去の成功体験をシチュエーションが変わっても繰り返そうとすることで誤った判断をします。
+すると、高度な汎用性を有しているにも関わらず正しい判断ができずプロジェクトは失敗します。</p>
+</div>
+<div class="paragraph">
+<p>つまりプロジェクトに成功したかったら少なくとも下記の点は守らねばならないということです。</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">プロジェクト成功の必須条件</div>
+<div class="ulist">
+<ul>
+<li>
+<p>プロジェクトのグランドデザインと終わり方を定義する</p>
+</li>
+<li>
+<p>高度の汎用性を獲得する</p>
+</li>
+<li>
+<p>リスキーシフト、コーシャスシフトを起こさず、適切に学習棄却する</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2021-10-04 17:27:32 +0900
+</div>
+</div>
+</body>
+</html>

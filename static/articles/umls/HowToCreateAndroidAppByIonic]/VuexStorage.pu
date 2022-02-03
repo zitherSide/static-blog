@@ -1,0 +1,55 @@
+class Vuex {
+    Word[] words
+---
+    +void AddWord(word)
+    +void RemoveWord(word)
+    +void UpdateWord(word)
+    +void ShiftRotate()
+---
+    +void FetchWords()
+    +void SaveWords()
+}
+note left of Vuex{
+    実行中のデータはVuexで管理
+    非同期Actionsを使ってStorage
+    に随時保存する
+}
+
+class Storage {
+    Promise<void> set()
+    Promise<GetResult> get(options)
+    Promise<KeyResult> keys()
+}
+
+note top of Storage{
+    capacitor/Storage
+    を使ってデータの永続化
+}
+
+class Home {
+    今日の学習予定単語を表示するページ
+}
+
+class Deck {
+    デッキ一覧を表示するページ
+}
+
+interface Word{
+    +string word
+    +number expiration
+    +number lastTerm
+}
+
+class App
+note bottom of App{
+    StorageやVuexのインスタンスを
+    作って保持する
+}
+
+App *-up- Vuex
+App *-up- Storage
+Home o-- Vuex
+Deck o-- Vuex
+Vuex --> Storage
+
+Vuex -- Word
