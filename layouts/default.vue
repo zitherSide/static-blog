@@ -112,7 +112,7 @@ export default {
           to: {
             path: '/articles/0',
             query: {
-              path: '/articles/QuintessenceOfFailure.html'
+              path: this.$router.options.base + 'articles/QuintessenceOfFailure.html'
             }
           }
         }
