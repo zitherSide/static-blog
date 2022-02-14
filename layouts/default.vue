@@ -24,7 +24,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
+    <v-system-bar
       :clipped-left="clipped"
       fixed
       app
@@ -56,9 +56,9 @@
       >
         <v-icon>mdi-menu</v-icon>
       </v-btn>
-    </v-app-bar>
+    </v-system-bar>
     <v-main>
-      <v-container>
+      <v-container fluid>
         <nuxt />
       </v-container>
     </v-main>
@@ -115,6 +115,11 @@ export default {
               path: this.$router.options.base + 'articles/QuintessenceOfFailure.html'
             }
           }
+        },
+        {
+          icon: 'google-controller',
+          title: 'Japanese Businessman Simulator',
+          to: '/articles/japanese_businessman_simulator'
         }
       ],
       miniVariant: false,
