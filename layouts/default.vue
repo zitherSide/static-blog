@@ -1,10 +1,18 @@
 <template>
   <v-app dark>
+    <v-system-bar
+      color="transparent"
+      height="120"
+      app
+    >
+      <v-toolbar-title class="text-h1 px-10" v-text="title" disabled/>
+      <v-spacer />
+      <preference-dialog/>
+    </v-system-bar>
+
     <v-navigation-drawer
-      v-model="drawer"
+      color="transparent"
       :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
       app
     >
       <v-list>
@@ -23,64 +31,23 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
-    <v-system-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn
-        icon
+        icon 
+        right 
+        absolute
         @click.stop="miniVariant = !miniVariant"
       >
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </v-system-bar>
+    </v-navigation-drawer>
+
     <v-main>
       <v-container fluid>
         <nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+
     <v-footer
-      :absolute="!fixed"
       app
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
@@ -89,16 +56,20 @@
 </template>
 
 <script>
+import prefereneDialog from "~/components/preferenceDialog.vue"
+
 export default {
+  compoents: {
+    prefereneDialog
+  },
   data () {
     return {
       clipped: false,
-      drawer: false,
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
+          icon: 'mdi-home',
+          title: 'Top',
           to: '/'
         },
         {
@@ -107,7 +78,7 @@ export default {
           to: '/inspire'
         },
         {
-          icon: 'mdi-apps',
+          icon: 'mdi-book',
           title: '失敗の本質を読んで',
           to: {
             path: '/articles/0',
@@ -117,15 +88,14 @@ export default {
           }
         },
         {
-          icon: 'google-controller',
+          icon: 'mdi-gamepad-variant',
           title: 'Japanese Businessman Simulator',
           to: '/articles/japanese_businessman_simulator'
         }
       ],
       miniVariant: false,
       right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Works'
     }
   }
 }
