@@ -1,89 +1,68 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          This is a welcoming page!
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
+  <v-main class="mx-2">
+    <v-row>
+      <v-carousel cycle width="100%">
+        <v-carousel-item v-for="(img, key) in imgs" :key="key" :src="img" />
+      </v-carousel>
+    </v-row>
+    <v-row>
+      <v-card width="100%" flat class="my-15">
+        <v-row>
+          <v-col>
+            <v-card-title class="mx-0 mb-3">
+              Recent items
+            </v-card-title>
+            <v-card-subtitle>最新情報</v-card-subtitle>
+          </v-col>
+          <v-col>
+            <v-card-actions>
+              <v-btn class="ml-auto" to="/inspire" depressed color="white">詳しく見る<v-icon color="red darken-2">mdi-exit-to-app</v-icon></v-btn>
+            </v-card-actions>
+          </v-col>
+        </v-row>
       </v-card>
-    </v-col>
-  </v-row>
+    </v-row>
+    <v-row v-for="(content, n) in contents" :key="n">
+      <image-card color="#000000" :title="content.title" :subtitle="content.subtitle" :content="content.explanation" :isRightImage="n%2 === 0"/>
+      <v-divider class="my-2" />
+    </v-row>
+  </v-main>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+<script lang="ts">
+import ImageCard from '@/components/ImageCard.vue'
 
 export default {
   components: {
-    Logo,
-    VuetifyLogo
+    ImageCard
+  },
+  data () {
+    return {
+      imgs: [
+        'images/jbm1.png',
+        'images/flash_image_card1.png'
+      ],
+      contents: [
+        {
+          title: 'Games',
+          subtitles: 'ゲーム',
+          to: '/inspire',
+          explanation: 'Unreal Engineなどで作ったゲームとか'
+        },
+        {
+          title: 'Apps',
+          subtitles: 'アプリ',
+          to: '/inspire',
+          explanation: '自作のAndroidアプリやWebアプリとか'
+        },
+        {
+          title: 'Articles',
+          subtitles: 'ブログ',
+          to: '/inspire',
+          explanation: '主に読書感想文'
+        }
+      ]
+    }
   }
 }
 </script>
