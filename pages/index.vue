@@ -2,15 +2,16 @@
   <v-main class="mx-2">
     <v-row>
       <v-carousel cycle width="100%">
-        <v-carousel-item v-for="(img, key) in imgs" :key="key" :src=img>
-        </v-carousel-item>
+        <v-carousel-item v-for="(img, key) in imgs" :key="key" :src="img" />
       </v-carousel>
     </v-row>
     <v-row>
       <v-card width="100%" flat class="my-15">
         <v-row>
           <v-col>
-            <v-card-title class="mx-0 mb-3">Recent items</v-card-title>
+            <v-card-title class="mx-0 mb-3">
+              Recent items
+            </v-card-title>
             <v-card-subtitle>最新情報</v-card-subtitle>
           </v-col>
           <v-col>
@@ -23,7 +24,7 @@
     </v-row>
     <v-row v-for="(content, n) in contents" :key="n">
       <image-card color="#000000" :title="content.title" :subtitle="content.subtitle" :content="content.explanation" :isRightImage="n%2 === 0"/>
-      <v-divider class="my-2"></v-divider>
+      <v-divider class="my-2" />
     </v-row>
   </v-main>
 </template>

@@ -5,9 +5,9 @@
       height="120"
       app
     >
-      <v-toolbar-title class="text-h1 px-10" v-text="title" disabled/>
+      <v-toolbar-title class="text-h1 px-10" v-text="title" disabled />
       <v-spacer />
-      <preference-dialog/>
+      <preference-dialog />
     </v-system-bar>
 
     <v-navigation-drawer
@@ -32,8 +32,8 @@
         </v-list-item>
       </v-list>
       <v-btn
-        icon 
-        right 
+        icon
+        right
         absolute
         @click.stop="miniVariant = !miniVariant"
       >
@@ -58,7 +58,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { ArticleData } from '~/store/index'
-import prefereneDialog from '~/components/preferenceDialog.vue'
 
 const iconMap = {
   blog: 'mdi-book',
@@ -67,9 +66,6 @@ const iconMap = {
 }
 
 export default Vue.extend({
-  components: {
-    prefereneDialog
-  },
   data () {
     return {
       clipped: false,
