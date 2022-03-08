@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/articles/japanese_businessman_simulator", {data:[{}],fetch:{},mutations:[]});
