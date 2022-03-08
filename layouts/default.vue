@@ -17,7 +17,7 @@
     >
       <v-list>
         <v-list-item
-          v-for="(item, i) in items"
+          v-for="(item, i) in articles"
           :key="i"
           :to="item.to"
           router
@@ -55,18 +55,26 @@
   </v-app>
 </template>
 
-<script>
-import prefereneDialog from "~/components/preferenceDialog.vue"
+<script lang="ts">
+import Vue from 'vue'
+import { ArticleData } from '~/store/index'
+import prefereneDialog from '~/components/preferenceDialog.vue'
 
-export default {
-  compoents: {
+const iconMap = {
+  blog: 'mdi-book',
+  game: 'mdi-gamepad-variant',
+  app: 'mdi-app'
+}
+
+export default Vue.extend({
+  components: {
     prefereneDialog
   },
   data () {
     return {
       clipped: false,
       fixed: false,
-      items: [
+      articles2: [
         {
           icon: 'mdi-home',
           title: 'Top',
@@ -97,6 +105,34 @@ export default {
       right: true,
       title: 'Works'
     }
+  },
+  computed: {
+    articles () {
+      const articles = this.$store.getters['articles/get'].map((x: ArticleData, index: number) => {
+        if (x.path) {
+          return {
+            title: x.title,
+            to: {
+              path: `/articles/${index}`,
+              query: {
+                path: this.$router.options.base + x.path
+              }
+            },
+            icon: iconMap[x.category as keyof typeof iconMap]
+          }
+        } else {
+          return x
+        }
+      })
+      return [
+        {
+          icon: 'mdi-home',
+          title: 'Top',
+          to: '/'
+        },
+        ...articles
+      ]
+    }
   }
-}
+})
 </script>

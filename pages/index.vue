@@ -22,15 +22,14 @@
       </v-card>
     </v-row>
     <v-row v-for="(content, n) in contents" :key="n">
-      <image-card color="#000000" :title="content.title" :subtitle="content.subtitle" :content="content.explanation" :isRightImage="n%2"/>
+      <image-card color="#000000" :title="content.title" :subtitle="content.subtitle" :content="content.explanation" :isRightImage="n%2 === 0"/>
       <v-divider class="my-2"></v-divider>
     </v-row>
   </v-main>
 </template>
 
-<script>
+<script lang="ts">
 import ImageCard from '@/components/ImageCard.vue'
-
 
 export default {
   components: {
