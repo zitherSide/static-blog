@@ -6,6 +6,7 @@ describe('ArticleIFTest', () => {
     const art: ArticleData = {
       title: 'title',
       path: 'path',
+      isRawHtml: true,
       thumbnail: '/uri/thumbnail',
       tags: ['tag1', 'tag2'],
       category: 'category',

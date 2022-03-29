@@ -17,7 +17,7 @@
     >
       <v-list>
         <v-list-item
-          v-for="(item, i) in articles"
+          v-for="(item, i) in topMenus"
           :key="i"
           :to="item.to"
           router
@@ -30,6 +30,21 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
+      </v-list>
+      <v-divider class="my-3"></v-divider>
+
+      <v-list v-for="(category, i) in articles" :key="i">
+        <v-list-group>
+          <template v-slot:activator>
+            <v-list-item-title>
+              <v-icon>{{getIcon(category.category)}}</v-icon>
+              {{category.category}}
+            </v-list-item-title>
+          </template>
+          <v-list-item v-for="item in category.items" :key="item.title" :to="item.to" router exact>
+            <v-list-item-title>{{item.title}}</v-list-item-title>
+          </v-list-item>
+        </v-list-group>
       </v-list>
       <v-btn
         icon
@@ -57,6 +72,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import _ from 'lodash'
+import { bind } from 'lodash'
 import { ArticleData } from '~/store/index'
 
 const iconMap = {
@@ -65,69 +82,81 @@ const iconMap = {
   app: 'mdi-app'
 }
 
+const convertPathQuery = (x: ArticleData, index: number, basePath: string, category: string) => {
+  if (x.isRawHtml) {
+    return {
+      title: x.title,
+      to: {
+        path: `/articles/${category}${index}`,
+        query: {
+          path: `${basePath}${x.path}`
+        }
+      },
+      icon: iconMap[x.category as keyof typeof iconMap]
+    }
+  } else {
+    return {
+      title: x.title,
+      to: x.path,
+      icon: iconMap[x.category as keyof typeof iconMap]
+    }
+  }
+}
+
 export default Vue.extend({
   data () {
     return {
       clipped: false,
       fixed: false,
-      articles2: [
+      miniVariant: false,
+      right: true,
+      title: 'Works',
+      topMenus: [
         {
           icon: 'mdi-home',
           title: 'Top',
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        },
-        {
-          icon: 'mdi-book',
-          title: '失敗の本質を読んで',
-          to: {
-            path: '/articles/0',
-            query: {
-              path: this.$router.options.base + 'articles/QuintessenceOfFailure.html'
-            }
-          }
-        },
-        {
-          icon: 'mdi-gamepad-variant',
-          title: 'Japanese Businessman Simulator',
-          to: '/articles/japanese_businessman_simulator'
+          icon: 'mdi-new-box',
+          title: "What's new",
+          to: '/recent'
         }
-      ],
-      miniVariant: false,
-      right: true,
-      title: 'Works'
+      ]
     }
   },
   computed: {
     articles () {
-      const articles = this.$store.getters['articles/get'].map((x: ArticleData, index: number) => {
-        if (x.path) {
-          return {
-            title: x.title,
-            to: {
-              path: `/articles/${index}`,
-              query: {
-                path: this.$router.options.base + x.path
-              }
-            },
-            icon: iconMap[x.category as keyof typeof iconMap]
-          }
-        } else {
-          return x
-        }
-      })
+      const convert = bind(convertPathQuery, this, _, _, this.$router.options.base, _)
+      const blogs = this.$store.getters['articles/get']
+        .filter((x: ArticleData) => x.category === 'blog')
+        .map(bind(convert, this, _, _, 'blog'))
+      const apps = this.$store.getters['articles/get']
+        .filter((x: ArticleData) => x.category === 'app')
+        .map(bind(convert, this, _, _, 'app'))
+      const games = this.$store.getters['articles/get']
+        .filter((x: ArticleData) => x.category === 'game')
+        .map(bind(convert, this, _, _, 'game'))
+
       return [
         {
-          icon: 'mdi-home',
-          title: 'Top',
-          to: '/'
+          category: 'blog',
+          items: blogs
         },
-        ...articles
+        {
+          category: 'game',
+          items: games
+        },
+        {
+          category: 'app',
+          items: apps
+        }
       ]
+    }
+  },
+  methods: {
+    getIcon (category: string): string {
+      return iconMap[category as keyof typeof iconMap]
     }
   }
 })
