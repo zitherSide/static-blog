@@ -1,4 +1,4 @@
-import { mount, createLocalVue, shallowMount } from '@vue/test-utils'
+import { createLocalVue, shallowMount } from '@vue/test-utils'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
@@ -13,7 +13,7 @@ describe('defaultLayout', () => {
   let articlesStoreMock
   let store
   let vuetify
-  const routes = [{path: '/'}]
+  const routes = [{ path: '/' }]
   const router = new VueRouter({
     routes,
     base: '/base/'
