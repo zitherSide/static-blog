@@ -8,6 +8,7 @@ export const state = () => ({
     {
       title: '失敗の本質を読んで',
       path: 'articles/QuintessenceOfFailure.html',
+      isRawHtml: true,
       thumbnail: '',
       tags: ['management', 'book'],
       category: 'blog',
@@ -16,6 +17,7 @@ export const state = () => ({
     {
       title: 'Ionicでアンドロイドアプリをつくって広告をつけるまで',
       path: 'articles/HowToCreateAndroidAppByIonic.html',
+      isRawHtml: true,
       thumbnail: '',
       tags: ['Ionic', 'Android'],
       category: 'blog',
@@ -23,7 +25,8 @@ export const state = () => ({
     },
     {
       title: 'Japanese Businessman Adventure',
-      to: '/articles/japanese_businessman_simulator',
+      path: '/articles/japanese_businessman_simulator',
+      isRawHtml: false,
       thumbnail: '',
       tags: ['game', 'UnrealEngine', 'c++'],
       category: 'game',
