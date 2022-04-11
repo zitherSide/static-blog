@@ -28,7 +28,7 @@ export const state = () => ({
       path: '/articles/japanese_businessman_simulator',
       isRawHtml: false,
       thumbnail: '',
-      tags: ['game', 'UnrealEngine', 'c++'],
+      tags: ['UnrealEngine', 'c++'],
       category: 'game',
       createdAt: '2020-5-1'
     }

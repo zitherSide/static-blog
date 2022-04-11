@@ -121,6 +121,11 @@ export default Vue.extend({
           icon: 'mdi-new-box',
           title: "What's new",
           to: '/recent'
+        },
+        {
+          icon: 'mdi-format-list-bulleted',
+          title: 'All articles',
+          to: '/list'
         }
       ]
     }
