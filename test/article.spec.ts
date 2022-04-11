@@ -8,8 +8,8 @@ describe('ArticleIFTest', () => {
       path: 'path',
       isRawHtml: true,
       thumbnail: '/uri/thumbnail',
-      tags: ['tag1', 'tag2'],
-      category: 'category',
+      tags: ['Android', 'c++'],
+      category: 'game',
       createdAt: new Date()
     }
 
