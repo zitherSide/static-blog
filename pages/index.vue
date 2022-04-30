@@ -16,14 +16,21 @@
           </v-col>
           <v-col>
             <v-card-actions>
-              <v-btn class="ml-auto" to="/inspire" depressed color="white">詳しく見る<v-icon color="red darken-2">mdi-exit-to-app</v-icon></v-btn>
+              <v-btn class="ml-auto" to="/inspire" depressed color="white">
+                詳しく見る
+                <v-icon color="red darken-2">
+                  mdi-exit-to-app
+                </v-icon>
+              </v-btn>
             </v-card-actions>
           </v-col>
         </v-row>
       </v-card>
     </v-row>
     <v-row v-for="(content, n) in contents" :key="n">
-      <image-card color="#000000" :title="content.title" :subtitle="content.subtitle" :content="content.explanation" :isRightImage="n%2 === 0"/>
+      <image-card color="#000000" :title="content.title" :subtitle="content.subtitle" :isRightImage="n%2 === 0">
+        {{ content.explanation }}
+      </image-card>
       <v-divider class="my-2" />
     </v-row>
   </v-main>
@@ -47,7 +54,8 @@ export default {
           title: 'Games',
           subtitles: 'ゲーム',
           to: '/inspire',
-          explanation: 'Unreal Engineなどで作ったゲームとか'
+          explanation: 'Unreal Engineなどで作ったゲームとか',
+          img: 'https://picsum.photos/id/1/640/480'
         },
         {
           title: 'Apps',

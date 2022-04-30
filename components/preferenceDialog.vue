@@ -12,7 +12,9 @@
         <v-divider />
         <v-list>
           <v-list-item>
-            <v-list-item-text class="px-2">Dark</v-list-item-text>
+            <v-list-item-text class="px-2">
+              Dark
+            </v-list-item-text>
             <v-switch v-model="$vuetify.theme.dark" class="px-2" />
           </v-list-item>
         </v-list>
