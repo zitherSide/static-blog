@@ -5,7 +5,7 @@
       height="120"
       app
     >
-      <v-toolbar-title class="text-h1 px-10" v-text="title" disabled />
+      <v-toolbar-title class="text-h1 px-10" disabled v-text="title" />
       <v-spacer />
       <preference-dialog />
     </v-system-bar>
@@ -31,18 +31,18 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-divider class="my-3"></v-divider>
+      <v-divider class="my-3" />
 
       <v-list v-for="(category, i) in articles" :key="i">
         <v-list-group>
-          <template v-slot:activator>
+          <template #activator>
             <v-list-item-title>
-              <v-icon>{{getIcon(category.category)}}</v-icon>
-              {{category.category}}
+              <v-icon>{{ getIcon(category.category) }}</v-icon>
+              {{ category.category }}
             </v-list-item-title>
           </template>
           <v-list-item v-for="item in category.items" :key="item.title" :to="item.to" router exact>
-            <v-list-item-title>{{item.title}}</v-list-item-title>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
       </v-list>

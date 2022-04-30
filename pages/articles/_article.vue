@@ -1,12 +1,10 @@
 <template>
-
   <div>
     <div v-if="!loaded">
-      <v-progress-circular v-if="!loaded" indeterminate color="primary"></v-progress-circular>
+      <v-progress-circular v-if="!loaded" indeterminate color="primary" />
       <span>loading...</span>
     </div>
-    <div v-else v-html="content">
-    </div>
+    <div v-else v-html="content" />
   </div>
 </template>
 

@@ -3,7 +3,7 @@
     <v-toolbar flat>
       <v-row>
         <v-col>
-          <v-text-field outlined label="search" v-model="search">
+          <v-text-field v-model="search" outlined label="search">
             <v-icon>mdi-magnify</v-icon>
           </v-text-field>
         </v-col>
