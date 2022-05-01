@@ -28,7 +28,14 @@
       </v-card>
     </v-row>
     <v-row v-for="(content, n) in contents" :key="n">
-      <image-card color="#000000" :title="content.title" :subtitle="content.subtitle" :isRightImage="n%2 === 0">
+      <image-card
+        color="#000000"
+        :title="content.title"
+        :subtitle="content.subtitle"
+        :isRightImage="n%2 === 0"
+        buttonText="詳しく見る"
+        :buttonTo="content.to"
+      >
         {{ content.explanation }}
       </image-card>
       <v-divider class="my-2" />
@@ -53,20 +60,35 @@ export default {
         {
           title: 'Games',
           subtitles: 'ゲーム',
-          to: '/inspire',
+          to: {
+            path: '/list',
+            query: {
+              category: 'game'
+            }
+          },
           explanation: 'Unreal Engineなどで作ったゲームとか',
           img: 'https://picsum.photos/id/1/640/480'
         },
         {
           title: 'Apps',
           subtitles: 'アプリ',
-          to: '/inspire',
+          to: {
+            path: '/list',
+            query: {
+              category: 'app'
+            }
+          },
           explanation: '自作のAndroidアプリやWebアプリとか'
         },
         {
           title: 'Articles',
           subtitles: 'ブログ',
-          to: '/inspire',
+          to: {
+            path: '/list',
+            query: {
+              category: 'blog'
+            }
+          },
           explanation: '主に読書感想文'
         }
       ]

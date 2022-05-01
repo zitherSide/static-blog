@@ -1,6 +1,6 @@
 <template>
   <v-parallax src="https://i.picsum.photos/id/100/2500/1656.jpg?hmac=gWyN-7ZB32rkAjMhKXQgdHOIBRHyTSgzuOK6U0vXb1w" height="2000">
-    <span class="text-h2 mt-10">Japanese Businessman Adventure</span>
+    <span class="text-h2 mt-10 grey--text">Japanese Businessman Adventure</span>
     <v-divider class="my-3" />
 
     <image-card
