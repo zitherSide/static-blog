@@ -17,7 +17,7 @@
         </v-card-text>
         <v-card-actions v-if="hasButton">
           <v-btn class="ml-auto mt-auto white--text" :to="buttonTo" depressed color="black">
-            { {buttonText }}
+            {{ buttonText }}
             <v-icon color="red darken-2">
               {{ buttonIcon }}
             </v-icon>
@@ -48,7 +48,7 @@ export default {
     },
     img: {
       type: String,
-      default: 'https://picsum.photos/id/11/620/480'
+      default: 'https://i.picsum.photos/id/160/620/480.jpeg'
     },
     isRightImage: {
       type: Boolean,
@@ -67,7 +67,8 @@ export default {
       default: '詳しく見る'
     },
     buttonTo: {
-      type: String,
+      // eslint-disable-next-line vue/require-prop-type-constructor
+      type: String | Object,
       default: '/inspire'
     },
     buttonIcon: {

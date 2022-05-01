@@ -90,7 +90,11 @@ export default {
   },
   mounted () {
     this.searchTags = this.tags
-    this.searchCategories = this.categories
+    if (this.$route?.query?.category) {
+      this.searchCategories.push(this.$route?.query?.category)
+    } else {
+      this.searchCategories = this.categories
+    }
   },
   methods: {
     jump (item) {
