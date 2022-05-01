@@ -120,7 +120,7 @@ export default Vue.extend({
         {
           icon: 'mdi-new-box',
           title: "What's new",
-          to: '/recent'
+          to: '/list'
         },
         {
           icon: 'mdi-format-list-bulleted',

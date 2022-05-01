@@ -68,7 +68,7 @@ export default {
     },
     buttonTo: {
       // eslint-disable-next-line vue/require-prop-type-constructor
-      type: String | Object,
+      // type: any,
       default: '/inspire'
     },
     buttonIcon: {
