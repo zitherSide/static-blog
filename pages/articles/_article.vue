@@ -17,6 +17,13 @@ export default {
     }
   },
   mounted () {
+    console.log('mounted')
+    const validPattern = /\/static-blog\/articles\/.*\.html$/
+    if (!validPattern.test(this.$route.query.path)) {
+      console.log('invalid URL')
+      return
+    }
+
     fetch(this.$route.query.path)
       .then(data => data.text())
       .then((text) => {
