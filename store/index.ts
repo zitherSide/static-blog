@@ -4,7 +4,8 @@ const Tags = {
   Ionic: 'Ionic',
   'c++': 'c++',
   UnrealEngine: 'UnrealEngine',
-  Android: 'Android'
+  Android: 'Android',
+  Nuxt: 'Nuxt'
 }
 
 // export type Tag = 'book' | 'management' | 'Ionic' | 'c++' | 'UnrealEngine' | 'Android'

@@ -10,7 +10,8 @@ export const state = () => {
       Ionic: '#4444DD',
       'c++': '#CCCC44',
       UnrealEngine: '#888888',
-      Android: '#CC44CC'
+      Android: '#CC44CC',
+      Nuxt: '#33AA33'
     }
   }
 }
