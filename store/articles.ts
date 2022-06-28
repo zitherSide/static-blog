@@ -24,6 +24,15 @@ export const state = () => ({
       createdAt: '2020-5-1'
     },
     {
+      title: 'Nuxt.jsで静的サイトを作ってGitHub Pagesにデプロイするまで',
+      path: 'articles/HowToCreateNuxtStaticPageOnGitHubPages.html',
+      isRawHtml: true,
+      thumbnail: '',
+      tags: ['Nuxt'],
+      category: 'blog',
+      createdAt: '2022-6-27'
+    },
+    {
       title: 'Japanese Businessman Adventure',
       path: '/articles/japanese_businessman_simulator',
       isRawHtml: false,
