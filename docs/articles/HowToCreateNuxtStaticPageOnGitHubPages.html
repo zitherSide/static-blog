@@ -483,40 +483,44 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <a href="https://zitherside.github.io/static-blog/" class="undefined" data-href="https://zitherside.github.io/static-blog/">https://zitherside.github.io/static-blog/</a></p>
 </div>
 <div class="paragraph data-line-15">
+<p>ソースはこちら
+<a href="https://github.com/zitherSide/static-blog" class="undefined" data-href="https://github.com/zitherSide/static-blog">https://github.com/zitherSide/static-blog</a></p>
+</div>
+<div class="paragraph data-line-18">
 <p>Nuxt.jsを使って静的Webサイトを生成して、GitHub Pagesにデプロイする。</p>
 </div>
-<div class="listingblock data-line-16">
+<div class="listingblock data-line-19">
 <div class="content">
 <pre class="highlight"><code>npm run generate</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-19">
+<div class="paragraph data-line-22">
 <p>コマンドを使えば、Node.jsのない環境でも動くWebアプリを生成してくれるので、これらなGitHub Pagesにおいても見れる。</p>
 </div>
-<div class="paragraph data-line-21">
+<div class="paragraph data-line-24">
 <p>以下の順で作業する。</p>
 </div>
-<div class="olist arabic data-line-23">
+<div class="olist arabic data-line-26">
 <ol class="arabic">
-<li class="data-line-23">
+<li class="data-line-26">
 <p>静的サイトのビルド</p>
 </li>
-<li class="data-line-24">
+<li class="data-line-27">
 <p>GitHub Pagesへのデプロイ</p>
 </li>
-<li class="data-line-25">
+<li class="data-line-28">
 <p>Vuexでデータ定義</p>
 </li>
-<li class="data-line-26">
+<li class="data-line-29">
 <p>Jestでテスト作成</p>
 </li>
-<li class="data-line-27">
+<li class="data-line-30">
 <p>Ascii Docで作ったページをNuxtに読み込み</p>
 </li>
-<li class="data-line-28">
+<li class="data-line-31">
 <p>G-Driveへのファイルリンク</p>
 </li>
-<li class="data-line-29">
+<li class="data-line-32">
 <p>一覧ページの作成と検索</p>
 </li>
 </ol>
@@ -524,54 +528,54 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-<div class="sect1 data-line-31">
+<div class="sect1 data-line-34">
 <h2 id="_nuxt_generateで静的サイトをビルド">2. Nuxt Generateで静的サイトをビルド</h2>
 <div class="sectionbody">
-<div class="paragraph data-line-33">
+<div class="paragraph data-line-36">
 <p>まずはとりあえず静的サイトをビルドできるようにする。</p>
 </div>
-<div class="listingblock data-line-35">
+<div class="listingblock data-line-38">
 <div class="content">
 <pre class="highlight"><code class="language-sh" data-lang="sh">npx create-nuxt-app
 npm run generate</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-40">
+<div class="paragraph data-line-43">
 <p>ちゃんと生成されることを確認したら、実際の開発中は変更点をホットリロードしてほしいので、いつもどおりのdevコマンドでサーバーを立てる。</p>
 </div>
-<div class="listingblock data-line-42">
+<div class="listingblock data-line-45">
 <div class="content">
 <pre class="highlight"><code class="language-sh" data-lang="sh">npm run dev</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div class="sect1 data-line-46">
+<div class="sect1 data-line-49">
 <h2 id="_github_pagesにデプロイ">3. GitHub Pagesにデプロイ</h2>
 <div class="sectionbody">
-<div class="paragraph data-line-48">
+<div class="paragraph data-line-51">
 <p>ビルドできることを確認したら、中身を開発する前にまずGitHub Pagesにちゃんとデプロイできることを確認する。</p>
 </div>
-<div class="sect2 data-line-50">
+<div class="sect2 data-line-53">
 <h3 id="_github側の設定">3.1. GitHub側の設定</h3>
-<div class="paragraph data-line-52">
+<div class="paragraph data-line-55">
 <p>GitHub Pagesで公開するブランチと対象のフォルダをGitHubから設定する。今回は</p>
 </div>
-<div class="ulist data-line-54">
+<div class="ulist data-line-57">
 <ul>
-<li class="data-line-54">
+<li class="data-line-57">
 <p>gh-pages ブランチ</p>
 </li>
-<li class="data-line-55">
+<li class="data-line-58">
 <p>/docs フォルダ</p>
 </li>
 </ul>
 </div>
-<div class="paragraph data-line-57">
+<div class="paragraph data-line-60">
 <p>を設定。
 github &#8594; settings &#8594; pages で設定する。</p>
 </div>
-<div class="admonitionblock caution data-line-60">
+<div class="admonitionblock caution data-line-63">
 <table>
 <tr>
 <td class="icon">
@@ -584,14 +588,14 @@ github pagesはgithub actionsでデプロイが行われるので、設定を反
 </table>
 </div>
 </div>
-<div class="sect2 data-line-62">
+<div class="sect2 data-line-65">
 <h3 id="_nuxt側の設定">3.2. Nuxt側の設定</h3>
-<div class="paragraph data-line-66">
+<div class="paragraph data-line-69">
 <div class="title">出力フォルダ設定</div>
 <p>docsフォルダを公開するので、generateコマンドの出力先をdocsに設定する。
 nuxt.config.jsonをこんな感じで編集する。</p>
 </div>
-<div class="listingblock data-line-71">
+<div class="listingblock data-line-74">
 <div class="title">nuxt.config.json</div>
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json"> generate: {
@@ -599,7 +603,7 @@ nuxt.config.jsonをこんな感じで編集する。</p>
   },</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-79">
+<div class="paragraph data-line-82">
 <div class="title">ベースディレクトリの設定</div>
 <p>デプロイしたときにリンク先が正しくなるようにベースディレクトリをgithub pagesに合わせる必要がある。
 同じくnuxt.config.jsonに設定する。
@@ -609,7 +613,7 @@ github pagesのベースURLはリポジトリ名になるので
 </code>`</code>
 を設定する。今回はこんな感じ。</p>
 </div>
-<div class="listingblock data-line-89">
+<div class="listingblock data-line-92">
 <div class="title">nuxt.config.json</div>
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">  router: {
@@ -618,13 +622,13 @@ github pagesのベースURLはリポジトリ名になるので
 </div>
 </div>
 </div>
-<div class="sect2 data-line-95">
+<div class="sect2 data-line-98">
 <h3 id="_github_actionsの設定">3.3. GitHub Actionsの設定</h3>
-<div class="paragraph data-line-97">
+<div class="paragraph data-line-100">
 <p>GitHubで設定したので、gh-pagesにpushされれば, docフォルダ以下がgithub pagesに自動的にデプロイされる。
 だが、masterにpushされたソースをもとに <code> nuxt generate </code> して、github-pagesブランチにpushするワークフローは自分で作る必要がある。</p>
 </div>
-<div class="paragraph data-line-100">
+<div class="paragraph data-line-103">
 <p>やることは4つ
 * ソースのcheckout
   * checkout@v2を使用
@@ -634,10 +638,10 @@ github pagesのベースURLはリポジトリ名になるので
 * gh-pagesへpush
   * actions-gh-pages@v3を使用</p>
 </div>
-<div class="paragraph data-line-109">
+<div class="paragraph data-line-112">
 <p>workflowファイルはこんな感じ。</p>
 </div>
-<div class="listingblock data-line-113">
+<div class="listingblock data-line-116">
 <div class="title">.github/workflow/pages-build-deployment.yaml</div>
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">name: build and deploy
@@ -677,7 +681,7 @@ jobs:
         destination_dir: ./docs</code></pre>
 </div>
 </div>
-<div class="admonitionblock note data-line-151">
+<div class="admonitionblock note data-line-154">
 <table>
 <tr>
 <td class="icon">
@@ -690,22 +694,22 @@ jobs:
 </table>
 </div>
 </div>
-<div class="sect2 data-line-153">
+<div class="sect2 data-line-156">
 <h3 id="_発生したエラー">3.4. 発生したエラー</h3>
-<div class="sect3 data-line-155">
+<div class="sect3 data-line-158">
 <h4 id="_フォルダの指定ミス">3.4.1. フォルダの指定ミス</h4>
-<div class="listingblock data-line-156">
+<div class="listingblock data-line-159">
 <div class="content">
 <pre class="highlight"><code> Conversion error: Jekyll::Converters::Scss encountered an error while converting 'assets/css/style.scss': No such file or directory @ dir_chdir - /github/workspace/docs</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-160">
+<div class="paragraph data-line-163">
 <p>actions-gh-pagesのdestination_dirの指定を <code>./doc</code> にしたら直った。scssがない、と言っているが、原因は/github/workspace/docsフォルダに結果が置かれていないこと。</p>
 </div>
 </div>
-<div class="sect3 data-line-162">
+<div class="sect3 data-line-165">
 <h4 id="_変更履歴のコンフリクト">3.4.2. 変更履歴のコンフリクト</h4>
-<div class="listingblock data-line-163">
+<div class="listingblock data-line-166">
 <div class="content">
 <pre class="highlight"><code class="language-sh" data-lang="sh">error: failed to push some refs to 'https://github.com/zitherSide/static-blog.git'
   hint: Updates were rejected because the remote contains work that you do
@@ -716,7 +720,7 @@ jobs:
   Error: Action failed with "The process '/usr/bin/git' failed with exit code 1"</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-173">
+<div class="paragraph data-line-176">
 <p>リモート側にローカルにない変更があるせいで失敗してる。
 自分でpushする場合はforce-with-leaseなどのオプションで強制的にpushすればよいが、<code>actionc-gh-pages</code> を使っているので、手動で一旦リモート側のブランチを消して、
 コンフリクトしないようにしたら直った。</p>
@@ -725,17 +729,17 @@ jobs:
 </div>
 </div>
 </div>
-<div class="sect1 data-line-177">
+<div class="sect1 data-line-180">
 <h2 id="_vuexでデータ定義">4. Vuexでデータ定義</h2>
 <div class="sectionbody">
-<div class="paragraph data-line-179">
+<div class="paragraph data-line-182">
 <p>個人的には最初にデータ定義を決めるのが好きなので、まずinterface定義をする。
 最初にDBのテーブル定義をやるような感覚。</p>
 </div>
-<div class="paragraph data-line-182">
+<div class="paragraph data-line-185">
 <p><code>Vuex</code> でデータ管理するので <code>/store/index.ts</code> にinterfaceを定義。</p>
 </div>
-<div class="listingblock data-line-186">
+<div class="listingblock data-line-189">
 <div class="title">/store/index.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">export interface ArticleData{
@@ -751,29 +755,29 @@ jobs:
 </div>
 </div>
 </div>
-<div class="sect1 data-line-198">
+<div class="sect1 data-line-201">
 <h2 id="_jestでテスト作成">5. Jestでテスト作成</h2>
 <div class="sectionbody">
-<div class="paragraph data-line-200">
+<div class="paragraph data-line-203">
 <p>データ構造の定義ができたら、Jestを使ってテストを作る。</p>
 </div>
-<div class="sect2 data-line-202">
+<div class="sect2 data-line-205">
 <h3 id="_typescrip型情報をinstall">5.1. Typescrip型情報をinstall</h3>
-<div class="paragraph data-line-204">
+<div class="paragraph data-line-207">
 <p>Typescriptで型定義したので、typescript用の型定義情報をインストールする。
 開発環境だけで使ってデプロイ先では必要ないので <code>--save-dev</code>でインストール</p>
 </div>
-<div class="listingblock data-line-207">
+<div class="listingblock data-line-210">
 <div class="content">
 <pre class="highlight"><code class="language-sh" data-lang="sh">npm i --save-dev @types/jest</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-211">
+<div class="paragraph data-line-214">
 <p><code>tsconfig.json</code> にも設定を追加する。
 デフォルトで <code>node_modules/@types</code> にある全ての型を読み込んでくれるが、nuxtが作ってくれる<code>tsconfig.json</code>は読み込むフォルダを指定してあるので、
 それにならって今回インストールしたJestの型情報も追加する。</p>
 </div>
-<div class="listingblock data-line-217">
+<div class="listingblock data-line-220">
 <div class="title">tsconfig.json</div>
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
@@ -788,17 +792,17 @@ jobs:
 </div>
 </div>
 </div>
-<div class="sect2 data-line-230">
+<div class="sect2 data-line-233">
 <h3 id="_testの作成">5.2. Testの作成</h3>
-<div class="paragraph data-line-232">
+<div class="paragraph data-line-235">
 <p>まずはとりあえず動くテストを作履帯ので、testフォルダの中に <code>article.spec.ts</code> を作成する。
 <code>.*\.spec\.(js|ts)$</code>となっているファイルをテストケースとして認識してくれる。</p>
 </div>
-<div class="paragraph data-line-235">
+<div class="paragraph data-line-238">
 <p>Describeでテストスイートを定義して、itでテストケースを定義する感じ。
 いわゆるビヘイビア駆動開発で使いやすいようになっている。動作(Behavior)を記述する(Describe it)、という自然言語として読めなくもないような形でテストコードを記述する。</p>
 </div>
-<div class="listingblock data-line-240">
+<div class="listingblock data-line-243">
 <div class="title">test/article.spec.ts</div>
 <div class="content">
 <pre class="highlight"><code class="language-typescript" data-lang="typescript">import { ArticleData } from '~/store/index'
@@ -820,55 +824,55 @@ describe('ArticleIFTest', () =&gt; {
 })</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-260">
+<div class="paragraph data-line-263">
 <p>Describeにもitにも関数を渡して記述する。itの中には<code>expect</code>を含んだテスト関数自身を記述し、describeの中には<code>it</code>関数や<code>beforeEach</code>関数などを呼んでテストの登録をする関数を記述する。</p>
 </div>
-<div class="paragraph data-line-262">
+<div class="paragraph data-line-265">
 <p>できたら</p>
 </div>
-<div class="listingblock data-line-263">
+<div class="listingblock data-line-266">
 <div class="content">
 <pre class="highlight"><code class="language-sh" data-lang="sh">npm run test</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-266">
+<div class="paragraph data-line-269">
 <p>でテストを実行する。</p>
 </div>
 </div>
-<div class="sect2 data-line-268">
+<div class="sect2 data-line-271">
 <h3 id="_vuecomponentveutiifyのテストを書く">5.3. VueComponent、Veutiifyのテストを書く</h3>
-<div class="paragraph data-line-270">
+<div class="paragraph data-line-273">
 <p>Jestのテストを作る事ができたので、Vuetifyを使ったVueのComponentのテストを書く。
 Vueのテストを書くためには<code>vue/test-utils</code>を使ってテストで使うためのVueオブジェクトを作成してあげる必要がある。</p>
 </div>
-<div class="paragraph data-line-273">
+<div class="paragraph data-line-276">
 <p>今回テストするページでは下記の機能を使うための準備が必要。</p>
 </div>
-<div class="ulist data-line-275">
+<div class="ulist data-line-278">
 <ul>
-<li class="data-line-275">
+<li class="data-line-278">
 <p>Vuetify</p>
 </li>
-<li class="data-line-276">
+<li class="data-line-279">
 <p>Vuex</p>
 </li>
-<li class="data-line-277">
+<li class="data-line-280">
 <p>VueRouter</p>
 </li>
 </ul>
 </div>
-<div class="paragraph data-line-279">
+<div class="paragraph data-line-282">
 <p>VuexとVueRouterはテスト定義の中でモックを宣言して使う。
 まずは<code>vue/test-utils</code>のcreateLocalVueヘルパーとshallow-mountを使ってテスト用のVueオブジェクトを作成する。</p>
 </div>
-<div class="paragraph data-line-282">
+<div class="paragraph data-line-285">
 <p>このビヘイビア内の全てのテストケースで使うので、Describeのスコープでテスト用Vueオブジェクトとしてwrapperを宣言する。
 BeforeEach関数の中でwrapperにモックとして作ったオブジェクトをマウントして各テストで使えるようにする。</p>
 </div>
-<div class="paragraph data-line-285">
+<div class="paragraph data-line-288">
 <p>マウントのUtil関数は <code>mount</code> と <code>shallow-mount</code> があるが、<code>shallow-mount</code> の方はvueテンプレートファイルをレンダリングした結果がスタブになる。単体テストとして、このファイルにあるscriptのロジックを確かめたいだけなので <code>shallow-mount</code> を利用した。</p>
 </div>
-<div class="listingblock data-line-289">
+<div class="listingblock data-line-292">
 <div class="title">test/default.spec.js</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">import { createLocalVue, shallowMount } from '@vue/test-utils'
@@ -918,25 +922,25 @@ describe('defaultLayout', () =&gt; {
 })</code></pre>
 </div>
 </div>
-<div class="sect3 data-line-337">
+<div class="sect3 data-line-340">
 <h4 id="_発生したエラー_2">5.3.1. 発生したエラー</h4>
-<div class="listingblock data-line-339">
+<div class="listingblock data-line-342">
 <div class="content">
 <pre class="highlight"><code>[Vue warn]: Unknown custom element: &lt;v-container&gt; - did you register the component correctly?</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-342">
+<div class="paragraph data-line-345">
 <p>VuetifyをUseしていないことが原因。 <code>localVue.Use(Veutify)</code> して、<code>shallowMount</code> でvuetifyオブジェクトをマウントしてあげたら直った。</p>
 </div>
 </div>
 </div>
-<div class="sect2 data-line-344">
+<div class="sect2 data-line-347">
 <h3 id="_vscodeでステップ実行する">5.4. VSCodeでステップ実行する</h3>
-<div class="paragraph data-line-346">
+<div class="paragraph data-line-349">
 <p>テストが書ける様になったので、VSCodeでステップ実行してデバッグできるようにする。
 Jestの公式ページ[<a href="https://jestjs.io/ja/docs/troubleshooting" class="undefined" data-href="https://jestjs.io/ja/docs/troubleshooting">https://jestjs.io/ja/docs/troubleshooting</a>]の指示に従って、<code>launch.json</code>にコンフィグを追加する。</p>
 </div>
-<div class="listingblock data-line-351">
+<div class="listingblock data-line-354">
 <div class="title">.vscode.launch.json</div>
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
@@ -958,21 +962,21 @@ Jestの公式ページ[<a href="https://jestjs.io/ja/docs/troubleshooting" class
 }</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-371">
+<div class="paragraph data-line-374">
 <p>やってることは <code>type</code> にnodeが設定してある通り、普通にNodeの実行をしているだけ。</p>
 </div>
-<div class="paragraph data-line-373">
+<div class="paragraph data-line-376">
 <p><code>runtimeArgs</code> でNodeに対して <code>--inspect-brk</code> でブレイクポイントを設定。
  実行するファイルはjest.jsを指定して、jestのオプションとして <code>-runInBand</code> でテストがシリアルに実行されるようにしている。</p>
 </div>
 </div>
-<div class="sect2 data-line-376">
+<div class="sect2 data-line-379">
 <h3 id="_coverageの計測対象設定">5.5. Coverageの計測対象設定</h3>
-<div class="paragraph data-line-378">
+<div class="paragraph data-line-381">
 <p>せっかくなのでカバレッジも計測できるようにする。
 <code>jest.config.js</code> にJestの設定を記述できるので、<code>collectCoverageFrom</code> プロパティを設定する。</p>
 </div>
-<div class="listingblock data-line-383">
+<div class="listingblock data-line-386">
 <div class="title">jest.config.js</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">module.exports = {
@@ -987,33 +991,33 @@ Jestの公式ページ[<a href="https://jestjs.io/ja/docs/troubleshooting" class
 </div>
 </div>
 </div>
-<div class="sect1 data-line-394">
+<div class="sect1 data-line-397">
 <h2 id="_ascii_docによるページをnuxtで表示する">6. Ascii DocによるページをNuxtで表示する</h2>
 <div class="sectionbody">
-<div class="paragraph data-line-396">
+<div class="paragraph data-line-399">
 <p>文章の多いページを頑張ってNuxtの中で書くのは大変なので、AsciiDocで書いた結果をそのまま表示したい。
 レイアウトを含めてそのまま使いたいので、タグなどをエスケープせずにhtmlの内容をそのまま展開してくれる <code>v-html</code> を使う。</p>
 </div>
-<div class="paragraph data-line-399">
+<div class="paragraph data-line-402">
 <p><code>static/articles</code> フォルダにAsciiDocから出よくしたhtmlを配置して、それを読み込んで表示してくれるページを作る。</p>
 </div>
-<div class="olist arabic data-line-401">
+<div class="olist arabic data-line-404">
 <ol class="arabic">
-<li class="data-line-401">
+<li class="data-line-404">
 <p>static/articlesにファイルを配置</p>
 </li>
-<li class="data-line-402">
+<li class="data-line-405">
 <p>pages/articles/_article.vue でファイル情報をクエリで受け取って動的に表示</p>
 </li>
-<li class="data-line-403">
+<li class="data-line-406">
 <p>Vuexで記事のタイトル、タグ、ファイルパスなどを管理</p>
 </li>
 </ol>
 </div>
-<div class="paragraph data-line-405">
+<div class="paragraph data-line-408">
 <p>というわけでこんなvueテンプレートファイルを作る。一応 <code>v-if</code>を使って読み込み中の表示も作った。</p>
 </div>
-<div class="listingblock data-line-408">
+<div class="listingblock data-line-411">
 <div class="title">pages/articles/_article.vue</div>
 <div class="content">
 <pre class="highlight"><code class="language-html" data-lang="html">&lt;template&gt;
@@ -1027,10 +1031,10 @@ Jestの公式ページ[<a href="https://jestjs.io/ja/docs/troubleshooting" class
 &lt;/template&gt;</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-420">
+<div class="paragraph data-line-423">
 <p>クエリに従ってhtmlファイルを読み込むスクリプトはこんな感じ。渡されたクエリは <code>this.$route.quety</code>でアクセスできる。</p>
 </div>
-<div class="listingblock data-line-423">
+<div class="listingblock data-line-426">
 <div class="title">pages/articles/_article.vue</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">export default {
@@ -1058,12 +1062,12 @@ Jestの公式ページ[<a href="https://jestjs.io/ja/docs/troubleshooting" class
 }</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-449">
+<div class="paragraph data-line-452">
 <p>ファイル名を <code>_article.vue</code> とアンダースコアで始めることで、パスをパラメータとして受け取るようにしてある。
 これをしないとクエリを変えてもNuxtが同じページだと判断してキャッシュから以前のパラメータで読み込んだ内容をそのまま表示してしまい、
 内容が切り替わらないことがあった。</p>
 </div>
-<div class="admonitionblock caution data-line-453">
+<div class="admonitionblock caution data-line-456">
 <table>
 <tr>
 <td class="icon">
@@ -1075,15 +1079,15 @@ v-htmlはタグなどをエスケープせずにそのまま展開するのでXS
 </tr>
 </table>
 </div>
-<div class="paragraph data-line-455">
+<div class="paragraph data-line-458">
 <p>クエリを渡すのは、 <code>to</code> に <code>path</code> プロパティと <code>query</code> プロパティを持つオブジェクトをバインドすれば良い。</p>
 </div>
-<div class="listingblock data-line-457">
+<div class="listingblock data-line-460">
 <div class="content">
 <pre class="highlight"><code class="language-html" data-lang="html">&lt;v-list-item :to="item.to"&gt;</code></pre>
 </div>
 </div>
-<div class="listingblock data-line-462">
+<div class="listingblock data-line-465">
 <div class="content">
 <pre>item: {
   to: {
@@ -1097,26 +1101,26 @@ v-htmlはタグなどをエスケープせずにそのまま展開するのでXS
 </div>
 </div>
 </div>
-<div class="sect1 data-line-473">
+<div class="sect1 data-line-476">
 <h2 id="_g_driveのファイルにリンクする">7. G-Driveのファイルにリンクする</h2>
 <div class="sectionbody">
-<div class="paragraph data-line-475">
+<div class="paragraph data-line-478">
 <p>Unreal Engineでつくったゲームを何処かで公開しようと想ったけど、何も考えずに適用にアセットを入れて作った結果容量が5GB以上になって、無料で公開できるページがあまり見つからなかったのでG-Driveを公開設定にして利用することにした。</p>
 </div>
-<div class="paragraph data-line-477">
+<div class="paragraph data-line-480">
 <p>ファイルの共有設定で「リンクを知っている人全員」にすると誰でもファイルがダウンロードできるようになる。
 Nuxtのページからをそこへのリンクを貼る。</p>
 </div>
-<div class="paragraph data-line-480">
+<div class="paragraph data-line-483">
 <p><a href="https://drive.google.com/file/d/1_7YZibLcYHlPam_pBbRBN-dDKUhFM2oa/view?usp=sharing" class="undefined" data-href="https://drive.google.com/file/d/1_7YZibLcYHlPam_pBbRBN-dDKUhFM2oa/view?usp=sharing">https://drive.google.com/file/d/1_7YZibLcYHlPam_pBbRBN-dDKUhFM2oa/view?usp=sharing</a></p>
 </div>
-<div class="paragraph data-line-482">
+<div class="paragraph data-line-485">
 <p>同じアプリ内のページであれば <code>to</code> にバインドすることでリンクできるが、外部サイトなので <code>href</code> にバインドする必要がある。</p>
 </div>
-<div class="paragraph data-line-484">
+<div class="paragraph data-line-487">
 <p><code>to</code> は不必要なリロードを行わない、など同一アプリ内でのリンクのためのプロパティなので使えない。</p>
 </div>
-<div class="listingblock data-line-487">
+<div class="listingblock data-line-490">
 <div class="content">
 <pre class="highlight"><code class="language-html" data-lang="html">&lt;v-card-actions&gt;
         &lt;v-btn class="ml-auto mt-auto white--text" href="https://drive.google.com/file/d/1_7YZibLcYHlPam_pBbRBN-dDKUhFM2oa/view?usp=sharing" depressed color="black"&gt;
@@ -1130,20 +1134,20 @@ Nuxtのページからをそこへのリンクを貼る。</p>
 </div>
 </div>
 </div>
-<div class="sect1 data-line-498">
+<div class="sect1 data-line-501">
 <h2 id="_記事の一覧をカテゴリとタグで検索できるようにする">8. 記事の一覧をカテゴリとタグで検索できるようにする</h2>
 <div class="sectionbody">
-<div class="paragraph data-line-500">
+<div class="paragraph data-line-503">
 <p>記事の一覧をテーブル表示して、カテゴリやタグで検索できるようにする。
 完成品ページはこんな感じ。</p>
 </div>
-<div class="paragraph data-line-503">
+<div class="paragraph data-line-506">
 <p><a href="https://zitherside.github.io/static-blog/list" class="undefined" data-href="https://zitherside.github.io/static-blog/list">https://zitherside.github.io/static-blog/list</a></p>
 </div>
-<div class="paragraph data-line-505">
+<div class="paragraph data-line-508">
 <p>選んだTagとCategoryでfilterするcomputedプロパティを作成し、<code>v-data-table</code> の <code>items</code> にバインドすれば、カテゴリとタグで検索できるようになる。</p>
 </div>
-<div class="listingblock data-line-508">
+<div class="listingblock data-line-511">
 <div class="content">
 <pre class="highlight"><code class="language-html" data-lang="html">&lt;v-data-table :headers="headers" :items="articles" :search="search" @click:row="jump"&gt;
       &lt;template #[`item.tags`]="{ item }"&gt;
@@ -1159,7 +1163,7 @@ Nuxtのページからをそこへのリンクを貼る。</p>
     &lt;/v-data-table&gt;</code></pre>
 </div>
 </div>
-<div class="listingblock data-line-524">
+<div class="listingblock data-line-527">
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">  computed: {
     articles () {
@@ -1170,13 +1174,13 @@ Nuxtのページからをそこへのリンクを貼る。</p>
   }</code></pre>
 </div>
 </div>
-<div class="paragraph data-line-534">
+<div class="paragraph data-line-537">
 <p>タグの検索もそうなのだが、比較対象が両方コンテナで、なにか一つでも互いに共通の要素があればtrue、という条件を書くときにいつも頭が混乱してしまう&#8230;&#8203;Intersectをとって要素が一つ以上あるか？という判定が良いんだろうか&#8230;&#8203;？</p>
 </div>
-<div class="paragraph data-line-537">
+<div class="paragraph data-line-540">
 <p>Intersectの例は <a href="https://2ality.com/2015/01/es6-set-operations.html" class="undefined" data-href="https://2ality.com/2015/01/es6-set-operations.html">https://2ality.com/2015/01/es6-set-operations.html</a> にこんなのが紹介されていたが、filter関数の中で一行で書けるようなわかりやすいイディオムはないものか&#8230;&#8203;</p>
 </div>
-<div class="listingblock data-line-538">
+<div class="listingblock data-line-541">
 <div class="content">
 <pre class="highlight"><code>let a = new Set([1,2,3]);
 let b = new Set([4,3,2]);
@@ -1188,7 +1192,7 @@ let intersection = new Set([...a].filter(x =&gt; b.has(x)));</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-27 12:53:02 +0900
+Last updated 2022-06-28 12:37:21 +0900
 </div>
 </div>
 </body>
