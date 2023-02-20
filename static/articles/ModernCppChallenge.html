@@ -1,0 +1,2350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.15">
+<title>Modern Cpp Chllengeを読んで調べてことを軽くまとめておく</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:50%;border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cpf, pre.rouge .c1 {
+  color: #888888;
+}
+pre.rouge .cp {
+  color: #cc0000;
+  font-weight: bold;
+}
+pre.rouge .cs {
+  color: #cc0000;
+  background-color: #fff0f0;
+  font-weight: bold;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #333333;
+}
+pre.rouge .gu {
+  color: #666666;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .ge {
+  font-style: italic;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gl {
+  color: #888888;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .k, pre.rouge .kc, pre.rouge .kd, pre.rouge .kn, pre.rouge .kr, pre.rouge .kv {
+  color: #008800;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #008800;
+}
+pre.rouge .kt {
+  color: #888888;
+  font-weight: bold;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0000dd;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sb, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .sh, pre.rouge .s1 {
+  color: #dd2200;
+  background-color: #fff0f0;
+}
+pre.rouge .sa {
+  color: #008800;
+  font-weight: bold;
+}
+pre.rouge .se {
+  color: #0044dd;
+  background-color: #fff0f0;
+}
+pre.rouge .si {
+  color: #3333bb;
+  background-color: #fff0f0;
+}
+pre.rouge .sx {
+  color: #22bb22;
+  background-color: #f0fff0;
+}
+pre.rouge .sr {
+  color: #008800;
+}
+pre.rouge .ss {
+  color: #aa6600;
+  background-color: #fff0f0;
+}
+pre.rouge .na {
+  color: #336699;
+}
+pre.rouge .nb, pre.rouge .bp {
+  color: #003388;
+}
+pre.rouge .nc {
+  color: #bb0066;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #003366;
+  font-weight: bold;
+}
+pre.rouge .nd {
+  color: #555555;
+}
+pre.rouge .ne {
+  color: #bb0066;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #0066bb;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #336699;
+}
+pre.rouge .nn {
+  color: #bb0066;
+  font-weight: bold;
+}
+pre.rouge .py {
+  color: #336699;
+  font-weight: bold;
+}
+pre.rouge .nt {
+  color: #bb0066;
+  font-weight: bold;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vm {
+  color: #336699;
+}
+pre.rouge .vg {
+  color: #dd7700;
+}
+pre.rouge .vi {
+  color: #3333bb;
+}
+pre.rouge .ow {
+  color: #008800;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+</style>
+</head>
+<body class="book">
+<div id="header">
+<h1>Modern Cpp Chllengeを読んで調べてことを軽くまとめておく</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_modern_cpp_challenge_bookについて">1. Modern Cpp Challenge Bookについて</a></li>
+<li><a href="#_本に詳しい解説はないので調べ直したもの">2. 本に詳しい解説はないので調べ直したもの</a>
+<ul class="sectlevel2">
+<li><a href="#_friend関数は演算子オーバーロードに便利">2.1. friend関数は演算子オーバーロードに便利</a></li>
+<li><a href="#_initialize_list型">2.2. initialize_list型</a></li>
+<li><a href="#_畳み込み式">2.3. 畳み込み式</a></li>
+<li><a href="#_explicitはキャストにもつけられる">2.4. explicitはキャストにもつけられる</a></li>
+<li><a href="#_リテラル演算子もオーバーロードできる">2.5. リテラル演算子もオーバーロードできる</a></li>
+<li><a href="#_io_basesetf_で書式設定できる">2.6. io_base::setf で書式設定できる</a></li>
+<li><a href="#_char_traitsとallocator_を使うことで独自のstring型を作れる">2.7. char_traitsとallocator を使うことで独自のstring型を作れる</a></li>
+<li><a href="#_regexのmatchは型ごとにエイリアスが定義済み">2.8. regexのmatchは型ごとにエイリアスが定義済み</a></li>
+<li><a href="#_正規表現のマッチを表すイテレータ_regex_iterator">2.9. 正規表現のマッチを表すイテレータ <code>*regex_iterator</code></a></li>
+<li><a href="#_正規表現のテストができる便利なサイト">2.10. 正規表現のテストができる便利なサイト</a></li>
+<li><a href="#_optional型">2.11. optional型</a></li>
+<li><a href="#_filesystemのあれこれ">2.12. filesystemのあれこれ</a></li>
+<li><a href="#_テンプレート引数で受け取った呼び出し可能なオブジェクトは実際の型によらず_invoke_で実行できる">2.13. テンプレート引数で受け取った呼び出し可能なオブジェクトは実際の型によらず <code>invoke</code> で実行できる</a></li>
+<li><a href="#_iso_week_day_閏週歴">2.14. <code>iso week day</code> 閏週歴</a></li>
+<li><a href="#_スタンダードレイアウトな型標準レイアウトな型">2.15. スタンダードレイアウトな型、標準レイアウトな型</a></li>
+<li><a href="#_stdlessはファンクター関数オブジェクト">2.16. std::lessはファンクター(関数オブジェクト)</a></li>
+<li><a href="#_vectorなどコンテナの型情報はvectorvalue_typeなどで取得できる">2.17. vectorなどコンテナの型情報はvector::value_typeなどで取得できる</a></li>
+<li><a href="#_make_heap_push_heap_pop_heap_でヒープ木構造優先度付きキューが作れる">2.18. <code>make_heap</code> <code>push_heap</code> <code>pop_heap</code> でヒープ木構造(優先度付きキュー)が作れる</a></li>
+<li><a href="#_自作のコンテナのiteratorの種類をiterator_tagとして定義することで既存のstlの実装で適切に特殊家してくれる">2.19. 自作のコンテナのiteratorの種類をiterator_tagとして定義することで、既存のSTLの実装で適切に特殊家してくれる</a></li>
+<li><a href="#_後置修飾インクリメントのoperatorオーバーロードは_operaotrint">2.20. 後置修飾インクリメントのOperatorオーバーロードは <code>operaotr++(int)</code></a></li>
+<li><a href="#_本当のアドレスを取得する_addressof">2.21. 本当のアドレスを取得する addressof</a></li>
+<li><a href="#_pythonの_range_みたいな関数_stdiota">2.22. pythonの <code>range</code> みたいな関数 <code>std::iota</code></a></li>
+<li><a href="#_javascriptの分割代入はcでは構造化束縛と呼ばれる">2.23. Javascriptの分割代入はC++では構造化束縛と呼ばれる</a></li>
+<li><a href="#_コンテナの中身の順列を虱潰しに走査するには_next_permutation_が利用できる">2.24. コンテナの中身の順列を虱潰しに走査するには <code>next_permutation</code> が利用できる</a></li>
+<li><a href="#_コンテナの中身の順番を左回転させるには_rotate_が利用できる">2.25. コンテナの中身の順番を左回転させるには <code>rotate</code> が利用できる</a></li>
+<li><a href="#_イテレータ破壊を防ぐために挿入イテレータを利用する">2.26. イテレータ破壊を防ぐために挿入イテレータを利用する</a></li>
+<li><a href="#_stddecayによってテンプレート引数として渡された型を取り扱いやすい型に変換できる">2.27. std::decayによってテンプレート引数として渡された型を取り扱いやすい型に変換できる</a></li>
+<li><a href="#_指定した個数の要素を生成する_generate_generate_n">2.28. 指定した個数の要素を生成する generate, generate_n</a></li>
+<li><a href="#_参照をコンテナに格納できる_reference_wrapper">2.29. 参照をコンテナに格納できる reference_wrapper</a></li>
+<li><a href="#_コンソールのクリアは_cls_コマンド">2.30. コンソールのクリアは cls コマンド</a></li>
+<li><a href="#_iter_swap_distance_advance">2.31. iter_swap, distance, advance</a></li>
+<li><a href="#_並列処理のスレッド数の目安として_threadhardware_concurrency_が利用できる">2.32. 並列処理のスレッド数の目安として thread::hardware_concurrency が利用できる</a></li>
+<li><a href="#_typenameとclass_識別子は同じ意味だが型であることが確定できない場合は_typename_を付ける必要がある">2.33. typenameとclass 識別子は同じ意味だが型であることが確定できない場合は typename を付ける必要がある</a></li>
+<li><a href="#_優先度付きキューは_stdpriority_queue_として用意されている">2.34. 優先度付きキューは std::priority_queue として用意されている</a></li>
+<li><a href="#_順番のある処理を準備側と処理側で非同期に実行するときに_condition_variable_が利用できる">2.35. 順番のある処理を準備側と処理側で非同期に実行するときに <code>condition_variable</code> が利用できる</a></li>
+<li><a href="#_使ってる関数fが例外を投げないなら自分も例外を投げないは_noexcpectnoexceptf_で表せる">2.36. 使ってる関数fが例外を投げないなら、自分も例外を投げない、は noexcpect(noexcept(f)) で表せる</a></li>
+<li><a href="#_属性で戻り値の破棄を警告することができる">2.37.  属性で戻り値の破棄を警告することができる</a></li>
+<li><a href="#_xmlの要素を構造から指定する文法_xpath">2.38. XMLの要素を構造から指定する文法 XPath</a></li>
+<li><a href="#_jsonパースライブラリのベンチマーク">2.39. JSONパースライブラリのベンチマーク</a></li>
+<li><a href="#_nlohmanjson_は_to_json_from_jsonを実装すると_json型とやり取りできるようになる">2.40. nlohmanjson は to_json, from_jsonを実装すると json型とやり取りできるようになる</a></li>
+<li><a href="#_cmakeで_setlocalに失敗してたら管理者権限で実行">2.41. CMakeで setlocalに失敗してたら管理者権限で実行</a></li>
+<li><a href="#_lnk2038mismatch_detected_for_iterator_debug_level_value_0_doesnt_match_value_2">2.42. LNK2038	mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn&#8217;t match value '2'</a></li>
+<li><a href="#_isoで標準化されているpdfフォーマットはver_1_7">2.43. ISOで標準化されているPDFフォーマットはver. 1.7</a></li>
+<li><a href="#_osエラーは_stderror_code">2.44. OSエラーは std::error_code</a></li>
+<li><a href="#_relative_path_で相対パスとしてパスを取り出せる">2.45. relative_path で相対パスとしてパスを取り出せる</a></li>
+<li><a href="#_stdbitset_で数値をバイナリ表現にできる">2.46. std::bitset で数値をバイナリ表現にできる。</a></li>
+<li><a href="#_sqliteをcであつかう_sqlite_modern_cpp">2.47. sqliteをC++であつかう sqlite_modern_cpp</a></li>
+<li><a href="#_標準入力バッファに残っているデータを捨てるのは_cin_igonore">2.48. 標準入力バッファに残っているデータを捨てるのは <code>cin.igonore</code></a></li>
+<li><a href="#_tellg_tellp_seekg_seekp">2.49. tellg, tellp, seekg, seekp</a></li>
+<li><a href="#_aes_advanced_encryption_standard">2.50. AES: Advanced Encryption Standard</a></li>
+<li><a href="#_ハッシュ値からもとのパスワードを類推することを難しくするためにパスワードにソルトを付与する">2.51. ハッシュ値からもとのパスワードを類推することを難しくするためにパスワードにソルトを付与する</a></li>
+<li><a href="#_署名検証と暗号復号">2.52. 署名検証と暗号復号</a></li>
+<li><a href="#_thisポインターを_shared_ptr_にできる_enable_shared_from_this">2.53. thisポインターを shared_ptr にできる enable_shared_from_this</a></li>
+<li><a href="#_string_view_は_span">2.54. string_view は span</a></li>
+<li><a href="#_wstring_convert_など_codecvt_は非推奨になった">2.55. wstring_convert など codecvt は非推奨になった</a></li>
+<li><a href="#_streamへのlocale設定には_ios_baseimbue_を使う">2.56. Streamへのlocale設定には ios_base::imbue を使う</a></li>
+<li><a href="#_未定義のデータは_content_typeapplicationoctet_stream_で渡す">2.57. 未定義のデータは Content-Type:application/octet-stream で渡す</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_modern_cpp_challenge_bookについて">1. Modern Cpp Challenge Bookについて</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>問題と解答が載っている本だが、サンプルコード集として利用できた。
+コードやライブラリの概要の説明と実際に動くコードが書いてあるので、自分で書いてみて試すことができる。</p>
+</div>
+<div class="paragraph">
+<p>なにかのAPIの仕様を理解するには、APIの概念説明を読んだ上で
+そのAPIが行う最もシンプルなタスクを書いてみるのが一番なので、その点でわかりやすい本だった。</p>
+</div>
+<div class="paragraph">
+<p>ただ、周辺の細かい説明については記述がないこともあるので、その点は自分で調べる必要があった。
+知らなかったことやなんとなく使っていたものなどを調べる良い機会になった。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_本に詳しい解説はないので調べ直したもの">2. 本に詳しい解説はないので調べ直したもの</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_friend関数は演算子オーバーロードに便利">2.1. friend関数は演算子オーバーロードに便利</h3>
+<div class="paragraph">
+<p>friend関数はクラス内に書くことができて、クラスのprivateメンバにアクセスできる。
+でもメンバ関数ではないのでthisへの参照はない。</p>
+</div>
+<div class="paragraph">
+<p><code>Instance.function()</code> と書きたくないけど、privateメンバにアクセスしたときに使う。
+OperatorのOverloadなどで利用すると良い感じ。</p>
+</div>
+<div class="paragraph">
+<p>二項演算子のOperatorの場合は呼び出す側はあまり変わらないけど、暗黙の引数 <code>this</code> と仮引数 <code>other</code> を比べるよりも、
+両方のオペランドを明示的に仮引数で受け取ったほうがわかりやすい&#8230;&#8203;と思う。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">class</span> <span class="nc">MyClass</span><span class="p">{</span>
+<span class="nl">private:</span>
+  <span class="kt">int</span> <span class="n">value_</span><span class="p">;</span>
+<span class="nl">public:</span>
+  <span class="k">friend</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">MyClass</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="k">const</span> <span class="n">MyClass</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">){</span><span class="k">return</span> <span class="n">left</span><span class="p">.</span><span class="n">value_</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">value_</span><span class="p">;}</span>
+<span class="p">};</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_initialize_list型">2.2. initialize_list型</h3>
+<div class="paragraph">
+<p>Universal Initializer <code>{}</code> で受け取った引数にアクセスするための型。
+自分で書いたクラスを Universal Initializerに対応させたいときに使う。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_畳み込み式">2.3. 畳み込み式</h3>
+<div class="paragraph">
+<p><code>&#8230;&#8203;</code> で可変長テンプレート変数を畳み込み式を展開できる。
+こういう記号系の文法は検索性が悪いので、<code>畳み込み式</code> という名前がわかったことも良かった。</p>
+</div>
+<div class="paragraph">
+<p>左右から畳み込み可能で <code>&#8230;&#8203; (op) args</code> なら <code>((arg1 op arg2) op arg3) &#8230;&#8203;</code> と展開される</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="o">...</span> <span class="nc">Args</span><span class="p">&gt;</span>
+<span class="kt">int</span> <span class="nf">sum</span><span class="p">(</span><span class="n">Args</span><span class="p">...</span> <span class="n">args</span><span class="p">){</span>
+  <span class="k">return</span> <span class="p">(...</span> <span class="o">+</span> <span class="n">args</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_explicitはキャストにもつけられる">2.4. explicitはキャストにもつけられる</h3>
+<div class="paragraph">
+<p><code>explicit</code> は引数が一つのコンストラクタにつけることで、暗黙のキャストとして扱うことを禁止できるが、
+キャストにもつけられる。</p>
+</div>
+<div class="paragraph">
+<p>コンストラクタにしか使ったことないけど、キャストを自分で定義してそこそこ計算量がある場合は暗黙に実行されないように <code>explicit</code> をつけられるみたい。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">value_</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="k">explicit</span> <span class="k">operator</span> <span class="kt">int</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">value_</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">MyClass</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">//OK</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">MyClass</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">//NG</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_リテラル演算子もオーバーロードできる">2.5. リテラル演算子もオーバーロードできる</h3>
+<div class="paragraph">
+<p><code>1u</code> とか <code>0.1f</code> みたいにリテラルの後ろに書く <code>u</code> とか <code>f</code> はリテラル演算子と呼ばれる。
+これもオーバーロードできる。</p>
+</div>
+<div class="paragraph">
+<p>本書では浮動小数リテラルから自作の温度型 <code>celsius</code> , <code>fahrenheit</code> , <code>kelvin</code> のリテラルをつくるリテラル演算子 <code>_deg</code> , <code>_f</code> , <code>_k</code> を定義していた。</p>
+</div>
+<div class="paragraph">
+<p>浮動少数リテラルにつけて使うリテラル演算子は、引数を <code>long double</code> の型として受け取る</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">constexpr</span> <span class="n">quantity</span><span class="o">&lt;</span><span class="n">scale</span><span class="o">::</span><span class="n">celsius</span><span class="o">&gt;</span> <span class="k">operator</span> <span class="s">""</span><span class="n">_deg</span><span class="p">(</span><span class="kt">long</span> <span class="kt">double</span> <span class="k">const</span> <span class="n">amount</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">quantity</span><span class="o">&lt;</span><span class="n">scale</span><span class="o">::</span><span class="n">celsius</span><span class="o">&gt;</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">amount</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">constexpr</span> <span class="n">quantity</span><span class="o">&lt;</span><span class="n">scale</span><span class="o">::</span><span class="n">kelvin</span><span class="o">&gt;</span> <span class="k">operator</span> <span class="s">""</span><span class="n">_f</span><span class="p">(</span><span class="kt">long</span> <span class="kt">double</span> <span class="k">const</span> <span class="n">amount</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">quantity</span><span class="o">&lt;</span><span class="n">scale</span><span class="o">::</span><span class="n">kelvin</span><span class="o">&gt;</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">amount</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">constexpr</span> <span class="n">quantity</span><span class="o">&lt;</span><span class="n">scale</span><span class="o">::</span><span class="n">fahrenheit</span><span class="o">&gt;</span> <span class="k">operator</span> <span class="s">""</span><span class="n">_k</span><span class="p">(</span><span class="kt">long</span> <span class="kt">double</span> <span class="k">const</span> <span class="n">amount</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">quantity</span><span class="o">&lt;</span><span class="n">scale</span><span class="o">::</span><span class="n">fahrenheit</span><span class="o">&gt;</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">amount</span><span class="p">));</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_io_basesetf_で書式設定できる">2.6. io_base::setf で書式設定できる</h3>
+<div class="paragraph">
+<p><code>iostream</code> で表示するときに数値の0詰めなどの書式を設定できる。
+これは <code>io_base</code> にあるけど <code>setw</code> は <code>iominip</code> にある。</p>
+</div>
+<div class="paragraph">
+<p>boolを文字列表示できる <code>boolalpha</code> は <code>ios</code> にある。</p>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;なぜこんなにばらけているのだろう&#8230;&#8203;？</p>
+</div>
+<div class="paragraph">
+<p>バイト配列を16進表記文字列にするサンプル。setfで大文字化、setwとsetfillで2文字の0詰めにしている。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;iomanip&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">Iter</span><span class="p">&gt;</span>
+<span class="n">string</span> <span class="nf">bytes_to_hexstr</span><span class="p">(</span><span class="n">Iter</span> <span class="n">begin</span><span class="p">,</span> <span class="n">Iter</span> <span class="n">end</span><span class="p">,</span> <span class="kt">bool</span> <span class="k">const</span> <span class="n">uppercase</span> <span class="o">=</span> <span class="nb">false</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">ostringstream</span> <span class="n">oss</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">uppercase</span><span class="p">)</span> <span class="n">oss</span><span class="p">.</span><span class="n">setf</span><span class="p">(</span><span class="n">ios_base</span><span class="o">::</span><span class="n">uppercase</span><span class="p">);</span>
+	<span class="k">for</span> <span class="p">(;</span> <span class="n">begin</span> <span class="o">!=</span> <span class="n">end</span><span class="p">;</span> <span class="o">++</span><span class="n">begin</span><span class="p">)</span>
+		<span class="n">oss</span> <span class="o">&lt;&lt;</span> <span class="n">hex</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">setfill</span><span class="p">(</span><span class="sc">'0'</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">begin</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">oss</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">C</span><span class="p">&gt;</span>
+<span class="n">string</span> <span class="n">bytes_to_hexstr</span><span class="p">(</span><span class="n">C</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">c</span><span class="p">,</span> <span class="kt">bool</span> <span class="k">const</span> <span class="n">uppercase</span> <span class="o">=</span> <span class="nb">false</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="n">bytes_to_hexstr</span><span class="p">(</span><span class="n">cbegin</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">cend</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">uppercase</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">bytes_to_hexstr</span><span class="p">(</span><span class="n">vector</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">},</span> <span class="nb">true</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_char_traitsとallocator_を使うことで独自のstring型を作れる">2.7. char_traitsとallocator を使うことで独自のstring型を作れる</h3>
+<div class="paragraph">
+<p><code>char_traits</code> は <code>basic_string</code> で利用する型情報や関数を備えたトレイト。
+<code>char</code> , <code>char8_t</code> , <code>wchar_t</code> など基本的なchar型に対して特殊化されたものが定義済み。</p>
+</div>
+<div class="paragraph">
+<p><code>allocator</code> はメモリ確保のトレイト。要するに普通にnewしてくれる。
+自分でメモリプールなど用意して、そこから確保してほしいときなどに、こんな感じで自分で <code>allocator</code> トレイトを実装して使う。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">PoolAllocator</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">pooledVector</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>本書では独自のstring型を作るのではなく、任意の <code>base_string</code> から派生した型に対する <code>split</code> 関数を定義するために利用していた。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Elem</span><span class="p">&gt;</span>
+<span class="k">using</span> <span class="n">tstring</span> <span class="o">=</span> <span class="n">basic_string</span><span class="o">&lt;</span><span class="n">Elem</span><span class="p">,</span> <span class="n">char_traits</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">allocator</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Elem</span><span class="p">&gt;</span>
+<span class="k">using</span> <span class="n">tstringstream</span> <span class="o">=</span> <span class="n">basic_stringstream</span><span class="o">&lt;</span><span class="n">Elem</span><span class="p">,</span> <span class="n">char_traits</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">allocator</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Elem</span><span class="p">&gt;</span>
+<span class="kr">inline</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">tstring</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;&gt;</span> <span class="n">split</span><span class="p">(</span><span class="n">tstring</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;</span> <span class="n">text</span><span class="p">,</span> <span class="n">Elem</span> <span class="k">const</span> <span class="n">delimiter</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">auto</span> <span class="n">sstr</span> <span class="o">=</span> <span class="n">tstringstream</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;</span><span class="p">{</span> <span class="n">text</span> <span class="p">};</span>
+	<span class="k">auto</span> <span class="n">tokens</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">tstring</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;&gt;</span><span class="p">{};</span>
+	<span class="k">auto</span> <span class="n">token</span> <span class="o">=</span> <span class="n">tstring</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;</span><span class="p">{};</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">sstr</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">))</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">token</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="n">tokens</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">token</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">tokens</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Elem</span><span class="p">&gt;</span>
+<span class="kr">inline</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">tstring</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;&gt;</span> <span class="n">split</span><span class="p">(</span><span class="n">tstring</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;</span> <span class="n">text</span><span class="p">,</span> <span class="n">tstring</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">delimiters</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">auto</span> <span class="n">tokens</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">tstring</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;&gt;</span><span class="p">{};</span>
+	<span class="kt">size_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">prev_pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">((</span><span class="n">pos</span> <span class="o">=</span> <span class="n">text</span><span class="p">.</span><span class="n">find_first_of</span><span class="p">(</span><span class="n">delimiters</span><span class="p">,</span> <span class="n">prev_pos</span><span class="p">))</span> <span class="o">!=</span> <span class="n">tstring</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;::</span><span class="n">npos</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">pos</span> <span class="o">&gt;</span> <span class="n">prev_pos</span><span class="p">)</span>
+			<span class="n">tokens</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">text</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">prev_pos</span><span class="p">,</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">prev_pos</span><span class="p">));</span>
+		<span class="n">prev_pos</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">prev_pos</span> <span class="o">&lt;</span> <span class="n">text</span><span class="p">.</span><span class="n">length</span><span class="p">())</span>
+		<span class="n">tokens</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">text</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">prev_pos</span><span class="p">,</span> <span class="n">tstring</span><span class="o">&lt;</span><span class="n">Elem</span><span class="o">&gt;::</span><span class="n">npos</span><span class="p">));</span>
+	<span class="k">return</span> <span class="n">tokens</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>テンプレートパラメータ <code>Elem</code> をもとに <code>char_traits</code> を作ってbase_stringにわたす型をわざわざ定義している。
+<code>base_string</code> がスーパークラスなのだから、そのまま下記のようにbase_stringを引数や戻り値としてIFとして書いてしまえば良いと思うが、
+そうすると、delimiterとtextの実体の型があっていなくてもコンパイルできてしまったり、戻り値の実体の型を決めるために関数内でtextの型を動的に調べなければいけなくなってしまう。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="kr">inline</span> <span class="n">base_string</span> <span class="n">split</span><span class="p">(</span><span class="n">base_string</span> <span class="n">text</span><span class="p">,</span> <span class="n">base_string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">elimiter</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_regexのmatchは型ごとにエイリアスが定義済み">2.8. regexのmatchは型ごとにエイリアスが定義済み</h3>
+<div class="paragraph">
+<p>正規表現 <code>regex</code> は <code>char</code> <code>string</code> <code>wstring</code> などに使えるが、その結果の型 <code>match_results&lt;T&gt;</code> は
+エイリアスとして <code>cmatch</code> <code>smatch</code> <code>wmatch</code> などが定義されている。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_正規表現のマッチを表すイテレータ_regex_iterator">2.9. 正規表現のマッチを表すイテレータ <code>*regex_iterator</code></h3>
+<div class="paragraph">
+<p>正規表現検索は複数の結果がマッチする。その結果を示すイテレータ。
+<code>match</code> と同じようにそれぞれの型に対応するエイリアスが定義済み。</p>
+</div>
+<div class="paragraph">
+<p>イテレータの終端は普通のコンテナだと <code>vec.cend()</code> みたいに取得するが、正規表現マッチのイテレータは
+引数なしで作成したイテレータ <code>sregex_iterator()</code> が終端イテレータになる。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">regex</span> <span class="nf">rx</span><span class="p">(</span><span class="s">R"(([A-Z]{3}-[A-Z]{2} \d{3,4})*)"</span><span class="p">);</span>
+<span class="n">smatch</span> <span class="n">match</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">results</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="n">sregex_iterator</span><span class="p">(</span><span class="n">cbegin</span><span class="p">(</span><span class="n">str</span><span class="p">),</span> <span class="n">cend</span><span class="p">(</span><span class="n">str</span><span class="p">),</span> <span class="n">rx</span><span class="p">);</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">sregex_iterator</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">i</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="n">matched</span><span class="p">)</span>
+		<span class="n">results</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">());</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="n">results</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_正規表現のテストができる便利なサイト">2.10. 正規表現のテストができる便利なサイト</h3>
+<div class="paragraph">
+<p><a href="https://regex101.com/" class="bare">https://regex101.com/</a></p>
+</div>
+<div class="paragraph">
+<p>実際は手元のVSCodeで捺さットテストすることが多いが、一致したキャプチャグループの情報とかも
+詳しく表示してくれるので「なんかうまくいかない&#8230;&#8203;」みたいな感じになったら使うと便利な気がする。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_optional型">2.11. optional型</h3>
+<div class="paragraph">
+<p>ポインタの場合は未初期化を明示的に表すために <code>nullptr</code> が利用できる。
+実体のある通常の変数は未初期化は0や-1などの適当な値でごまかすしかなかった。</p>
+</div>
+<div class="paragraph">
+<p>C++17では「値、もしくは <code>nullopt</code> 」を設定できる <code>optional</code> 型が導入された。
+MaybeモナドやRustのResult Enumみたいな感じ。</p>
+</div>
+<div class="paragraph">
+<p><code>optional</code> 型から値を取り出す際にフォールバック値を設定することも可能。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">optional</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="n">value_or</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>  <span class="c1">//未初期化なら-1が帰ってくる</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_filesystemのあれこれ">2.12. filesystemのあれこれ</h3>
+<div class="paragraph">
+<p>なんとなく毎回適当にググって使ってた <code>filesystem</code> について整理できた。
+特に <code>out</code> と <code>trunc</code> の違いが適当だったのをちゃんと確認できた。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>outとtrunc</p>
+<div class="ulist">
+<ul>
+<li>
+<p>どちらも古い内容を捨てて書き込みするオープンの指定子</p>
+</li>
+<li>
+<p>outはファイルを書き込むときに内容を削除する</p>
+</li>
+<li>
+<p>truncはファイルを開いたときに削除する</p>
+</li>
+<li>
+<p>失敗したときにもとの内容を保持したいなら <code>out</code></p>
+</li>
+<li>
+<p>新しいタスクを始めた次点で古いファイルの内容の意味がなくなるなら <code>trunc</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>path::native()</p>
+<div class="ulist">
+<ul>
+<li>
+<p>実行中OSのネイティブ形式でのパス文字列が取得できる</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>temp_directory_path()</p>
+<div class="ulist">
+<ul>
+<li>
+<p>実行中OSのtempディレクトリが取得できる</p>
+</li>
+<li>
+<p>こんな感じで一時ファイルパスを作る</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>auto temppath = fs::temp_directory_path() / filepath.filename();</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>ateとapp</p>
+<div class="ulist">
+<ul>
+<li>
+<p>どっちも古い内容に加えて追加書き込みするオープンの指定子</p>
+</li>
+<li>
+<p>ateは <code>at the end</code> の略. eat ate eatenのateではない&#8230;&#8203;</p>
+</li>
+<li>
+<p>appはappend</p>
+</li>
+<li>
+<p>appは後ろに戻れないけど、ateは後ろに戻って書き直すことができる</p>
+</li>
+<li>
+<p>ateで開くとファイル末尾にストリームがあるので`tellg` で現在の読み取り位置を取得すれば現在のファイルサイズがわかる</p>
+<div class="ulist">
+<ul>
+<li>
+<p>特に書き込む必要がなくてファイルサイズが知りたいだけなら <code>filesystem::file_size()</code> で良い</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>fs::rename()</p>
+<div class="ulist">
+<ul>
+<li>
+<p>moveもこれで行う</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>recursive_directory_iterator</p>
+<div class="ulist">
+<ul>
+<li>
+<p>ディレクトリのイテレータ</p>
+</li>
+<li>
+<p><code>regex_iterator</code> と同じノリでディレクトリが含むファイルや子ディレクトリを列挙してくれる。ファイル探索がめっちゃ楽</p>
+<div class="ulist">
+<ul>
+<li>
+<p>iteratorの指し示す先は <code>directory_entry</code> 型</p>
+</li>
+<li>
+<p>copy_ifとかで <code>begin</code> <code>end</code> で渡すなら <code>end</code> は引数なしでイテレータを作れば良い(これも <code>regex_iterator</code> と同じ)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">p</span> <span class="o">:</span> <span class="n">fs</span><span class="o">::</span><span class="n">recursive_directory_iterator</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="p">{</span>
+	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"in "</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">path</span><span class="p">().</span><span class="n">string</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">fs</span><span class="o">::</span><span class="n">is_directory</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="p">{</span>
+		<span class="c1">//directory</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">fs</span><span class="o">::</span><span class="n">is_regular_file</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="p">{</span>
+		<span class="c1">//file</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="n">fs</span><span class="o">::</span><span class="n">directory_entry</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+<span class="n">copy_if</span><span class="p">(</span><span class="n">fs</span><span class="o">::</span><span class="n">recursi</span>	<span class="n">vector</span><span class="o">&lt;</span><span class="n">fs</span><span class="o">::</span><span class="n">directory_entry</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+	<span class="p">[</span><span class="o">&amp;</span><span class="n">rx</span><span class="p">](</span><span class="n">fs</span><span class="o">::</span><span class="n">directory_entry</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">entry</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">fs</span><span class="o">::</span><span class="n">is_regular_file</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">())</span> <span class="o">&amp;&amp;</span> <span class="n">std</span><span class="o">::</span><span class="n">regex_match</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">().</span><span class="n">filename</span><span class="p">().</span><span class="n">string</span><span class="p">(),</span> <span class="n">rx</span><span class="p">);</span>
+<span class="p">});</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_テンプレート引数で受け取った呼び出し可能なオブジェクトは実際の型によらず_invoke_で実行できる">2.13. テンプレート引数で受け取った呼び出し可能なオブジェクトは実際の型によらず <code>invoke</code> で実行できる</h3>
+<div class="paragraph">
+<p>関数、メンバ関数、function型の変数、関数オブジェクト(Functor)、などC++では <code>Foo()</code> の形で呼び出せるオブジェクトが何種類も存在する。
+これらを一様に同じ操作で呼び出すのが <code>invoke</code> 。本書では処理時間を計測するためのヘルパー関数で、任意の呼び出し可能なオブジェクトを設定できるようにするために使っていた。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">Time</span> <span class="o">=</span> <span class="n">microseconds</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">Clock</span> <span class="o">=</span> <span class="n">high_resolution_clock</span><span class="p">&gt;</span>
+<span class="k">struct</span> <span class="nc">perf_timer</span> <span class="p">{</span>
+	<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">F</span><span class="p">,</span> <span class="k">typename</span><span class="o">...</span> <span class="nc">Args</span><span class="p">&gt;</span>
+	<span class="k">static</span> <span class="n">Time</span> <span class="n">duration</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">auto</span> <span class="n">start</span> <span class="o">=</span> <span class="n">Clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+		<span class="n">invoke</span><span class="p">(</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
+		<span class="k">auto</span> <span class="n">end</span> <span class="o">=</span> <span class="n">Clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+
+		<span class="k">return</span> <span class="n">duration_cast</span><span class="o">&lt;</span><span class="n">Time</span><span class="o">&gt;</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">auto</span> <span class="n">t1</span> <span class="o">=</span> <span class="n">perf_timer</span><span class="o">&lt;</span><span class="n">microseconds</span><span class="o">&gt;::</span><span class="n">duration</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"t1: "</span> <span class="o">&lt;&lt;</span> <span class="n">t1</span><span class="p">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_iso_week_day_閏週歴">2.14. <code>iso week day</code> 閏週歴</h3>
+<div class="paragraph">
+<p><a href="https://github.com/HowardHinnant/date">こちら</a>にある <code>data.h</code> で <code>week_day</code> というカレンダーを扱う型がある。</p>
+</div>
+<div class="paragraph">
+<p>week dayは閏週歴のこと。閏週歴とは「一年を364日という7の倍数にして、一年をぴったり52週間にしましょう。
+かわりに数年に一度閏週を追加して調整しましょう」というカレンダー。</p>
+</div>
+<div class="paragraph">
+<p>毎年曜日と日にちが一致するあたりがメリット。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_スタンダードレイアウトな型標準レイアウトな型">2.15. スタンダードレイアウトな型、標準レイアウトな型</h3>
+<div class="paragraph">
+<p>ざっくりとメンバの宣言順にメモリ上に配置される型のこと。以下のことなどをするとスタンダードレイアウトでなくなる</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>仮想関数をもつ</p>
+<div class="ulist">
+<ul>
+<li>
+<p>v_tableが挿入されるのでメモリ配置がかずれる</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>継承する</p>
+<div class="ulist">
+<ul>
+<li>
+<p>スーパークラスのメンバが挿入されるのでメモリ配置がずれる</p>
+</li>
+<li>
+<p>EBO (Empty Base Optimization)が効くので空のクラスの継承ならコンパイラはメモリ上に何も挿入しないのでスタンダードレイアウトのままになる</p>
+<div class="ulist">
+<ul>
+<li>
+<p>C++のオブジェクトは絶対にアドレスが取得できなければならないので、普通は殻のオブジェクトでも何らかのメモリ上のサイズを専有する。EBOとは継承すると継承先のデータがメモリ上に確保されるようになるのでアドレスを割り当てるために空のクラスのダミーの領域を専有する必要がなくなり、スーパークラスのメモリ上のサイズが０になること</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>標準レイアウトだとかならず連続領域に確保されたり、オブジェクトのアドレスと先頭メンバのアドレスが一致したりするが、
+それによって何が嬉しいのかはよくわかっていない&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>多分メモリ領域を直接操作するようなアルゴリズムに関数を特殊化するときや、他の言語とのABIを守らなければ行けない関数の <code>concept</code> とかで利用するのかな？</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stdlessはファンクター関数オブジェクト">2.16. std::lessはファンクター(関数オブジェクト)</h3>
+<div class="paragraph">
+<p>いままでなんとなく <code>sort</code> とかに渡してた <code>less</code> だけど、 <code>operator()</code> オーバーロードしたファンクターで、
+オペランドの型と返り値の型(bool) を保持している。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vectorなどコンテナの型情報はvectorvalue_typeなどで取得できる">2.17. vectorなどコンテナの型情報はvector::value_typeなどで取得できる</h3>
+<div class="paragraph">
+<p>vectorなどSTLのコンテナはvalue_typeやreference_typeを使えばテンプレート引数で実体化された型情報を取り出すことができる。
+STLコンテナをラップした自前のクラスを作るときなどに便利。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_make_heap_push_heap_pop_heap_でヒープ木構造優先度付きキューが作れる">2.18. <code>make_heap</code> <code>push_heap</code> <code>pop_heap</code> でヒープ木構造(優先度付きキュー)が作れる</h3>
+<div class="paragraph">
+<p>ここでいうヒープ木はデータ構造の話で、 <code>new</code> したりするときに確保されるヒープ領域の話ではない。
+(単純に英単語として <code>heap: 積み重ねたもの</code> という意味で「積み重ねた木」と「動的確保のために積み重ねたメモリ領域」と名付けたら同じ名前になっただけ)</p>
+</div>
+<div class="paragraph">
+<p>ヒープ木作成の優先度を決定する <code>Compare</code> 関数を渡すと、任意のコンテナの中身をヒープ木として構築してくれる。s</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Compare</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">less</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">&gt;</span><span class="o">::</span><span class="n">value_type</span><span class="o">&gt;&gt;</span>
+<span class="k">class</span> <span class="nc">priority_queue</span>
+<span class="p">{</span>
+	<span class="k">using</span> <span class="n">value_type</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value_type</span><span class="p">;</span>
+	<span class="k">using</span> <span class="n">size_type</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">size_type</span><span class="p">;</span>
+	<span class="k">using</span> <span class="n">reference</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">reference</span><span class="p">;</span>
+	<span class="k">using</span> <span class="n">const_reference</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">const_reference</span><span class="p">;</span>
+
+<span class="nl">private:</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
+	<span class="n">Compare</span> <span class="n">comparer</span><span class="p">;</span>
+
+<span class="nl">public:</span>
+	<span class="kt">bool</span> <span class="n">empty</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">data</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span> <span class="p">}</span>
+	<span class="n">size_type</span> <span class="n">size</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">data</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="p">}</span>
+	<span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="n">value_type</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">data</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">push_heap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">comparer</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="kt">void</span> <span class="n">pop</span><span class="p">()</span> <span class="p">{</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">pop_heap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">comparer</span><span class="p">);</span>
+		<span class="n">data</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+	<span class="p">}</span>
+	<span class="n">const_reference</span> <span class="n">top</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">data</span><span class="p">.</span><span class="n">front</span><span class="p">();</span> <span class="p">}</span>
+	<span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">priority_queue</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="k">noexcept</span> <span class="p">{</span>
+		<span class="n">swap</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">other</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
+		<span class="n">swap</span><span class="p">(</span><span class="n">comparer</span><span class="p">,</span> <span class="n">other</span><span class="p">.</span><span class="n">comparer</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">};</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_自作のコンテナのiteratorの種類をiterator_tagとして定義することで既存のstlの実装で適切に特殊家してくれる">2.19. 自作のコンテナのiteratorの種類をiterator_tagとして定義することで、既存のSTLの実装で適切に特殊家してくれる</h3>
+<div class="paragraph">
+<p>空のクラス <code>iterator_tag</code> を継承した、これまた空のクラスとして</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>input_iterator_tag</p>
+</li>
+<li>
+<p>output_iterator_tag</p>
+</li>
+<li>
+<p>forward_iterator_tag</p>
+</li>
+<li>
+<p>backward_iterator_tag</p>
+</li>
+<li>
+<p>random_access_iterator_tag</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>などがある。空のクラスなので、これ自体が何かを実装する訳では無いが、<code>distance()</code> などイテレータのUtil実装の際に、
+<code>iterator_tag</code> をテンプレートパラメータとして受け取り、特殊化の際にSwitch文的にこれらの型を使ってイテレータアクセスの実装を切り替えている。</p>
+</div>
+<div class="paragraph">
+<p>自作のコンテナ用に自作のイテレータを作成する場合、この型を定義しておけばSTLの既存の関数からも利用できる。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
+<span class="k">class</span> <span class="nc">circular_buffer_iterator</span> <span class="p">{</span>
+	<span class="k">using</span> <span class="n">self_type</span> <span class="o">=</span> <span class="n">circular_buffer_iterator</span><span class="p">;</span>
+	<span class="k">using</span> <span class="n">value_type</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
+	<span class="k">using</span> <span class="n">reference</span> <span class="o">=</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="p">;</span>
+	<span class="k">using</span> <span class="n">const_reference</span> <span class="o">=</span> <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">;</span>
+	<span class="k">using</span> <span class="n">pointer</span> <span class="o">=</span> <span class="n">T</span> <span class="o">*</span> <span class="p">;</span>
+	<span class="k">using</span> <span class="n">const_pointer</span> <span class="o">=</span> <span class="n">T</span> <span class="k">const</span><span class="o">*</span><span class="p">;</span>
+	<span class="k">using</span> <span class="n">iterator_category</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">random_access_iterator_tag</span><span class="p">;</span>
+	<span class="k">using</span> <span class="n">difference_type</span> <span class="o">=</span> <span class="kt">ptrdiff_t</span><span class="p">;</span>
+<span class="p">};</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_後置修飾インクリメントのoperatorオーバーロードは_operaotrint">2.20. 後置修飾インクリメントのOperatorオーバーロードは <code>operaotr++(int)</code></h3>
+<div class="paragraph">
+<p><code>++</code> 演算子は後置修飾か前置修飾で戻り値の挙動が変わる。つまり <strong>別の関数</strong> である。
+でもどちらも <code>++</code> なのでオーバーロードしたいときにOperator名では区別できない。</p>
+</div>
+<div class="paragraph">
+<p>そのため引数オーバーロードで前置修飾と後置修飾を区別する。前置修飾版 <code>++</code> は引数なしで
+後置修飾版 <code>++</code> は利用しないダミーの <code>int</code> 引数を一つ受け取る。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">class</span> <span class="nc">ipv4</span>
+<span class="p">{</span>
+	<span class="n">ipv4</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">();</span> <span class="c1">//前置修飾で呼び出される。インクリメント後の値をreturn</span>
+	<span class="n">ipv4</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span> <span class="c1">//後置修飾で呼び出される。インクリメント前の値をreturn。int型の引数は利用されない</span>
+<span class="p">};</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_本当のアドレスを取得する_addressof">2.21. 本当のアドレスを取得する addressof</h3>
+<div class="paragraph">
+<p><code>&amp;</code> operator をオーバーロードすることで、本来のオブジェクト自身のアドレス以外のアドレスを返すことができる。
+例えばメンバとして持っている配列の先頭アドレスなど。</p>
+</div>
+<div class="paragraph">
+<p>でもそんな場合でもオブジェクト自身のアドレスがそのままほしいときがある。そんなときに利用できるのが <code>std::addressof</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pythonの_range_みたいな関数_stdiota">2.22. pythonの <code>range</code> みたいな関数 <code>std::iota</code></h3>
+<div class="paragraph">
+<p>python, Goの <code>range</code>, RustやHaskellの <code>1..10</code> みたいに指定した区間の連続値を生成する関数として <code>std::iota</code> がある。
+<code>iota</code> はギリシャ文字 <code>ι</code> のことで少量を表す変数名によく使われていたことによる命名。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="kt">int</span> <span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="n">iota</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">//0から始まるシーケンス</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_javascriptの分割代入はcでは構造化束縛と呼ばれる">2.23. Javascriptの分割代入はC++では構造化束縛と呼ばれる</h3>
+<div class="paragraph">
+<p>Javascriptでは関数などからオブジェクトを受け取るときに、バラして受け取ることができる。</p>
+</div>
+<div class="paragraph">
+<p><code>const [a, b] = someFunc()</code></p>
+</div>
+<div class="paragraph">
+<p>Cでも `C17` から同じことができる。
+受け取る変数は絶対に <code>auto</code> で宣言しなければならない。</p>
+</div>
+<div class="paragraph">
+<p>たとえば、中身が全部intの配列を受け取るときでも <code>int [a, b, c] = arr;</code> はコンパイルエラーで、 <code>auto [a, b, c] = arr;</code> と書く必要がある。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">set</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">Weight</span><span class="p">,</span> <span class="n">Vertex</span><span class="o">&gt;&gt;</span> <span class="n">vertex_queue</span><span class="p">;</span>
+<span class="c1">//some operations...</span>
+
+<span class="k">auto</span> <span class="p">[</span><span class="n">dist</span><span class="p">,</span> <span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="o">*</span><span class="n">vertex_queue</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>インスタンスから構造化束縛で値を取り出すときはstaticメンバは無視されるので注意。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_コンテナの中身の順列を虱潰しに走査するには_next_permutation_が利用できる">2.24. コンテナの中身の順列を虱潰しに走査するには <code>next_permutation</code> が利用できる</h3>
+<div class="paragraph">
+<p><code>std::next_permutation</code> はコンテナ要素をならべかえて、順列を一つずつ作成してくれる。</p>
+</div>
+<div class="paragraph">
+<p>下記のように <code>012</code> という <code>string</code> を食わせれば</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>012</p>
+</li>
+<li>
+<p>021</p>
+</li>
+<li>
+<p>102</p>
+</li>
+<li>
+<p>120</p>
+</li>
+<li>
+<p>201</p>
+</li>
+<li>
+<p>210</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>の順に出力される。もとのコンテナを破壊的に変更して、順列が最後になる（デフォルトでは降順）になると <code>false</code> を返す。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">string</span> <span class="n">str</span><span class="p">{</span><span class="s">"012"</span><span class="p">};</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">str</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">str</span><span class="p">));</span>
+<span class="k">do</span> <span class="p">{</span>
+	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">str</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">next_permutation</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">str</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">str</span><span class="p">)));</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_コンテナの中身の順番を左回転させるには_rotate_が利用できる">2.25. コンテナの中身の順番を左回転させるには <code>rotate</code> が利用できる</h3>
+<div class="paragraph">
+<p><code>std::rotate</code> はコンテナのイテレータ <code>first</code>, <code>middle</code>, <code>last</code> を受け取って、
+<code>middle</code> が先頭になるように <code>first</code> から <code>middle-1</code> の要素を <code>last</code> の後ろに移動する。（左回転する）</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"rotate"</span><span class="p">;</span>
+<span class="n">rotate</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">str</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">str</span><span class="p">.</span><span class="n">end</span><span class="p">());</span> <span class="c1">//tatero になる</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>ちなみにランダムに並び替えるなら <code>std::shuffle</code> というものがある。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_イテレータ破壊を防ぐために挿入イテレータを利用する">2.26. イテレータ破壊を防ぐために挿入イテレータを利用する</h3>
+<div class="paragraph">
+<p>イテレータ破壊とは、イテレータ取得後にコンテナに要素追加や要素削除を行った結果、取得していたイテレータが無効な場所を示している状態になること。
+よくやるのがfor文中で条件に一致したものを削除しようとしてイテレータ破壊を起こして、要素の探索に漏れが出てしまう場合。</p>
+</div>
+<div class="paragraph">
+<p>下記の <code>vector</code> から 0 の要素を取り除くfor文は正しく動かない。
+<code>{1, 0, 2, 0, 0, 4}</code> から０を消して <code>{1, 2, 4}</code> となることを期待するが、
+<code>erase</code> でイテレータ破壊が起こるので　<code>{1, 2, 0, 4}</code> となってｓまう。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+<span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">ite</span> <span class="o">=</span> <span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">ite</span> <span class="o">!=</span><span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">ite</span><span class="p">){</span>
+	<span class="k">if</span><span class="p">(</span><span class="o">*</span><span class="n">ite</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">vec</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">ite</span><span class="p">);</span> <span class="c1">//vectorの要素が消えてイテレータが一つ進んでしまうので、for文の ++ite と合わせて２つ進んでしまう</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>削除するときは <code>erase_if</code> や <code>remove_if</code> &#8594; <code>erase</code> を呼ぶことでイテレータ破壊を回避するが、挿入する場合は挿入イテレータを利用する。
+挿入イテレータは、イテレーターに代入すると、イテレータの示す先のコンテナに挿入する操作に変換してくれるものだ。
+例えば <code>vector</code> の末尾挿入イテレータ( <code>back_inserter_iterator</code> )で代入を繰り返すと、<code>vector</code> の末尾に要素がどんどん追加される。
+<code>stream</code> みたいな使用感。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">{};</span>
+    <span class="k">auto</span> <span class="n">ite</span> <span class="o">=</span> <span class="n">back_inserter</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+    <span class="o">*</span><span class="n">ite</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">ite</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+
+	<span class="c1">//vec = [5, 6]</span>
+    <span class="n">copy</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">cbegin</span><span class="p">(),</span> <span class="n">vec</span><span class="p">.</span><span class="n">cend</span><span class="p">(),</span> <span class="n">ostream_iterator</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cout</span><span class="p">,</span> <span class="s">", "</span><span class="p">));</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>ちなみに <code>++</code> しても意味はない。実際に代入しないことにはイテレータが進むことはない。
+<code>copy</code> などのコンテナを受け取る関数に渡して利用することが多い。</p>
+</div>
+<div class="paragraph">
+<p>文字列を一文字づつ <code>unsinged char</code> のvectorとして保持するようにコピーする例。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">from_string</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">copy</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">back_inserter</span><span class="p">(</span><span class="n">result</span><span class="p">));</span>
+	<span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stddecayによってテンプレート引数として渡された型を取り扱いやすい型に変換できる">2.27. std::decayによってテンプレート引数として渡された型を取り扱いやすい型に変換できる</h3>
+<div class="paragraph">
+<p>難しくて分かりづらいので、まずはサンプルコードを見る。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">A</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">F</span><span class="p">,</span>
+	<span class="k">typename</span> <span class="nc">R</span> <span class="o">=</span> <span class="k">typename</span> <span class="nc">decay_t</span><span class="o">&lt;</span>
+		<span class="k">typename</span> <span class="nc">result_of_t</span><span class="o">&lt;</span>
+			<span class="k">typename</span> <span class="nc">decay_t</span><span class="o">&lt;</span><span class="n">F</span><span class="p">&gt;</span><span class="o">&amp;</span><span class="p">(</span><span class="k">typename</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">A</span><span class="o">&gt;::</span><span class="n">const_reference</span><span class="p">)</span>
+		<span class="o">&gt;</span>
+	<span class="o">&gt;</span>
+<span class="o">&gt;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">select</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">A</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">c</span><span class="p">,</span> <span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">){</span>
+	<span class="n">vector</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+	<span class="n">transform</span><span class="p">(</span><span class="n">cbegin</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">cend</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">back_inserter</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">forward</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">));</span>
+	<span class="k">return</span> <span class="n">v</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>この関数は「もとのコンテナ <code>c</code> から任意の値をうみだす関数 <code>F</code> を通して得られる結果を保持するコンテナを得る」関数だ。
+機能としてはtransformそのもので、 <code>begin</code> , <code>end</code> のイテレータを渡す代わりにコンテナを渡せばOK、というtransformのラッパーだ。</p>
+</div>
+<div class="paragraph">
+<p>transformをラップするときに <code>decay</code> が登場している。戻り値の型 <code>vector&lt;R&gt;</code> が <code>F</code> の戻り値を <code>decay</code> した型だ。
+なぜわざわざ <code>decay</code> しなければいけないのか、を理解することが <code>decay</code> の役割を理解することになる。</p>
+</div>
+<div class="paragraph">
+<p>まずは <code>decay</code> の動きを確認する。 <code>decay</code> は <code>remove_cv</code> + <code>remove_reference</code> + 配列のポインタ化 + 関数のポインタ化 or function型化 だ。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;type_traits&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">func</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">integer</span><span class="p">;</span>
+    <span class="kt">int</span><span class="o">&amp;</span> <span class="n">ref_int</span> <span class="o">=</span> <span class="n">integer</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span><span class="n">decay_t</span><span class="o">&lt;</span> <span class="k">decltype</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="o">&gt;</span><span class="p">).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">//int （そのまま)</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">integer</span><span class="p">)).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>			 <span class="c1">//int</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"----"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span><span class="n">decay_t</span><span class="o">&lt;</span> <span class="k">decltype</span><span class="p">(</span><span class="n">ref_int</span><span class="p">)</span> <span class="o">&gt;</span><span class="p">).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">//int (remove_referenceされる)</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">ref_int</span><span class="p">)).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>			 <span class="c1">//int (int&amp;かと思ったら普通にintだった...なぜ？)</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"----"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span><span class="n">decay_t</span><span class="o">&lt;</span> <span class="k">decltype</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">&gt;</span><span class="p">).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>     <span class="c1">//int* (array -&gt; pointer化)</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">arr</span><span class="p">)).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>				 <span class="c1">//int[3]</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"----"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span><span class="n">decay_t</span><span class="o">&lt;</span> <span class="k">decltype</span><span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="o">&gt;</span><span class="p">).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>    <span class="c1">//int(*)(int) (function -&gt; function pointer化)</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span> <span class="k">decltype</span><span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="p">).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>			 <span class="c1">//int()int</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>まぁ要するに「テンプレート引数でもらった型が <code>const</code> だったり参照だったり、関数そのものだったり配列だったりで、そのままでは代入できなかったり
+変更できなかったりする型を全部もとの型に戻してあげましょう」ということ。</p>
+</div>
+<div class="paragraph">
+<p>最初のコードでは戻り値の型 <code>vector&lt;R&gt;</code> のために <code>typename R = typename decay_t&lt;typename result_of_t&lt;typename decay_t&lt;F&gt;&amp;(typename vector&lt;T, A&gt;::const_reference)&gt;&gt;</code>
+で型修飾を外している。読みづらいので <code>typename</code> と <code>const_reference</code> を省けば
+<code>decay_t&lt;result_of&lt;decay_t&lt;F&gt;&amp;(vector&lt;T, A&gt;)&gt;&gt;</code>
+つまり「関数 <code>F</code> の戻り値の型」だが、Fが関数そのものだったり関数ポインタだったりするのを扱いやすい関数ポインタに統一するために <code>decay</code> して、その戻り値の型が参照だったり配列だったりして <code>vector</code> の要素になれないかもしれないから <code>decay</code> する、ということ。</p>
+</div>
+<div class="paragraph">
+<p>ちなみに <code>decay_t</code> は他のメタプログラミング用関数と同じく <code>decay&lt;&gt;::type</code> のエイリアス。
+そして <code>decay</code> は崩壊する、とか腐るといった意味。「何かがボロボロと剥がれ落ちて中身が出てくる」みたいなニュアンスなので、
+もとの複雑に修飾された型を単純な型に戻す関数の名前に採用したんだと想像している。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+サンプルコードの <code>result_of</code> メタ関数は <code>invoke</code> の導入に合わせて命名規則を統一するために <code>invoke_result</code> に置き換えられた
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_指定した個数の要素を生成する_generate_generate_n">2.28. 指定した個数の要素を生成する generate, generate_n</h3>
+<div class="paragraph">
+<p>第一引数に実行ポリシーを指定して並列実行することも可能。
+メルセンヌ・ツイスターで一様分布の乱数を並列処理で生成するコードはこんな感じ。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">random_device</span> <span class="n">rd</span><span class="p">;</span>
+<span class="n">mt19937</span> <span class="n">mt</span><span class="p">;</span>
+<span class="n">uniform_int_distribution</span> <span class="nf">dist</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">mt19937</span><span class="o">::</span><span class="n">state_size</span><span class="o">&gt;</span> <span class="n">seed_data</span><span class="p">;</span>
+<span class="n">generate</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">seed_data</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">seed_data</span><span class="p">),</span> <span class="n">ref</span><span class="p">(</span><span class="n">rd</span><span class="p">));</span>
+<span class="n">seed_seq</span> <span class="nf">seq</span><span class="p">(</span><span class="n">cbegin</span><span class="p">(</span><span class="n">seed_data</span><span class="p">),</span> <span class="n">cend</span><span class="p">(</span><span class="n">seed_data</span><span class="p">));</span>
+<span class="n">mt</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seq</span><span class="p">);</span>
+
+<span class="kt">size_t</span> <span class="k">const</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">(</span><span class="n">count</span><span class="p">);</span>
+<span class="n">generate_n</span><span class="p">(</span><span class="n">execution</span><span class="o">::</span><span class="n">par</span><span class="p">,</span> <span class="n">begin</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">count</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">mt</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dist</span><span class="p">]()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">dist</span><span class="p">(</span><span class="n">mt</span><span class="p">);</span> <span class="p">});</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_参照をコンテナに格納できる_reference_wrapper">2.29. 参照をコンテナに格納できる reference_wrapper</h3>
+<div class="paragraph">
+<p>上のコードで使った <code>std::ref</code> は <code>reference_wrapper</code> を作成する。参照ラッパーは普通の参照と同じように振る舞うが、この型を使えばコンテナに参照を保持することなども可能となる。</p>
+</div>
+<div class="paragraph">
+<p>本書の使い方では <code>random_device</code> を関数に参照渡しするために使った。
+<code>random_device</code> はコピーできない型なので、普通に関数に値渡しをするとコンパイルエラーになる。
+<code>ref</code> で参照ラッパーにしてあげて <code>generate</code> 関数に渡す必要がある。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_コンソールのクリアは_cls_コマンド">2.30. コンソールのクリアは cls コマンド</h3>
+<div class="paragraph">
+<p>コンソールを自分で打つときは <code>ctrl + l</code> でクリアするけど <code>cls</code> コマンドも同じ効果がある。
+なので <code>system("cls")</code> でコンソールクリアできる。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_iter_swap_distance_advance">2.31. iter_swap, distance, advance</h3>
+<div class="paragraph">
+<p>イテレータの操作Utilとして以下のようなものがある</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>iter_swap</p>
+<div class="ulist">
+<ul>
+<li>
+<p>イテレータの中身を入れ替える。イテレータが示すコンテナの要素の位置は変わらない</p>
+</li>
+<li>
+<p>swapのイテレータ版</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>distance</p>
+<div class="ulist">
+<ul>
+<li>
+<p>イテレータ間の距離を計算する。</p>
+</li>
+<li>
+<p>普通にイテレータを引き算しても同じ</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>advance</p>
+<div class="ulist">
+<ul>
+<li>
+<p>イテレータを進める</p>
+</li>
+<li>
+<p>普通にイテレータを足し算しても同じ</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>distance</code> や <code>advance</code> は、まぁSTLっぽさを統一したいときに使えばいいと思う。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+	<span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+
+	<span class="c1">//int dist = distance(v.begin(), it);</span>
+	<span class="kt">int</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">it</span> <span class="o">-</span> <span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Distance: "</span> <span class="o">&lt;&lt;</span> <span class="n">dist</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+	<span class="c1">//advance(it, 2);</span>
+	<span class="n">it</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Value after advancing 2 steps: "</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_並列処理のスレッド数の目安として_threadhardware_concurrency_が利用できる">2.32. 並列処理のスレッド数の目安として thread::hardware_concurrency が利用できる</h3>
+<div class="paragraph">
+<p>hardware_concurrencyで取得できたスレッド数でコンテナに対する任意の繰り返し処理 <code>F</code> を並列化する例。
+MapReduce処理をしており、Mapした処理結果をFutureとして保持して、最後にReduceする。
+<code>std::async</code> で呼び出すことで結果は <code>future</code> となって非同期で実行できる。</p>
+</div>
+<div class="paragraph">
+<p>また、iteratorからもとのコンテナに関する型情報を取得するのに iterator_traits を利用している。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">Iterator</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">F</span><span class="p">&gt;</span>
+<span class="k">auto</span> <span class="nf">aprocess</span><span class="p">(</span><span class="n">Iterator</span> <span class="n">begin</span><span class="p">,</span> <span class="n">Iterator</span> <span class="n">end</span><span class="p">,</span> <span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">auto</span> <span class="n">size</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="mi">10000</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">forward</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">)(</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+	<span class="k">else</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="k">const</span> <span class="n">task_count</span> <span class="o">=</span> <span class="kr">thread</span><span class="o">::</span><span class="n">hardware_concurrency</span><span class="p">();</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="n">future</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">Iterator</span><span class="o">&gt;::</span><span class="n">value_type</span><span class="o">&gt;&gt;</span> <span class="n">tasks</span><span class="p">;</span>
+
+		<span class="k">auto</span> <span class="n">first</span> <span class="o">=</span> <span class="n">begin</span><span class="p">;</span>
+		<span class="k">auto</span> <span class="n">last</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>
+		<span class="n">size</span> <span class="o">/=</span> <span class="n">task_count</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">task_count</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">first</span> <span class="o">=</span> <span class="n">last</span><span class="p">;</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">task_count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+				<span class="n">last</span> <span class="o">=</span> <span class="n">end</span><span class="p">;</span>
+			<span class="k">else</span>
+				<span class="n">advance</span><span class="p">(</span><span class="n">last</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+
+			<span class="n">tasks</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span>
+				<span class="n">std</span><span class="o">::</span><span class="n">async</span><span class="p">(</span>
+					<span class="n">launch</span><span class="o">::</span><span class="n">async</span><span class="p">,</span> <span class="p">[</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">f</span><span class="p">]()</span> <span class="p">{</span>
+						<span class="k">return</span> <span class="n">forward</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">)(</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">);</span>
+					<span class="p">}</span>
+				<span class="p">)</span>
+			<span class="p">);</span>
+		<span class="p">}</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">Iterator</span><span class="o">&gt;::</span><span class="n">value_type</span><span class="o">&gt;</span> <span class="n">mins</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span> <span class="n">t</span> <span class="o">:</span> <span class="n">tasks</span><span class="p">)</span>
+			<span class="n">mins</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+
+		<span class="k">return</span> <span class="n">forward</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">)(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">mins</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">mins</span><span class="p">));</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_typenameとclass_識別子は同じ意味だが型であることが確定できない場合は_typename_を付ける必要がある">2.33. typenameとclass 識別子は同じ意味だが型であることが確定できない場合は typename を付ける必要がある</h3>
+<div class="paragraph">
+<p>スコープ解決演算子 <code>::</code> を挟むと、usingされた型なのか、staticメンバなのかわからなくなる。
+型であることを明示するためには <code>typename</code> をつける必要がある。</p>
+</div>
+<div class="paragraph">
+<p>要するにこういうこと。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">Traits</span><span class="p">&gt;</span>
+<span class="k">class</span> <span class="nc">unique_handle</span>
+<span class="p">{</span>
+	<span class="k">using</span> <span class="n">pointer</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">Traits</span><span class="o">::</span><span class="n">pointer</span><span class="p">;</span>
+<span class="p">};</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Traits::pointer</code> は以下の2通りのパターンがありえる。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">class</span> <span class="nc">Foo</span><span class="p">{</span>
+	<span class="k">using</span> <span class="n">pointer</span> <span class="o">=</span> <span class="n">Foo</span><span class="o">*</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Bar</span><span class="p">{</span>
+	<span class="k">static</span> <span class="n">Bar</span><span class="o">*</span> <span class="n">pointer</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Foo::pointer</code> は <code>Foo*</code> 型のことだが、 <code>Bar::pointer</code> は <code>Bar*</code> 型の変数だ。 <code>using</code> できるのは型の方だけなので、
+コンパイラがエラーを判定できるように　<code>typename</code> をつけて「これは型のことです」と明示する必要がある。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_優先度付きキューは_stdpriority_queue_として用意されている">2.34. 優先度付きキューは std::priority_queue として用意されている</h3>
+<div class="paragraph">
+<p>テンプレート引数は</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>要素のデータ型</p>
+</li>
+<li>
+<p>コンテナ型</p>
+</li>
+<li>
+<p>Comparer</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>Comparer(que[i], que[i+1])</code> が <code>true</code> になるように <code>push</code> 時に並び替えてくれる</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_順番のある処理を準備側と処理側で非同期に実行するときに_condition_variable_が利用できる">2.35. 順番のある処理を準備側と処理側で非同期に実行するときに <code>condition_variable</code> が利用できる</h3>
+<div class="paragraph">
+<p>非同期にタスクが同じ共有資源をさわるとき、それぞれのタスクに順番がある場合がある。
+例えば片方のグループはキューにジョブを詰め込んで、もう片方のグループはキューに入ったジョブを片付ける、といった場合など。</p>
+</div>
+<div class="paragraph">
+<p>後段にあるタスクが、共有資源であるキューのmutexを確保して、キューにジョブがあるかどうかポーリングしても実現できるが、
+明らかに無駄だ。</p>
+</div>
+<div class="paragraph">
+<p>キューにジョブを詰め込む側のタスクが、詰め込んだことを通知して、それを起点に後段のタスクがキューをチェックしに行けば良い。
+これを実現するのが <code>condition_variable</code> だ。</p>
+</div>
+<div class="paragraph">
+<p><code>condition_variable</code> は共有資源のmutexと一緒に利用する。通知をとばす側は単純に通知をとばすだけだ。
+受け取る側はmutexをロックした状態で <code>condition_variable::wait(lock, conditionFunc)</code> をする。</p>
+</div>
+<div class="paragraph">
+<p>するとwait関数は通知が来て、<code>conditionFunc</code> の条件が整うまで <code>lock</code> として渡したmutexのロックを外して、
+通知側が処理を続行できるようにした上で待ち構える状態に入る。</p>
+</div>
+<div class="paragraph">
+<p>通知がきて <code>conditionFunc</code> の状態を満たせば、再びロックを掛けてそれ以降の処理を続行する。
+(本で紹介されていたコードでは共有資源であるcustomersへpushするときにロックを取っていなかった。ロックが必要だと思うので追加した。)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">customer</span><span class="o">&gt;</span> <span class="n">customers</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">office_open</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="n">mutex</span> <span class="n">mt</span><span class="p">;</span>
+<span class="n">condition_variable</span> <span class="n">cv</span><span class="p">;</span>
+
+<span class="c1">//前段タスク。 customerキューにジョブを投げる</span>
+<span class="kr">thread</span> <span class="nf">store</span><span class="p">([</span><span class="o">&amp;</span><span class="n">office_open</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">customers</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cv</span><span class="p">]()</span> <span class="p">{</span>
+	<span class="n">ticketing_machine</span> <span class="n">tm</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+	<span class="n">random_device</span> <span class="n">rd</span><span class="p">;</span>
+	<span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">mt19937</span><span class="o">::</span><span class="n">state_size</span><span class="o">&gt;</span> <span class="n">seed</span><span class="p">;</span>
+	<span class="n">generate</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span> <span class="n">ref</span><span class="p">(</span><span class="n">rd</span><span class="p">));</span>
+	<span class="n">seed_seq</span> <span class="n">seq</span><span class="p">(</span><span class="n">cbegin</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span> <span class="n">cend</span><span class="p">(</span><span class="n">seed</span><span class="p">));</span>
+	<span class="n">mt19937</span> <span class="n">eng</span><span class="p">(</span><span class="n">seq</span><span class="p">);</span>
+	<span class="n">uniform_int_distribution</span> <span class="n">ud</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">25</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">customer</span> <span class="n">c</span><span class="p">(</span><span class="n">tm</span><span class="p">.</span><span class="n">next</span><span class="p">());</span>
+		<span class="p">{</span>
+			<span class="n">unique_lock</span><span class="o">&lt;</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">lock</span><span class="p">(</span><span class="n">mt</span><span class="p">);</span>
+			<span class="n">customers</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="n">cv</span><span class="p">.</span><span class="n">notify_one</span><span class="p">();</span>
+		<span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="n">ud</span><span class="p">(</span><span class="n">eng</span><span class="p">)));</span>
+	<span class="p">}</span>
+	<span class="n">office_open</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="c1">//後段タスク customerが追加された通知を受けて、処理を始める</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kr">thread</span><span class="o">&gt;</span> <span class="n">desks</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">desks</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">office_open</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mt</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cv</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">customers</span><span class="p">]()</span> <span class="p">{</span>
+		<span class="n">random_device</span> <span class="n">rd</span><span class="p">;</span>
+		<span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">mt19937</span><span class="o">::</span><span class="n">state_size</span><span class="o">&gt;</span> <span class="n">seed_data</span><span class="p">;</span>
+		<span class="n">generate</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">seed_data</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">seed_data</span><span class="p">),</span> <span class="n">ref</span><span class="p">(</span><span class="n">rd</span><span class="p">));</span>
+		<span class="n">seed_seq</span> <span class="n">seq</span><span class="p">(</span><span class="n">cbegin</span><span class="p">(</span><span class="n">seed_data</span><span class="p">),</span> <span class="n">cend</span><span class="p">(</span><span class="n">seed_data</span><span class="p">));</span>
+		<span class="n">mt19937</span> <span class="n">eng</span><span class="p">(</span><span class="n">seq</span><span class="p">);</span>
+		<span class="n">uniform_int_distribution</span> <span class="n">ud</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">);</span>
+
+
+		<span class="k">while</span> <span class="p">(</span><span class="n">office_open</span> <span class="o">||</span> <span class="o">!</span><span class="n">customers</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+			<span class="n">unique_lock</span><span class="o">&lt;</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">lock</span><span class="p">(</span><span class="n">mt</span><span class="p">);</span>
+
+			<span class="n">cv</span><span class="p">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">lock</span><span class="p">,</span> <span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">customers</span><span class="p">]()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">!</span><span class="n">customers</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span> <span class="p">});</span>
+
+			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">customers</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+				<span class="k">auto</span> <span class="k">const</span> <span class="n">c</span> <span class="o">=</span> <span class="n">customers</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+				<span class="n">customers</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+				<span class="n">lock</span><span class="p">.</span><span class="n">unlock</span><span class="p">();</span>
+				<span class="n">cv</span><span class="p">.</span><span class="n">notify_one</span><span class="p">();</span>
+
+				<span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="n">ud</span><span class="p">(</span><span class="n">eng</span><span class="p">)));</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">});</span>
+<span class="p">}</span>
+
+
+
+<span class="n">store</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span> <span class="n">desk</span> <span class="o">:</span> <span class="n">desks</span><span class="p">)</span>
+	<span class="n">desk</span><span class="p">.</span><span class="n">join</span><span class="p">();</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_使ってる関数fが例外を投げないなら自分も例外を投げないは_noexcpectnoexceptf_で表せる">2.36. 使ってる関数fが例外を投げないなら、自分も例外を投げない、は noexcpect(noexcept(f)) で表せる</h3>
+<div class="paragraph">
+<p>例外を投げないことは関数に <code>noexcept</code> を指定することで明示できる。
+これはbool引数を受け取ることができ、</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>noexcept(true) &#8594; 例外を投げない</p>
+</li>
+<li>
+<p>noexcept(false) &#8594; 例外を投げる</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>となる。さらに <code>noexcept</code> は <code>noexcept演算子</code> なるものがある。
+これは引数で指定された関数が例外を投げる可能性があるか否かを判定してくれる。</p>
+</div>
+<div class="paragraph">
+<p>つまり、以下の <code>swap</code> 関数は <code>lhs.swap(rhs)</code> が例外を投げなければ、自分も例外を投げない、という指定になる。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Compare</span><span class="p">&gt;</span>
+<span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Compare</span><span class="o">&gt;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Compare</span><span class="o">&gt;&amp;</span> <span class="n">rhs</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">(</span><span class="k">noexcept</span><span class="p">(</span><span class="n">lhs</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">rhs</span><span class="p">)))</span> <span class="p">{</span>
+	<span class="n">lhs</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_属性で戻り値の破棄を警告することができる">2.37. <a id="nodiscard"></a> 属性で戻り値の破棄を警告することができる</h3>
+<div class="paragraph">
+<p>戻り値を破棄してほしくない場合は属性構文を使って、こんな感じで書くことができる。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span> <span class="kt">bool</span> <span class="nf">empty</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">data</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span> <span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>戻り値を破棄するな、ということなので、副作用を起こさない = 戻り値のみに結果の意味がある、ということを
+暗に意味するので、この属性のついた関数は多いほうが良い&#8230;&#8203;はず。</p>
+</div>
+<div class="paragraph">
+<p>ちなみにGo言語のブランク識別子 <code>_</code> みたいな、明示的に破棄する変数名はC++にはない。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_xmlの要素を構造から指定する文法_xpath">2.38. XMLの要素を構造から指定する文法 XPath</h3>
+<div class="paragraph">
+<p>XPathという記法がある。XML要素をXMLのツリー構造などを使って指定する表現だ。
+すごくざっくりといえば「XML版正規表現」みたいな感じ。</p>
+</div>
+<div class="paragraph">
+<p>大きく以下の3つの記法からなる</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>url形式によるツリー指定</p>
+</li>
+<li>
+<p>[] による条件指定</p>
+</li>
+<li>
+<p>@ による属性指定</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>例えば以下のxmlから <code>year</code> 属性が <code>1995</code> より新しいものを検索したい場合は</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;movies&gt;</span>
+	<span class="nt">&lt;movie</span> <span class="na">id=</span><span class="s">"11001"</span> <span class="na">title=</span><span class="s">"The Matrix"</span> <span class="na">year=</span><span class="s">"1999"</span> <span class="na">length=</span><span class="s">"196"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;cast&gt;</span>
+			<span class="nt">&lt;role</span> <span class="na">star=</span><span class="s">"Keanu Reeves"</span> <span class="na">name=</span><span class="s">"Neo"</span> <span class="nt">/&gt;</span>
+			<span class="nt">&lt;role</span> <span class="na">star=</span><span class="s">"Laurence Fishburne"</span> <span class="na">name=</span><span class="s">"Morpheus"</span> <span class="nt">/&gt;</span>
+			<span class="nt">&lt;role</span> <span class="na">star=</span><span class="s">"Carrie-Anne Moss"</span> <span class="na">name=</span><span class="s">"Trinity"</span> <span class="nt">/&gt;</span>
+			<span class="nt">&lt;role</span> <span class="na">star=</span><span class="s">"Hugo Weaving"</span> <span class="na">name=</span><span class="s">"	Agent Smith"</span> <span class="nt">/&gt;</span>
+		<span class="nt">&lt;/cast&gt;</span>
+	<span class="nt">&lt;/movie&gt;</span>
+	<span class="nt">&lt;movie</span> <span class="na">id=</span><span class="s">"9871"</span> <span class="na">title=</span><span class="s">"Forrest Gump"</span> <span class="na">year=</span><span class="s">"1994"</span> <span class="na">length=</span><span class="s">"202"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;cast&gt;</span>
+			<span class="nt">&lt;role</span> <span class="na">star=</span><span class="s">"Tom Hanks"</span> <span class="na">name=</span><span class="s">"Forrest Gump"</span> <span class="nt">/&gt;</span>
+			<span class="nt">&lt;role</span> <span class="na">star=</span><span class="s">"Sally Field"</span> <span class="na">name=</span><span class="s">"Mrs. Gump"</span> <span class="nt">/&gt;</span>
+			<span class="nt">&lt;role</span> <span class="na">star=</span><span class="s">"Robin Wright"</span> <span class="na">name=</span><span class="s">"Jenny Curran"</span> <span class="nt">/&gt;</span>
+			<span class="nt">&lt;role</span> <span class="na">star=</span><span class="s">"Mykelti Williamson"</span> <span class="na">name=</span><span class="s">"Bubba Blue"</span> <span class="nt">/&gt;</span>
+		<span class="nt">&lt;/cast&gt;</span>
+	<span class="nt">&lt;/movie&gt;</span>
+<span class="nt">&lt;/movies&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>こうなる。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">auto</span> <span class="n">titles</span> <span class="o">=</span> <span class="n">doc</span><span class="p">.</span><span class="n">select_nodes</span><span class="p">(</span><span class="s">"/movies/movie[@year&gt;1995]"</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jsonパースライブラリのベンチマーク">2.39. JSONパースライブラリのベンチマーク</h3>
+<div class="paragraph">
+<p>このリポジトリで比較してる。
+<a href="https://github.com/miloyip/nativejson-benchmark" class="bare">https://github.com/miloyip/nativejson-benchmark</a></p>
+</div>
+<div class="paragraph">
+<p>RapidJsonが名前のとおりに速い。そしてComformanceが意外と100%じゃないものがそこそこあるということは、書き方によってはパースしそこねるデータがあるということだろうか？</p>
+</div>
+<div class="paragraph">
+<p>本書でつかってる nlohman jsonはComformanceは高くて、スピードは真ん中ぐらい、といった感じ。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_nlohmanjson_は_to_json_from_jsonを実装すると_json型とやり取りできるようになる">2.40. nlohmanjson は to_json, from_jsonを実装すると json型とやり取りできるようになる</h3>
+<div class="paragraph">
+<p><code>nlohmanjson::json</code> 型を使って、シリアライズした型 <code>T</code> とやり取りする以下の関数を定義すれ。</p>
+</div>
+<div class="paragraph">
+<p>(テンプレートで書いてるけど、普通に自分の使いたい型の関数だけ定義すればOK)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
+<span class="kt">void</span> <span class="nf">from_json</span><span class="p">(</span><span class="n">json</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">jdata</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">obj</span><span class="p">){}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span>
+<span class="kt">void</span> <span class="n">to_json</span><span class="p">(</span><span class="n">json</span><span class="o">&amp;</span> <span class="n">j</span><span class="p">,</span> <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">obj</span><span class="p">){}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>例えばこんな感じ</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="kt">void</span> <span class="nf">to_json</span><span class="p">(</span><span class="n">json</span> <span class="o">&amp;</span> <span class="n">j</span><span class="p">,</span> <span class="n">movie</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">m</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">j</span> <span class="o">=</span> <span class="n">json</span><span class="o">::</span><span class="n">object</span><span class="p">({</span>
+		<span class="p">{</span><span class="s">"id"</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">id</span><span class="p">},</span>
+		<span class="p">{</span><span class="s">"title"</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">title</span><span class="p">},</span>
+		<span class="p">{</span><span class="s">"year"</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">year</span><span class="p">},</span>
+		<span class="p">{</span><span class="s">"length"</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">length</span><span class="p">},</span>
+		<span class="p">{</span><span class="s">"cast"</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">cast</span><span class="p">},</span>
+		<span class="p">{</span><span class="s">"directors"</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">directors</span><span class="p">},</span>
+		<span class="p">{</span><span class="s">"writers"</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">writers</span><span class="p">}</span>
+		<span class="p">});</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>すると <code>nlohman::json</code> 型のオブジェクトを <code>T</code> 型のオブジェクトで構築できるようになる。逆も然り。
+サンプルではvectorコンテナを使っているが、STLのコンテナ用の <code>to_json</code>, <code>from_json</code> はデフォルトで実装済みなので、コンテナ要素の型の文だけ実装すれば良い。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">json</span> <span class="n">jdata</span><span class="p">{</span> <span class="p">{</span><span class="s">"movies"</span><span class="p">,</span> <span class="n">movies</span><span class="p">}</span> <span class="p">};</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">movie</span><span class="o">&gt;</span> <span class="n">movies</span> <span class="o">=</span> <span class="n">jdata</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>from_jsonは実装しなくても <code>nlohman::json</code> 型から自分で読み取ってもOK。こんな感じ</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">element</span> <span class="o">:</span> <span class="n">jdata</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="s">"movies"</span><span class="p">))</span> <span class="p">{</span>
+	<span class="n">movie</span> <span class="n">m</span><span class="p">;</span>
+	<span class="n">m</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">element</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="s">"id"</span><span class="p">).</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span>
+	<span class="n">m</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">element</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="s">"title"</span><span class="p">).</span><span class="n">get</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">();</span>
+	<span class="n">m</span><span class="p">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">element</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="s">"year"</span><span class="p">).</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span>
+	<span class="n">m</span><span class="p">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">element</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="s">"length"</span><span class="p">).</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span>
+	<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">role</span> <span class="o">:</span> <span class="n">element</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="s">"cast"</span><span class="p">))</span> <span class="p">{</span>
+		<span class="n">m</span><span class="p">.</span><span class="n">cast</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">casting_role</span><span class="p">{</span>
+			<span class="n">role</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="s">"start"</span><span class="p">).</span><span class="n">get</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(),</span>
+			<span class="n">role</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="s">"name"</span><span class="p">).</span><span class="n">get</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">()</span>
+			<span class="p">});</span>
+	<span class="p">}</span>
+	<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">writer</span> <span class="o">:</span> <span class="n">element</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="s">"writers"</span><span class="p">))</span> <span class="p">{</span>
+		<span class="n">m</span><span class="p">.</span><span class="n">writers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">writer</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">movies</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">m</span><span class="p">));</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>nlohmanjson::json</code> 型は <code>stream</code> から <code>&gt;&gt;</code>, <code>&lt;&lt;</code> できるので、ファイル読み書きなら <code>fstream</code> &#8592;&#8594; <code>json</code> &#8592;&#8594; <code>T</code> という感じでやり取りする。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cmakeで_setlocalに失敗してたら管理者権限で実行">2.41. CMakeで setlocalに失敗してたら管理者権限で実行</h3>
+<div class="paragraph">
+<p>setlocalの失敗は権限が足りない。管理者実行でゴリ押し</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lnk2038mismatch_detected_for_iterator_debug_level_value_0_doesnt_match_value_2">2.42. LNK2038	mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn&#8217;t match value '2'</h3>
+<div class="paragraph">
+<p>これはデバッグビルドでリリースビルドしたライブラリを使っている場合にデバッグレベルが違うと怒られている。
+気にせず無視する設定にするか、ライブラリの方もデバッグビルドする。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_isoで標準化されているpdfフォーマットはver_1_7">2.43. ISOで標準化されているPDFフォーマットはver. 1.7</h3>
+<div class="paragraph">
+<p>PDFの標準は ver. 1.7がベースになっている。 PDF 2.0もある。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_osエラーは_stderror_code">2.44. OSエラーは std::error_code</h3>
+<div class="paragraph">
+<p>stl関数でエラーコードを受けてる関数がオーバーロードされていたりする。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">error_code</span> <span class="n">err</span><span class="p">;</span>
+<span class="n">fs</span><span class="o">::</span><span class="n">create_directories</span><span class="p">(</span><span class="n">dir</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>asio</code> みたいなライブラリでも std::error_code 型が関数シグネチャに含まれてたりする。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_relative_path_で相対パスとしてパスを取り出せる">2.45. relative_path で相対パスとしてパスを取り出せる</h3>
+<div class="paragraph">
+<p><code>auto filepath = destination / fs::path{ entry&#8594;GetFullName() }.relative_path();</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stdbitset_で数値をバイナリ表現にできる">2.46. std::bitset で数値をバイナリ表現にできる。</h3>
+<div class="paragraph">
+<p>例えば <code>1345</code> をバイナリ表現したかったら</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">bitset</span><span class="o">&lt;</span><span class="mi">32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1345</span><span class="p">).</span><span class="n">to_string</span><span class="p">();</span>  <span class="c1">// 00000000000000000000010101000001 となる</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sqliteをcであつかう_sqlite_modern_cpp">2.47. sqliteをC++であつかう sqlite_modern_cpp</h3>
+<div class="paragraph">
+<p>sqlite_modern_cppで C++ からsqliteを扱える。
+Visual StudioではNugetパッケージマネージャーで追加できた。</p>
+</div>
+<div class="paragraph">
+<p>NugetはC#専用だと思っていたんだが、C++でも使えたとは&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p><code>sqlite::database</code> 型の変数に対して <code>&lt;&lt;</code> でsqlを発行し、結果を <code>&gt;&gt;</code> で受け取る。
+受け取る先はsqlの検索結果に応じた引数を持った関数。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cpp"><span class="n">movie_list</span> <span class="nf">get_movies</span><span class="p">(</span><span class="n">sqlite</span><span class="o">::</span><span class="n">database</span><span class="o">&amp;</span> <span class="n">db</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">movie_list</span> <span class="n">movies</span><span class="p">;</span>
+
+	<span class="n">db</span> <span class="o">&lt;&lt;</span> <span class="s">R"(select rowid, * from movies;)"</span>
+		<span class="o">&gt;&gt;</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">movies</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">db</span><span class="p">](</span><span class="n">sqlite3_int64</span> <span class="k">const</span> <span class="n">rowid</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">title</span><span class="p">,</span> <span class="kt">int</span> <span class="k">const</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="k">const</span> <span class="n">length</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">movies</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">movie</span><span class="p">{</span>
+			<span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">rowid</span><span class="p">),</span>
+			<span class="n">title</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">length</span><span class="p">),</span>
+			<span class="n">get_cast</span><span class="p">(</span><span class="n">rowid</span><span class="p">,</span> <span class="n">db</span><span class="p">),</span> <span class="n">get_directors</span><span class="p">(</span><span class="n">rowid</span><span class="p">,</span> <span class="n">db</span><span class="p">),</span> <span class="n">get_directors</span><span class="p">(</span><span class="n">rowid</span><span class="p">,</span> <span class="n">db</span><span class="p">)</span>
+		<span class="p">});</span>
+
+	<span class="p">};</span>
+	<span class="k">return</span> <span class="n">movies</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_標準入力バッファに残っているデータを捨てるのは_cin_igonore">2.48. 標準入力バッファに残っているデータを捨てるのは <code>cin.igonore</code></h3>
+<div class="paragraph">
+<p>入力が長くて、受け取りきれなくてバッファに残ってしまうことがある。それでも次のコマンドでは新しく入力されたものを受け取りたいときは <code>cin.igonore()</code> でクリアできる。</p>
+</div>
+<div class="paragraph">
+<p>ちなみに <code>cin &gt;&gt;</code> は間に空白があると、そこで一度読み込みが止まるが、 <code>getline(cin, &#8230;&#8203;)</code> は間に空白があっても一行全部読み込む。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tellg_tellp_seekg_seekp">2.49. tellg, tellp, seekg, seekp</h3>
+<div class="paragraph">
+<p>tellg, seekg は	<code>tell get</code> <code>seek get</code> であり読み取り位置の取得と移動、 tellp, seekpは <code>tell put</code>, <code>seek put</code> で書き込み位置の取得と移動。</p>
+</div>
+<div class="paragraph">
+<p>ファイルストリームを扱っている場合は、読み込み位置と書き込み位置は同じなのでどちらを使っても同じ動作になる。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aes_advanced_encryption_standard">2.50. AES: Advanced Encryption Standard</h3>
+<div class="paragraph">
+<p><code>ssh-keygen</code> とかやるときよく聞く <code>AES</code> は <code>Advanced Encryption Standard</code> で暗号形式の一つ。
+AESの中でもブロック数によって</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>128 bit</p>
+</li>
+<li>
+<p>192 bit</p>
+</li>
+<li>
+<p>256 bit</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>があったり、暗号利用モードによって</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>cbc(cipher block chaining mode)</p>
+</li>
+<li>
+<p>ctr(coutner mode)</p>
+</li>
+<li>
+<p>gcm(glois/counter mode)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>があったりして複数種類存在する。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ハッシュ値からもとのパスワードを類推することを難しくするためにパスワードにソルトを付与する">2.51. ハッシュ値からもとのパスワードを類推することを難しくするためにパスワードにソルトを付与する</h3>
+<div class="paragraph">
+<p>パスワードを平文で保存すると漏洩したときにまずい。この問題を回避するために、パスワード自体は保存せず、
+パスワードのハッシュ値を保尊する。</p>
+</div>
+<div class="paragraph">
+<p>パスワードが入力されるとハッシュを計算し、それが登録されたハッシュと一致するかどうかで認証を行う。
+ハッシュ値であれば漏洩したとしてももとのパスワードを復元することはできない。</p>
+</div>
+<div class="paragraph">
+<p>確かにできないけど、調べることはできてしまう。よくあるパスワードを入力してハッシュを計算させれば、
+そのハッシュを検索して、もとパスワードを使っている人を特定できる。</p>
+</div>
+<div class="paragraph">
+<p>この問題に対処するのがソルト。パスワードごとにランダムな文字列を付与してからハッシュ計算をさせることで、
+同じパスワードでも違うハッシュが出てくるようになって、もとのパスワードはわからない。</p>
+</div>
+<div class="paragraph">
+<p>ただ、この方法では認証時にパスワードに同じソルトを与えてハッシュを計算する必要があるので、
+どのパスワードがどのソルトを使ってのかも覚えておく必要がある。
+そっちも一緒にバレてしまうとよくあるパスワードとソルトを総当りしてみる、ということができなくもない。
+(ソルトがない場合よりずっと大変だけど)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_署名検証と暗号復号">2.52. 署名検証と暗号復号</h3>
+<div class="paragraph">
+<p>どちらも公開鍵と秘密鍵で暗号化と復号を行う。
+公開鍵で暗号化するのが普通の暗号で、秘密鍵で暗号化するのが署名。</p>
+</div>
+<div class="paragraph">
+<p>署名の場合は元ファイルから生成したハッシュを秘密鍵で暗号化する。
+検証者は公開鍵で復号したハッシュと、自分で元ファイルから生成したハッシュを比べることで、
+ファイルが改ざんされておらず、作成者（の秘密鍵)が同一であることを確認できる。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_thisポインターを_shared_ptr_にできる_enable_shared_from_this">2.53. thisポインターを shared_ptr にできる enable_shared_from_this</h3>
+<div class="paragraph">
+<p><code>this</code> ポインターから <code>shared_ptr</code> を作ってはいけない。 <code>shared_ptr</code> を <code>this</code> から作ると、その時点から <code>this</code> への参照カウントが増える。
+しかし <code>this</code> はもともと自分のインスタンスが参照している「生ポインター」なので自分の分をカウントしていない。</p>
+</div>
+<div class="paragraph">
+<p>正しくは <code>shared_ptr</code> を <code>this</code> から作ったときは、
+「thisを持つインスタンス」と「今作ったshared_ptr」で参照カウントは <code>2</code> から始まらなければならないが、「thisをもインスタンス」が勘定されず、<code>1</code> 少ない状態で始まってしまう。</p>
+</div>
+<div class="paragraph">
+<p>このせいで <code>shared_ptr</code> 側をリリースしたときに、まだもとのインスタンスが <code>this</code> を握っているのに、参照カウントが <code>0</code> になってしまって、デストラクタが実行されてしまう。</p>
+</div>
+<div class="paragraph">
+<p><code>enable_shared_from_this</code> を継承したクラスで <code>shared_from_this()</code> 関数を呼び出せば、このあたりの問題をクリアした状態で
+<code>this</code> をさす <code>shrared_ptr</code> を作れる。</p>
+</div>
+<div class="paragraph">
+<p>ちゃんと動くためには、 <code>this</code> をもつインスタンス自身が <code>shared_ptr</code> になっている必要がある。
+(thisからshared_ptrを増やすということは、もとのインスタンスもshrared_ptrになっていないと、そもそもあるポインタは生ポインタで
+あるポインタはshared_ptrで、という管理になってしまうので当然だが&#8230;&#8203;)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_string_view_は_span">2.54. string_view は span</h3>
+<div class="paragraph">
+<p><code>string_view</code> は <code>string</code> 限定の <code>span</code> である。
+つまり</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>先頭ポインタ</p>
+</li>
+<li>
+<p>サイズ</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>を持ち、所有権は持たない</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_wstring_convert_など_codecvt_は非推奨になった">2.55. wstring_convert など codecvt は非推奨になった</h3>
+<div class="paragraph">
+<p>不正なコードポイントへの対処などに不備があったらしく、非推奨になった。
+ちなみにコードポイントとは、Unicodeでどの文字が何番の数字に割り当てられているか、ということ。
+これを何byte使って保存するか？が <code>utf-16</code> とか <code>utf-8</code> とか。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_streamへのlocale設定には_ios_baseimbue_を使う">2.56. Streamへのlocale設定には ios_base::imbue を使う</h3>
+<div class="paragraph">
+<p>imbueはふきこむ、とか染み込むみたいな意味。ゲームのアイテム説明で「魔力の込められたカード」みたいな説明に
+"a card imbued with magical power" みたいな感じで使われてた気がする。</p>
+</div>
+<div class="paragraph">
+<p>ストリームにロケール属性を付与する感じ。</p>
+</div>
+<div class="openblock cpp">
+<div class="content">
+<div class="paragraph">
+<p>cout.imbue(locale("en-US"));
+cout &lt;&lt; 9999 &lt;&lt; endl; //9,999 と表示</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>ちなみにこのコードは手元のWindowsではちゃんと動いたけど、https://wandbox.org/permlink/7PwPsnE2Yg6poSHu[Wandbox]では動かなかった。
+実行するOSによって利用できるロケールが異なるので注意が必要。</p>
+</div>
+<div class="paragraph">
+<p>(WandboxはどのOSの上で動いた結果を返してくれているんだろう？)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_未定義のデータは_content_typeapplicationoctet_stream_で渡す">2.57. 未定義のデータは Content-Type:application/octet-stream で渡す</h3>
+<div class="paragraph">
+<p>MIMEで規定されていないデータタイプは <code>Content-Type:application</code> とする。良くわからんからアプリでの解釈を勝手にしろ、という感じ
+<code>octed-stream</code> はバイトストリームのこと。通信の世界では、もともとバイトが8ビットを表すとは限らなかった時代の名残で
+バイトのことをオクテットと読んで明示的に8bit区切りであることがわかるように呼び分けたりする。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2023-02-15 18:49:12 +0900
+</div>
+</div>
+</body>
+</html>

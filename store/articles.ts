@@ -49,6 +49,15 @@ export const state = () => ({
       tags: ['Ionic', 'Android'],
       category: 'app',
       createdAt: '2020-5-1'
+    },
+    {
+      title: 'Modern C++ Challenge を読んで調べてことを軽くまとめておく',
+      path: 'articles/ModernCppChallenge.html',
+      isRawHtml: true,
+      thumbnail: '',
+      tags: ['c++'],
+      category: 'blog',
+      createdAt: '2023-2-20'
     }
   ] as ArticleData[]
 })
